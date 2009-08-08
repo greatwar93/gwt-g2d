@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.ui.Panel;
 
 /**
  * Particles animation demo.
@@ -33,12 +34,13 @@ public class ParticlesDemo extends AbstractDemo {
 	private static final int NUM_PARTICLES = 100;
 	private final List<Particle> particles = new ArrayList<Particle>(NUM_PARTICLES);
 	
-	public ParticlesDemo(String demoName) {
-		super(demoName);
+	public ParticlesDemo(String demoName, Panel parentContainer) {
+		super(demoName, parentContainer);
 	}
 	
 	@Override
 	public void initialize() {
+		getParentContainer().add(getPrimarySurface());
 		getPrimarySurface().setBackgroundColor(KnownColor.BLACK);
 		particles.clear();
     for (int i = 0; i < NUM_PARTICLES; i++) {
@@ -54,7 +56,7 @@ public class ParticlesDemo extends AbstractDemo {
 
 	@Override
 	public void draw() {
-		getPrimarySurface().clear();
+		getPrimarySurface().clearSurface();
 		for (Particle p : particles) {
 			getPrimarySurface()
 					.save()

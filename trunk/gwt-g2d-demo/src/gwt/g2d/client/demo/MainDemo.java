@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.demo;
 
+import gwt.g2d.client.demo.tetris.TetrisDemo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,24 +35,27 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class MainDemo implements EntryPoint {
 	private final List<AbstractDemo> demos = new ArrayList<AbstractDemo>();
+	private int selectedIndex = 0;
 	
 	public void onModuleLoad() {
-		demos.add(new ParticlesDemo("Particles Demo"));
-		demos.add(new ColorDemo("Color Demo"));
+		final Panel demoPanel = new FlowPanel();
+		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
+		demos.add(new ColorDemo("Color Demo", demoPanel));
+		demos.add(new TetrisDemo("Tetris", demoPanel));
 				
 		final ListBox listBox = new ListBox();
 		for (AbstractDemo demo : demos) {
 			listBox.addItem(demo.getDemoName());
 		}
 		
-		final Panel demoPanel = new FlowPanel();
 		listBox.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
+				demos.get(selectedIndex).exit();
+				
 				demoPanel.clear();
-				AbstractDemo selectedDemo = demos.get(listBox.getSelectedIndex()); 
-				demoPanel.add(selectedDemo.getPrimarySurface());
-				selectedDemo.run(60);				
+				selectedIndex = listBox.getSelectedIndex();
+				demos.get(selectedIndex).run(60);
 			}
 		});
 		
@@ -60,7 +65,6 @@ public class MainDemo implements EntryPoint {
 		RootPanel.get().add(panel);
 		
 		AbstractDemo selectedDemo = demos.get(listBox.getSelectedIndex()); 
-		demoPanel.add(selectedDemo.getPrimarySurface());
 		selectedDemo.run(60);
 	}
 }

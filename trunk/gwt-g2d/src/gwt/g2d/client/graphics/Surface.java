@@ -23,6 +23,7 @@ import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
 
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.FocusWidget;
 
 /**
@@ -108,9 +109,11 @@ public class Surface extends FocusWidget {
 	public Surface(int width, int height) {
 		canvas = new Canvas(width, height);
 		setSize(width, height);
-		setElement(canvas.getElement());
 		lineWidth = canvas.getLineWidth();
 		miterLimit = canvas.getMiterLimit();
+		FocusPanel focusPanel = new FocusPanel();
+		focusPanel.setWidget(canvas);
+		setElement(focusPanel.getElement());
 	}
 	
 	/**
@@ -817,7 +820,7 @@ public class Surface extends FocusWidget {
 	 * 
 	 * @return self to support chaining.
 	 */
-	public Surface clear() {
+	public Surface clearSurface() {
 		canvas.clear();
 		return this;
 	}

@@ -28,7 +28,7 @@ import com.google.gwt.user.client.Timer;
 public abstract class Game {	
 	private Surface primarySurface;
 	private Timer timer;
-	private boolean paused, exiting;
+	private boolean paused;
 	
 	public Game(Surface surface) {
 		primarySurface = surface;
@@ -71,7 +71,7 @@ public abstract class Game {
 	 * exit before the next update loop.
 	 */
 	public void exit() {
-		this.exiting = true;
+		timer.cancel();
 	}
 	
 	/**
@@ -87,10 +87,6 @@ public abstract class Game {
 		timer = new Timer() {
 			@Override
 			public void run() {
-				if (exiting) {
-					cancel();
-					return;
-				}
 				if (isPaused()) {
 					return;
 				}

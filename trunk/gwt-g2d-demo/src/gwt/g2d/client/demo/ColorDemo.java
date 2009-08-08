@@ -15,18 +15,21 @@
  */
 package gwt.g2d.client.demo;
 
+import com.google.gwt.user.client.ui.Panel;
+
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.math.Rectangle;
 
 
 public class ColorDemo extends AbstractDemo {
 
-	public ColorDemo(String demoName) {
-		super(demoName);
+	public ColorDemo(String demoName, Panel parentContainer) {
+		super(demoName, parentContainer);
 	}
 
 	@Override
 	public void initialize() {
+		getParentContainer().add(getPrimarySurface());
 		getPrimarySurface().setBackgroundColor(KnownColor.BLACK);
 		Rectangle rectangle = new Rectangle(0, 0, 50, 50);
 		for (KnownColor c : KnownColor.getKnownColors()) {
