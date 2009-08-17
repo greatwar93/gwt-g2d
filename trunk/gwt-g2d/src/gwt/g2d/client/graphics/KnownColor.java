@@ -23,6 +23,8 @@ import java.util.List;
 /**
  * Contains a set of known colors.
  * 
+ * @see {@link http://www.w3schools.com/css/css_colornames.asp}.
+ * 
  * @author hao1300@gmail.com
  */
 public final class KnownColor extends Color {

@@ -1,7 +1,23 @@
+/*
+ * Copyright 2009 Hao Nguyen
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package gwt.g2d.client.demo.tetris;
 
-import gwt.g2d.client.framework.Game;
+import gwt.g2d.client.framework.AbstractApp;
 import gwt.g2d.client.graphics.KnownColor;
+import gwt.g2d.client.graphics.LinearGradient;
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
@@ -26,7 +42,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author hao1300@gmail.com
  */
-public class Tetris extends Game {
+public class Tetris extends AbstractApp {
 	private static final int DEFAULT_NUM_ROWS = 20, DEFAULT_NUM_COLS = 10;
 	private static final int BLOCK_PIXEL_SIZE = 24;
 	private static final int DEFAULT_START_ROW = 0, 
@@ -105,10 +121,10 @@ public class Tetris extends Game {
 		panel.add(nextPiecePanel, DockPanel.LINE_END);
 		parentContainer.add(panel);
 		
-		nextPieceSurface.setBackgroundColor(KnownColor.BLACK);
+		nextPieceSurface.fillBackground(KnownColor.BLACK);
 		
 		surface.setFocus(true);
-		surface.setBackgroundColor(KnownColor.BLACK);
+		surface.fillBackground(KnownColor.BLACK);
 		
 		initializeKeyHandlers();
 	}
@@ -146,17 +162,19 @@ public class Tetris extends Game {
 				}
 				currPiece = null;
 			}
-		}	
+		}
+		draw();
 	}
 
-	@Override
-	public void draw() {
+	/**
+	 * Draws the tetris game.
+	 */
+	private void draw() {
 		if (!needRedraw) {
 			return;
 		}
 		Surface surface = getPrimarySurface();
-		surface.clearSurface()
-				.setBackgroundColor(KnownColor.BLACK);
+		surface.clear().fillBackground(KnownColor.BLACK);
 		
 		// Draw the blocks.
 		for (int r = 0; r < matrix.getNumRows(); r++) {
@@ -200,7 +218,7 @@ public class Tetris extends Game {
 		if (!needRedrawNextPiece) {
 			return;
 		}
-		nextPieceSurface.clearSurface();
+		nextPieceSurface.clear();
 		for (int r = 0; r < Piece.PIECE_SIZE; r++) {
 			for (int c = 0; c < Piece.PIECE_SIZE; c++) {
 				renderer.drawBlock(nextPieceSurface, r, c, nextPiece.getBlock(r, c));
@@ -298,7 +316,7 @@ public class Tetris extends Game {
 		private static final Vector2 FILL_OFFSET = new Vector2(.5);
 		private static final Vector2 GRADIENT_POINT1_OFFSET = new Vector2(0, BLOCK_PIXEL_SIZE);
 		private static final Vector2 GRADIENT_POINT2_OFFSET = new Vector2(BLOCK_PIXEL_SIZE, 0);
-		
+
 		// Temporary variables that are promoted to class variables to avoid 
 		// reconstruction.
 		private Rectangle strokeRectangle = new Rectangle(0, 0, 
@@ -306,26 +324,26 @@ public class Tetris extends Game {
 		private Rectangle fillRectangle = new Rectangle(0, 0, 
 				BLOCK_PIXEL_SIZE - 2, BLOCK_PIXEL_SIZE - 2);
 		private Vector2 position = new Vector2();
-		
+				
 		public void drawBlock(Surface surface, int row, int col, BlockType type) {
 			if (type == null) {
 				return;
 			}
 			position.set(col * BLOCK_PIXEL_SIZE, row * BLOCK_PIXEL_SIZE);
 			strokeRectangle.move(position.add(STROKE_OFFSET));
-			surface.setStrokeStyle(surface.createLinearGradient(
-							position.add(GRADIENT_POINT1_OFFSET), 
-							position.add(GRADIENT_POINT2_OFFSET))
-									.addColorStop(0, KnownColor.WHITE)
-									.addColorStop(1, KnownColor.GRAY))
+			surface.setStrokeStyle(new LinearGradient(
+					position.add(GRADIENT_POINT1_OFFSET), 
+					position.add(GRADIENT_POINT2_OFFSET))
+							.addColorStop(0, KnownColor.WHITE)
+							.addColorStop(1, KnownColor.GRAY))
 					.strokeRectangle(strokeRectangle);
 			
 			fillRectangle.move(position.add(FILL_OFFSET));
-			surface.setFillStyle(surface.createLinearGradient(
-							position.add(GRADIENT_POINT1_OFFSET), 
-							position.add(GRADIENT_POINT2_OFFSET))
-									.addColorStop(0, type.getColor())
-									.addColorStop(1, KnownColor.WHITE))
+			surface.setFillStyle(new LinearGradient(
+					position.add(GRADIENT_POINT1_OFFSET), 
+					position.add(GRADIENT_POINT2_OFFSET))
+							.addColorStop(0, type.getColor())
+							.addColorStop(1, KnownColor.WHITE))							
 					.fillRectangle(fillRectangle);
 		}
 	}

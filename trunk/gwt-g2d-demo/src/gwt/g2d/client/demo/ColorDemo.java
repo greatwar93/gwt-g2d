@@ -30,7 +30,7 @@ public class ColorDemo extends AbstractDemo {
 	@Override
 	public void initialize() {
 		getParentContainer().add(getPrimarySurface());
-		getPrimarySurface().setBackgroundColor(KnownColor.BLACK);
+		getPrimarySurface().fillBackground(KnownColor.BLACK);
 		Rectangle rectangle = new Rectangle(0, 0, 50, 50);
 		for (KnownColor c : KnownColor.getKnownColors()) {
 			getPrimarySurface().setFillStyle(c).fillRectangle(rectangle);
@@ -45,9 +45,5 @@ public class ColorDemo extends AbstractDemo {
 
 	@Override
 	public void update() {
-	}
-
-	@Override
-	public void draw() {		
 	}
 }

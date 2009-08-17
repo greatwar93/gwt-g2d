@@ -183,7 +183,6 @@ public class Vector2 implements Serializable {
 	public static Vector2 smoothStep(Vector2 value1, Vector2 value2, double amount) {
     return new Vector2().mutableSmoothStep(value1, value2, amount);
   }
-
 	
 	/**
 	 * Gets the x-coordinate.
