@@ -23,7 +23,8 @@ import java.util.List;
 /**
  * Contains a set of known colors.
  * 
- * @see {@link http://www.w3schools.com/css/css_colornames.asp}.
+ * @see <a href="http://www.w3schools.com/css/css_colornames.asp">
+ * http://www.w3schools.com/css/css_colornames.asp</a>
  * 
  * @author hao1300@gmail.com
  */

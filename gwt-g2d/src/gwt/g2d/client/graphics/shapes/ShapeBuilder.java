@@ -54,36 +54,35 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link MoveToVisitor#MoveToVisitor(double, double)}.
+	 * @see MoveToVisitor#MoveToVisitor(double, double)
 	 */
 	public ShapeBuilder moveTo(double x, double y) {
 		return append(new MoveToVisitor(x, y));
 	}
 	
 	/**
-	 * @see {@link MoveToVisitor#MoveToVisitor(Vector2)}.
+	 * @see MoveToVisitor#MoveToVisitor(Vector2)
 	 */
 	public ShapeBuilder moveTo(Vector2 position) {
 		return append(new MoveToVisitor(position));
 	}
 	
 	/**
-	 * @see {@link LineToVisitor#LineToVisitor(double, double)}.
+	 * @see LineToVisitor#LineToVisitor(double, double)
 	 */
 	public ShapeBuilder drawLineTo(double x, double y) {
 		return append(new LineToVisitor(x, y));
 	}
 	
 	/**
-	 * @see {@link LineToVisitor#LineToVisitor(Vector2)}.
+	 * @see LineToVisitor#LineToVisitor(Vector2)
 	 */
 	public ShapeBuilder drawLineTo(Vector2 position) {
 		return append(new LineToVisitor(position));
 	}
 	
 	/**
-	 * @see {@link LineSegmentVisitor#LineSegmentVisitor(double, double, double, 
-	 * double)}.
+	 * @see LineSegmentVisitor#LineSegmentVisitor(double, double, double, double)
 	 */
 	public ShapeBuilder drawLineSegment(double fromX, double fromY, double toX, 
 			double toY) {
@@ -91,15 +90,14 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link LineSegmentVisitor#LineSegmentVisitor(Vector2, Vector2)}.
+	 * @see LineSegmentVisitor#LineSegmentVisitor(Vector2, Vector2)
 	 */
 	public ShapeBuilder drawLineSegment(Vector2 fromPosition, Vector2 toPosition) {
 		return append(new LineSegmentVisitor(fromPosition, toPosition));
 	}
 	
 	/**
-	 * @see {@link ArcVisitor#ArcVisitor(double, double, double, double, double, 
-	 * boolean)}.
+	 * @see ArcVisitor#ArcVisitor(double, double, double, double, double, boolean)
 	 */
 	public ShapeBuilder drawArc(double x, double y, double radius, 
 			double startAngle, double endAngle, boolean antiClockwise) {
@@ -107,8 +105,7 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link ArcVisitor#ArcVisitor(Vector2, double, double, double, 
-	 * boolean)}.
+	 * @see ArcVisitor#ArcVisitor(Vector2, double, double, double, boolean)
 	 */
 	public ShapeBuilder drawArc(Vector2 position, double radius, double startAngle,
 			double endAngle, boolean antiClockwise) {
@@ -117,36 +114,36 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link ArcVisitor#ArcVisitor(Arc)}.
+	 * @see ArcVisitor#ArcVisitor(Arc)
 	 */
 	public ShapeBuilder drawArc(Arc arc) {
 		return append(new ArcVisitor(arc));
 	}
 	
 	/**
-	 * @see {@link CircleVisitor#CircleVisitor(double, double, double)}.
+	 * @see CircleVisitor#CircleVisitor(double, double, double)
 	 */
 	public ShapeBuilder drawCircle(double x, double y, double radius) {
 		return append(new CircleVisitor(x, y, radius));
 	}
 	
 	/**
-	 * @see {@link CircleVisitor#CircleVisitor(Vector2, double)}.
+	 * @see CircleVisitor#CircleVisitor(Vector2, double)
 	 */
 	public ShapeBuilder drawCircle(Vector2 center, double radius) {
 		return append(new CircleVisitor(center, radius));
 	}
 	
 	/**
-	 * @see {@link CircleVisitor#CircleVisitor(Circle)}.
+	 * @see CircleVisitor#CircleVisitor(Circle)
 	 */
 	public ShapeBuilder drawCircle(Circle circle) {
 		return append(new CircleVisitor(circle));
 	}
 	
 	/**
-	 * @see {@link CubicCurveToVisitor#CubicCurveToVisitor(double, double, 
-	 * double, double, double, double)}.
+	 * @see CubicCurveToVisitor#CubicCurveToVisitor(double, double, double, 
+	 * double, double, double)
 	 */
 	public ShapeBuilder drawCubicCurveTo(double controlPoint1X, double controlPoint1Y, 
 			double controlPoint2X, double controlPoint2Y, double endPointX, double endPointY) {
@@ -156,8 +153,7 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link CubicCurveToVisitor#CubicCurveToVisitor(Vector2, Vector2, 
-	 * Vector2)}.
+	 * @see CubicCurveToVisitor#CubicCurveToVisitor(Vector2, Vector2, Vector2)
 	 */
 	public ShapeBuilder drawCubicCurveTo(Vector2 controlPoint1, Vector2 controlPoint2, 
 			Vector2 endPoint) {
@@ -165,8 +161,8 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link CubicCurveVisitor#CubicCurveVisitor(Vector2, Vector2, Vector2, 
-	 * Vector2)}.
+	 * @see CubicCurveVisitor#CubicCurveVisitor(Vector2, Vector2, Vector2, 
+	 * Vector2)
 	 */
 	public ShapeBuilder drawCubicCurve(double startPointX, double startPointY,
 			double controlPoint1X, double controlPoint1Y, 
@@ -179,8 +175,8 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link CubicCurveVisitor#CubicCurveVisitor(double, double, double, 
-	 * double, double, double, double, double)}.
+	 * @see CubicCurveVisitor#CubicCurveVisitor(double, double, double, double, 
+	 * double, double, double, double)
 	 */
 	public ShapeBuilder drawCubicCurve(Vector2 startPoint, Vector2 controlPoint1, 
 			Vector2 controlPoint2, Vector2 endpoint) {
@@ -189,8 +185,8 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link QuadraticCurveToVisitor#QuadraticCurveToVisitor(double, double, 
-	 * double, double)}.
+	 * @see QuadraticCurveToVisitor#QuadraticCurveToVisitor(double, double, 
+	 * double, double)
 	 */
 	public ShapeBuilder drawQuadraticCurveTo(double controlPointX, 
 			double controlPointY, double endPointX, double endPointY) {
@@ -199,8 +195,7 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link QuadraticCurveToVisitor#QuadraticCurveToVisitor(Vector2, 
-	 * Vector2)}.
+	 * @see QuadraticCurveToVisitor#QuadraticCurveToVisitor(Vector2, Vector2)
 	 */
 	public ShapeBuilder drawQuadraticCurveTo(Vector2 controlPoint, Vector2 endPoint) {
 		return append(new QuadraticCurveToVisitor(controlPoint, endPoint));
@@ -208,8 +203,8 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link QuadraticCurveVisitor#QuadraticCurveVisitor(double, double, 
-	 * double, double, double, double)}.
+	 * @see QuadraticCurveVisitor#QuadraticCurveVisitor(double, double, double, 
+	 * double, double, double)
 	 */
 	public ShapeBuilder drawQuadraticCurveTo(double startPointX, double startPointY,
 			double controlPointX, double controlPointY, double endPointX, double endPointY) {
@@ -218,8 +213,7 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see {@link QuadraticCurveVisitor#QuadraticCurveVisitor(Vector2, Vector2, 
-	 * Vector2)}.
+	 * @see QuadraticCurveVisitor#QuadraticCurveVisitor(Vector2, Vector2, Vector2)
 	 */
 	public ShapeBuilder drawQuadraticCurve(Vector2 startPoint, Vector2 controlPoint, 
 			Vector2 endPoint) {

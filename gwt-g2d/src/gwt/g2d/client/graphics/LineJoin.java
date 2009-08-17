@@ -18,14 +18,16 @@ package gwt.g2d.client.graphics;
 import gwt.canvas.client.Canvas;
 
 /**
+ * <p>
  * Defines the type of corners that UAs will place where two lines meet.
- * 
+ * <p>
  * A join exists at any point in a subpath shared by two consecutive lines. 
  * When a subpath is closed, then a join also exists at its first point 
  * (equivalent to its last point) connecting the first and last lines in the 
  * subpath.
  * 
- * @see {@link http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-linejoin}.
+ * @see <a href="http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-linejoin">
+ * http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-linejoin</a>
  * 
  * @author hao1300@gmail.com
  */

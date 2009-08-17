@@ -20,7 +20,8 @@ import gwt.canvas.client.Canvas;
 /**
  * Defines the type of endings that UAs will place on the end of lines.
  * 
- * @see {@link http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-linecap}.
+ * @see <a href="http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-linecap">
+ * http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-linecap</a>
  * 
  * @author hao1300@gmail.com
  */

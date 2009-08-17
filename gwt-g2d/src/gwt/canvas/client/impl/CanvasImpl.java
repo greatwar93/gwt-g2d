@@ -26,12 +26,15 @@ import com.google.gwt.user.client.Element;
 /**
  * The default implementation of the canvas widget.
  * 
- * @see http://www.whatwg.org/specs/web-apps/current-work/#the-canvas
- * @see http://www.w3.org/html/wg/html5/#the-canvas
- * @see http://canvex.lazyilluminati.com/tests/tests/results.html
- * 
  * (This file has been modified by hao1300@gmail.com to allow for some of the
  *  newer features of HTML canvas.)
+ *  
+ * @see <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-canvas">
+ * http://www.whatwg.org/specs/web-apps/current-work/#the-canvas</a>
+ * @see <a href="http://www.w3.org/html/wg/html5/#the-canvas">
+ * http://www.w3.org/html/wg/html5/#the-canvas</a>
+ * @see <a href="http://canvex.lazyilluminati.com/tests/tests/results.html">
+ * http://canvex.lazyilluminati.com/tests/tests/results.html</a>
  */
 public class CanvasImpl {
 

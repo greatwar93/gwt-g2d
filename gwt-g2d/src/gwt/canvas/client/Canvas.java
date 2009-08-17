@@ -43,11 +43,12 @@ import com.google.gwt.user.client.ui.FocusWidget;
  * subpath. If you don’t close the path by calling closePath before painting,
  * the path is implicitly closed for you by drawing primitives that fill or
  * clip (but it is not closed for stroking).
- * 
- * @see http://developer.mozilla.org/en/docs/Canvas_tutorial
- * 
+ * <p>
  * (This file has been modified by hao1300@gmail.com to allow for setting
  * gradient stroke style and setting the transformation matrix.)
+ * 
+ * @see <a href="http://developer.mozilla.org/en/docs/Canvas_tutorial">
+ * http://developer.mozilla.org/en/docs/Canvas_tutorial</a>
  */
 public class Canvas extends FocusWidget {
 
@@ -544,7 +545,7 @@ public class Canvas extends FocusWidget {
 	 * @param radius
 	 * @param startAngle
 	 * @param endAngle
-	 * @param anticlockwise
+	 * @param antiClockwise
 	 */
 	public void arc(double x, double y, double radius, double startAngle, double endAngle, boolean antiClockwise) {
 		impl.arc(x, y, radius, startAngle, endAngle, antiClockwise);
@@ -1266,7 +1267,7 @@ public class Canvas extends FocusWidget {
 	/**
 	 * Sets the text baseline alignment settings.
 	 * 
-	 * @param textAlign a string describing the text alignment.
+	 * @param textBaseline a string describing the text baseline alignment.
 	 */
 	public void setTextBaseline(String textBaseline) {
 		impl.setTextBaseline(textBaseline);
