@@ -24,9 +24,10 @@ import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.user.client.ui.FocusWidget;
 
 /**
- * The surface that a game uses to render to the screen.
+ * The surface that an application uses to render to the screen.
  * 
- * @see {@link http://dev.w3.org/html5/spec/Overview.html#the-canvas-element}.
+ * @see <a href="http://dev.w3.org/html5/spec/Overview.html#the-canvas-element">
+ * http://dev.w3.org/html5/spec/Overview.html#the-canvas-element</a>
  * 
  * @author hao1300@gmail.com
  */
@@ -565,7 +566,7 @@ public class Surface extends FocusWidget {
 	 * Draws the image at the given position.
 	 * 
 	 * @param image the image to draw.
-	 * @param pos the position to draw the image.
+	 * @param position the position to draw the image.
 	 * @return self to support chaining.
 	 */
 	public Surface drawImage(ImageElement image, Vector2 position) {

@@ -412,8 +412,7 @@ public class Vector2 implements Serializable {
 	 * Gets a vector whose x is the max of this's x and rhs's x, and y is the 
 	 * max of this'y and rhs's y. 
 	 * 
-	 * @param value1
-	 * @param value2
+	 * @param rhs
 	 * @return a new vector whose x and y values are the max of this and rhs.
 	 */
 	public Vector2 max(Vector2 rhs) {
@@ -426,8 +425,7 @@ public class Vector2 implements Serializable {
 	 * Similar to max() except the vector returned is this vector whose x and y
 	 * values have been set to the result of max().
 	 * 
-	 * @param value1
-	 * @param value2
+	 * @param rhs
 	 * @return self to support chaining.
 	 */
 	public Vector2 mutableMax(Vector2 rhs) {
@@ -440,8 +438,7 @@ public class Vector2 implements Serializable {
 	 * Gets a vector whose x is the min of this's x and rhs's x, and y is the 
 	 * min of this'y and rhs's y. 
 	 * 
-	 * @param value1
-	 * @param value2
+	 * @param rhs
 	 * @return a new vector whose x and y values are the min of this and rhs.
 	 */
 	public Vector2 min(Vector2 rhs) {
@@ -454,8 +451,7 @@ public class Vector2 implements Serializable {
 	 * Similar to min() except the vector returned is this vector whose x and y
 	 * values have been set to the result of min().
 	 * 
-	 * @param value1
-	 * @param value2
+	 * @param rhs
 	 * @return self to support chaining.
 	 */
 	public Vector2 mutableMin(Vector2 rhs) {

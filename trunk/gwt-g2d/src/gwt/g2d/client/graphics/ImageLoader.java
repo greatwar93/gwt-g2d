@@ -23,9 +23,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * <p>
  * Provides a mechanism for deferred execution of a callback 
  * method once all specified Images are loaded.
- * 
+ * <p>
  * (This is a slightly modified by hao1300@gmail.com from the GWT-incubator's 
  * ImageLoader to provide a more flexible loading scheme.)
  */

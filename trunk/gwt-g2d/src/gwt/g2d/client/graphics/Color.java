@@ -35,6 +35,8 @@ public class Color implements Serializable {
 	private double alpha;
 	
 	/**
+	 * Constructor.
+	 * 
 	 * @param colorCode the string representing this color.
 	 * @param red red channel [0-255]
 	 * @param green green channel [0-255]
@@ -191,11 +193,4 @@ public class Color implements Serializable {
 	private int getHexValue(int r, int g, int b) {
 		return ((r << 16) & 0xFF0000) | ((g << 8) & 0xFF00) | (b & 0xFF);
 	}
-	
-	/**
-	 * Creates a native color implementation that wraps this color object.
-	 */
-//	com.google.gwt.widgetideas.graphics.client.Color createNativeColor() {
-//		return new com.google.gwt.widgetideas.graphics.client.Color(getColorCode());
-//	}
 }

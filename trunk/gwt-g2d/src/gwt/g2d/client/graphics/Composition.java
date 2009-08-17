@@ -20,7 +20,8 @@ package gwt.g2d.client.graphics;
  * The source image, A, is the shape or image being rendered. 
  * The destination image, B, is the current state of the bitmap.
  * 
- * @see {@link http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-globalcompositeoperation}.
+ * @see <a href="http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-globalcompositeoperation">
+ * http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-globalcompositeoperation</a>
  * 
  * @author hao1300@gmail.com
  */

@@ -18,7 +18,8 @@ package gwt.g2d.client.graphics;
 /**
  * Determines the text alignment settings.
  * 
- * @see {@link http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-textalign}.
+ * @see <a href="http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-textalign">
+ * http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-textalign</a>
  * 
  * @author hao1300@gmail.com
  */

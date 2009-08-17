@@ -18,7 +18,8 @@ package gwt.g2d.client.graphics;
 /**
  * Determines the text baseline alignment settings.
  * 
- * @see {@link http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-textbaseline}.
+ * @see <a href="http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-textbaseline">
+ * http://dev.w3.org/html5/spec/Overview.html#dom-context-2d-textbaseline</a>
  * 
  * @author hao1300@gmail.com
  */
