@@ -17,14 +17,14 @@ package gwt.g2d.client.demo;
 
 import com.google.gwt.user.client.ui.Panel;
 
-import gwt.g2d.client.framework.Game;
+import gwt.g2d.client.framework.AbstractApp;
 
 /**
  * Base class for all demo.
  * 
  * @author hao1300@gmail.com
  */
-public abstract class AbstractDemo extends Game {
+public abstract class AbstractDemo extends AbstractApp {
 	protected static final int WIDTH = 600, HEIGHT = 600;
 	private final String demoName;
 	private final Panel parentContainer;

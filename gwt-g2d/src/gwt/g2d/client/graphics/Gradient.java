@@ -15,19 +15,20 @@
  */
 package gwt.g2d.client.graphics;
 
+import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.GradientAdapter;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Represents a gradient which can be used for fill style or stroke style.
  * 
  * @author hao1300@gmail.com
  */
-public class Gradient {
-	private final gwt.canvas.client.Gradient nativeGradient;
-	
-	public Gradient(gwt.canvas.client.Gradient nativeGradient) {
-		this.nativeGradient = nativeGradient;
-	}
+public abstract class Gradient {
+	private final List<ColorStop> colorStops = new ArrayList<ColorStop>();
 	
 	/**
 	 * Adds a color at the given offset point.
@@ -37,8 +38,7 @@ public class Gradient {
 	 * @return self to support chaining.
 	 */
 	public Gradient addColorStop(double offset, Color color) {
-		nativeGradient.addColorStop(offset, color.getColorCode());
-		return this;
+		return addColorStop(new ColorStop(offset, color));
 	}
 	
 	/**
@@ -48,7 +48,8 @@ public class Gradient {
 	 * @return self to support chaining.
 	 */
 	public Gradient addColorStop(ColorStop colorStop) {
-		return addColorStop(colorStop.getOffset(), colorStop.getColor());
+		colorStops.add(colorStop);
+		return this;
 	}
 	
 	/**
@@ -78,9 +79,19 @@ public class Gradient {
 	}
 	
 	/**
-	 * Creates an underlying gradient implementation.
+	 * Gets the gradient adapter.
 	 */
-	gwt.canvas.client.Gradient createNativeGradient() {
-		return nativeGradient;
+	public GradientAdapter getGradientAdapter(CanvasAdapter canvas) {
+		GradientAdapter gradientAdapter = createGradientAdapter(canvas);
+		for (ColorStop colorStop : colorStops) {
+			gradientAdapter.addColorStop(colorStop.getOffset(), 
+					colorStop.getColor().toString());
+		}
+		return gradientAdapter;
 	}
+	
+	/**
+	 * Creates a new gradient adapter.
+	 */
+	protected abstract GradientAdapter createGradientAdapter(CanvasAdapter canvas);
 }

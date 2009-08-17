@@ -23,8 +23,6 @@ import java.util.Arrays;
 
 /**
  * Stores a color. Color is immutable.
- * To see the color corresponding to the color name, go to
- * http://www.w3schools.com/css/css_colornames.asp.
  * 
  * @author hao1300@gmail.com
  */

@@ -13,33 +13,37 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package gwt.g2d.client.demo.tetris;
+package gwt.g2d.client.demo;
 
-import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.KnownColor;
+import gwt.g2d.client.graphics.TextBaseline;
+
+import com.google.gwt.user.client.ui.Panel;
 
 /**
- * The type of block stored in a cell in the tetris matrix. 
- * Color scheme is based on Atari/Arcade
- * @see http://en.wikipedia.org/wiki/Tetris
+ * Demo for rendering text.
  * 
  * @author hao1300@gmail.com
  */
-public enum BlockType {
-	SHAPE_I(KnownColor.RED),
-	SHAPE_J(KnownColor.YELLOW),
-	SHAPE_L(KnownColor.MAGENTA),
-	SHAPE_O(KnownColor.BLUE),
-	SHAPE_S(KnownColor.CYAN),
-	SHAPE_T(KnownColor.GREEN),
-	SHAPE_Z(KnownColor.ORANGE);	
-	
-	private Color color;
-	private BlockType(Color color) {
-		this.color = color;
+public class TextDemo extends AbstractDemo {
+	public TextDemo(String demoName, Panel parentContainer) {
+		super(demoName, parentContainer);
 	}
-	
-	public Color getColor() {
-		return color;
+
+	@Override
+	public void initialize() {
+		getParentContainer().add(getPrimarySurface());
+		getPrimarySurface().clear()
+				.setFont("serif large")
+				.setTextBaseline(TextBaseline.TOP)
+				.setFillStyle(KnownColor.RED)
+				.fillText("Fill Text", 0, 20)
+				.setFillStyle(KnownColor.BLUE)
+				.strokeText("Stroke Text", 0, 50);
+	}
+
+	@Override
+	public void update() {
+
 	}
 }

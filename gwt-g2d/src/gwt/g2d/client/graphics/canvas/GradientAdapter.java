@@ -13,33 +13,31 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package gwt.g2d.client.demo.tetris;
-
-import gwt.g2d.client.graphics.Color;
-import gwt.g2d.client.graphics.KnownColor;
+package gwt.g2d.client.graphics.canvas;
 
 /**
- * The type of block stored in a cell in the tetris matrix. 
- * Color scheme is based on Atari/Arcade
- * @see http://en.wikipedia.org/wiki/Tetris
+ * Adapter for accessing the gradient interface.
  * 
  * @author hao1300@gmail.com
  */
-public enum BlockType {
-	SHAPE_I(KnownColor.RED),
-	SHAPE_J(KnownColor.YELLOW),
-	SHAPE_L(KnownColor.MAGENTA),
-	SHAPE_O(KnownColor.BLUE),
-	SHAPE_S(KnownColor.CYAN),
-	SHAPE_T(KnownColor.GREEN),
-	SHAPE_Z(KnownColor.ORANGE);	
+public class GradientAdapter {
+	private gwt.canvas.client.Gradient nativeGradient;
 	
-	private Color color;
-	private BlockType(Color color) {
-		this.color = color;
+	GradientAdapter(gwt.canvas.client.Gradient nativeGradient) {
+		this.nativeGradient = nativeGradient;
 	}
 	
-	public Color getColor() {
-		return color;
+	/**
+	 * Adds a color stop to the native gradient.
+	 */
+	public void addColorStop(double offset, String color) {
+		nativeGradient.addColorStop(offset, color);
+	}
+	
+	/**
+	 * Gets the underlying gradient implementation.
+	 */
+	gwt.canvas.client.Gradient getNativeGradient() {
+		return nativeGradient;
 	}
 }

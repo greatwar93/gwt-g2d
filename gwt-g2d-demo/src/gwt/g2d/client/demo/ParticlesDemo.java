@@ -17,6 +17,7 @@ package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.KnownColor;
+import gwt.g2d.client.graphics.shapes.ShapeBuilder;
 import gwt.g2d.client.math.Vector2;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class ParticlesDemo extends AbstractDemo {
 	@Override
 	public void initialize() {
 		getParentContainer().add(getPrimarySurface());
-		getPrimarySurface().setBackgroundColor(KnownColor.BLACK);
 		particles.clear();
     for (int i = 0; i < NUM_PARTICLES; i++) {
     	particles.add(new Particle(
@@ -52,21 +52,6 @@ public class ParticlesDemo extends AbstractDemo {
     					Random.nextInt(256),
     					Math.random())));
     }
-	}
-
-	@Override
-	public void draw() {
-		getPrimarySurface().clearSurface();
-		for (Particle p : particles) {
-			getPrimarySurface()
-					.save()
-					.beginPath()
-					.moveTo(p.getPosition())
-					.drawCircle(p.getPosition(), 2)
-					.fill(p.getColor())
-					.closePath()
-					.restore();
-		}
 	}
 
 	@Override
@@ -85,6 +70,24 @@ public class ParticlesDemo extends AbstractDemo {
 				vel.setY(-Math.abs(vel.getY()));
 			}
 			pos.mutableAdd(p.getVelocity());
+		}
+		draw();
+	}
+	
+	/**
+	 * Draws the particles.
+	 */
+	private void draw() {
+		getPrimarySurface().clear();
+		for (Particle p : particles) {
+			getPrimarySurface()
+					.save()
+					.setFillStyle(p.getColor())
+					.fillShape(new ShapeBuilder()
+							.moveTo(p.getPosition())
+							.drawCircle(p.getPosition(), 2)
+							.build())
+					.restore();
 		}
 	}
 	

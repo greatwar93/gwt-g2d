@@ -24,6 +24,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -39,9 +40,10 @@ public class MainDemo implements EntryPoint {
 	
 	public void onModuleLoad() {
 		final Panel demoPanel = new FlowPanel();
-		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
 		demos.add(new ColorDemo("Color Demo", demoPanel));
+		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
 		demos.add(new TetrisDemo("Tetris", demoPanel));
+		demos.add(new TextDemo("Text Demo", demoPanel));
 				
 		final ListBox listBox = new ListBox();
 		for (AbstractDemo demo : demos) {
@@ -60,6 +62,10 @@ public class MainDemo implements EntryPoint {
 		});
 		
 		Panel panel = new FlowPanel();
+		panel.add(new HTML("This application is created using " 
+				+ "<a href=\"http://code.google.com/p/gwt-canvas/\">gwt-canvas</a>"
+				+ " and "
+				+ "<a href=\"http://code.google.com/p/gwt-g2d/\">gwt-g2d</a>"));
 		panel.add(listBox);
 	  panel.add(demoPanel);
 		RootPanel.get().add(panel);

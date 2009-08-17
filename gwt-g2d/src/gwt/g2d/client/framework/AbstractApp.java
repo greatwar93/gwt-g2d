@@ -21,24 +21,24 @@ import gwt.g2d.client.math.Vector2;
 import com.google.gwt.user.client.Timer;
 
 /**
- * Abstract class for running and rendering a game.
+ * Abstract class for running and rendering an application.
  * 
  * @author hao1300@gmail.com
  */
-public abstract class Game {	
+public abstract class AbstractApp {	
 	private Surface primarySurface;
 	private Timer timer;
 	private boolean paused;
 	
-	public Game(Surface surface) {
+	public AbstractApp(Surface surface) {
 		primarySurface = surface;
 	}
 	
-	public Game(int width, int height) {
+	public AbstractApp(int width, int height) {
 		this(new Surface(width, height));
 	}
 	
-	public Game(Vector2 size) {
+	public AbstractApp(Vector2 size) {
 		this(new Surface(size));
 	}
 	
@@ -91,7 +91,6 @@ public abstract class Game {
 					return;
 				}
 				update();
-				draw();
 			}
 		};
 		timer.scheduleRepeating(1000 / fps);
@@ -104,14 +103,8 @@ public abstract class Game {
 	public abstract void initialize();
 	
 	/**
-	 * Updates the game.
-	 * Override this method to perform non-drawing specific logics.
+	 * Updates the application.
+	 * Override this method to perform the actions that occurs every fps.
 	 */
 	public abstract void update();
-	
-	/**
-	 * Renders the game to the screen.
-	 * Override this method to perform drawing specific logics.
-	 */
-	public abstract void draw();
 }

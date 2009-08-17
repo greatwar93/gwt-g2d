@@ -13,33 +13,22 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package gwt.g2d.client.demo.tetris;
+package gwt.g2d.client.graphics.shapes;
 
-import gwt.g2d.client.graphics.Color;
-import gwt.g2d.client.graphics.KnownColor;
+import gwt.g2d.client.graphics.Surface;
 
 /**
- * The type of block stored in a cell in the tetris matrix. 
- * Color scheme is based on Atari/Arcade
- * @see http://en.wikipedia.org/wiki/Tetris
+ * Represents an abstract shape.
+ * A custom shape can be created using {@link ShapeBuilder}.
  * 
  * @author hao1300@gmail.com
  */
-public enum BlockType {
-	SHAPE_I(KnownColor.RED),
-	SHAPE_J(KnownColor.YELLOW),
-	SHAPE_L(KnownColor.MAGENTA),
-	SHAPE_O(KnownColor.BLUE),
-	SHAPE_S(KnownColor.CYAN),
-	SHAPE_T(KnownColor.GREEN),
-	SHAPE_Z(KnownColor.ORANGE);	
-	
-	private Color color;
-	private BlockType(Color color) {
-		this.color = color;
-	}
-	
-	public Color getColor() {
-		return color;
-	}
+public abstract class Shape {
+
+	/**
+	 * Draws the shape onto the given surface.
+	 * 
+	 * @param surface the surface to draw the shape to.
+	 */
+	public abstract void draw(Surface surface);
 }
