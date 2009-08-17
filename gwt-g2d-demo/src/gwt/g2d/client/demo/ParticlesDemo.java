@@ -78,7 +78,7 @@ public class ParticlesDemo extends AbstractDemo {
 	 * Draws the particles.
 	 */
 	private void draw() {
-		getPrimarySurface().clear();
+		getPrimarySurface().clear().fillBackground(KnownColor.BLACK);
 		for (Particle p : particles) {
 			getPrimarySurface()
 					.save()
