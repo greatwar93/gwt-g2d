@@ -16,33 +16,36 @@
 package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.KnownColor;
-import gwt.g2d.client.math.Rectangle;
+import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
+import gwt.g2d.client.math.Vector2;
 
 import com.google.gwt.user.client.ui.Panel;
 
-public class ColorDemo extends AbstractDemo {
-
-	public ColorDemo(String demoName, Panel parentContainer) {
+/**
+ * Demo for pixel manipulation.
+ * 
+ * @author hao1300@gmail.com
+ */
+public class PixelManipulatorDemo extends AbstractDemo {
+	public PixelManipulatorDemo(String demoName, Panel parentContainer) {
 		super(demoName, parentContainer);
 	}
 
 	@Override
 	public void initialize() {
 		getParentContainer().add(getPrimarySurface());
-		getPrimarySurface().fillBackground(KnownColor.BLACK);
-		Rectangle rectangle = new Rectangle(0, 0, 50, 50);
-		for (KnownColor c : KnownColor.getKnownColors()) {
-			getPrimarySurface().setFillStyle(c).fillRectangle(rectangle);
-			if (rectangle.getX() < getPrimarySurface().getWidth() - rectangle.getWidth()) {
-				rectangle.setX(rectangle.getX() + rectangle.getWidth());
-			} else {
-				rectangle.setX(0);
-				rectangle.setY(rectangle.getY() + rectangle.getHeight());
+		getPrimarySurface().fillBackground(KnownColor.BLUE);
+		ImageDataAdapter imageData = getPrimarySurface().getImageData(0, 0, 100, 100);
+		for (int r = 0; r < imageData.getHeight(); r++) {
+			for (int c = 0; c < imageData.getWidth(); c++) {
+				imageData.setColor(r, c, KnownColor.GOLD);
 			}
 		}
+		getPrimarySurface().putImageData(imageData, Vector2.ZERO);
 	}
 
 	@Override
 	public void update() {
+
 	}
 }

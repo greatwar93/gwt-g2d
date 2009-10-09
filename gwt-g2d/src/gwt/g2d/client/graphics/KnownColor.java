@@ -182,8 +182,7 @@ public final class KnownColor extends Color {
 	}
 	
 	private KnownColor(String colorCode, int red, int blue, int green, double alpha) {
-		super(//colorCode,
-				red, blue, green, alpha);
+		super(red, blue, green, alpha);
 		KNOWN_COLORS.add(this);
 	}
 	

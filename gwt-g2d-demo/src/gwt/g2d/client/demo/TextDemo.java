@@ -17,6 +17,7 @@ package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.graphics.TextBaseline;
+import gwt.g2d.client.math.Vector2;
 
 import com.google.gwt.user.client.ui.Panel;
 
@@ -34,12 +35,15 @@ public class TextDemo extends AbstractDemo {
 	public void initialize() {
 		getParentContainer().add(getPrimarySurface());
 		getPrimarySurface().clear()
-				.setFont("serif large")
+				.setFont("serif large 20px")
 				.setTextBaseline(TextBaseline.TOP)
 				.setFillStyle(KnownColor.RED)
 				.fillText("Fill Text", 0, 20)
 				.setFillStyle(KnownColor.BLUE)
-				.strokeText("Stroke Text", 0, 50);
+				.strokeText("Stroke Text", 0, 50)
+				.setShadowOffset(new Vector2(2, 2))
+				.setShadowBlur(1)
+				.setShadowColor(KnownColor.GREEN);
 	}
 
 	@Override

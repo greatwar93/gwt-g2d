@@ -25,7 +25,7 @@ import com.google.gwt.core.client.JavaScriptObject;
  */
 public abstract class GradientImpl extends Gradient {
 
-	public JavaScriptObject gradient;
+	protected JavaScriptObject gradient;
 
 	public void addColorStop(double offset, String color) {
 		addNativeColorStop(offset, color);

@@ -163,6 +163,70 @@ public class CanvasAdapter {
 	}
 	
 	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * width x height.
+	 * 
+	 * @param width
+	 * @param height
+	 * @return a new ImageData object.
+	 */
+	public ImageDataAdapter createImageData(int width, int height) {
+		return new ImageDataAdapter(canvas.createImageData(width, height));
+	}
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * the given imageData.
+	 * 
+	 * @param imageData
+	 * @return a new ImageData object.
+	 */
+	public ImageDataAdapter createImageData(ImageDataAdapter imageData) {
+		return new ImageDataAdapter(canvas.createImageData(imageData.getNativeImageData()));
+	}
+
+	/**
+	 * Returns an ImageData object representing the underlying pixel data for the 
+	 * area of the canvas denoted by the rectangle whose corners are the four 
+	 * points (x, y), (x + width, y), (x + width, y + height), (x, y + height), 
+	 * in canvas coordinate space units. Pixels outside the canvas must be 
+	 * returned as transparent black. Pixels must be returned as 
+	 * non-premultiplied alpha values.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @return
+	 */
+	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
+		return new ImageDataAdapter(canvas.getImageData(x, y, width, height));
+	}
+
+	/**
+	 * <p>Paints the data from the given ImageData object onto the canvas. If a 
+	 * dirty rectangle is provided, only the pixels from that rectangle are 
+	 * painted.</p>
+	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
+	 * shadow attributes, are ignored for the purposes of this method call; 
+	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * blending, no shadows, etc.</p>
+	 * 
+	 * @param imageData
+	 * @param x
+	 * @param y
+	 * @param dirtyX
+	 * @param dirtyY
+	 * @param dirtyWidth
+	 * @param dirtyHeight
+	 */
+	public void putImageData(ImageDataAdapter imageData, double x, double y, 
+			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) {
+		canvas.putImageData(imageData.getNativeImageData(), x, y, 
+				dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+	}
+	
+	/**
 	 * Sets the current alpha value applied to rendering operations.
 	 */
 	public void setGlobalAlpha(double globalAlpha) {
@@ -292,6 +356,82 @@ public class CanvasAdapter {
 	}
 	
 	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * horizontal direction.
+	 * 
+	 * @param shadowOffsetX
+	 */
+	public void setShadowOffsetX(double shadowOffsetX) {
+		canvas.setShadowOffsetX(shadowOffsetX);
+	}
+	
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * horizontal direction.
+	 * 
+	 * @return
+	 */
+	public double getShadowOffsetX() {
+		return canvas.getShadowOffsetX();		
+	}
+
+	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * vertical direction.
+	 * 
+	 * @param shadowOffsetY
+	 */
+	public void setShadowOffsetY(double shadowOffsetY) {
+		canvas.setShadowOffsetY(shadowOffsetY);
+	}
+
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * vertical direction.
+	 * 
+	 * @return
+	 */
+	public double getShadowOffsetY() {
+		return canvas.getShadowOffsetY();
+	}
+	
+	/**
+	 * Gets the size of the blurring effect.
+	 * 
+	 * @param shadowBlur
+	 */
+	public void setShadowBlur(double shadowBlur) {
+		canvas.setShadowBlur(shadowBlur);
+	}
+	
+	/**
+	 * Gets the size of the blurring effect.
+	 * 	
+	 * @return
+	 */
+	public double getShadowBlur() {
+		return canvas.getShadowBlur();
+	}
+
+	/**
+	 * Sets the color of the shadow.
+	 * 
+	 * @param shadowColor
+	 */
+	public void setShadowColor(String shadowColor) {
+		canvas.setShadowColor(shadowColor);
+	}
+	
+	/**
+	 * Gets the color of the shadow.
+	 * 
+	 * @return
+	 */
+	public String getShadowColor() {
+		return canvas.getShadowColor();
+	}
+	
+	/**
 	 * Clears all pixels on the canvas to transparent black.
 	 */
 	public void clear() {
@@ -399,6 +539,20 @@ public class CanvasAdapter {
 	 */
 	public void stroke() {
 		canvas.stroke();
+	}
+	
+	/**
+	 * Further constrains the clipping region to the given path.
+	 */
+	public void clip() {
+		canvas.clip();
+	}
+	
+	/**
+	 * Returns true if the given point is in the current path.
+	 */
+	public boolean isPointInPath(double x, double y) {
+		return canvas.isPointInPath(x, y);
 	}
 	
 	/**

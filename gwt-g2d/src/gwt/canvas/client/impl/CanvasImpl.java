@@ -167,6 +167,14 @@ public class CanvasImpl {
 	public native void rect(double x, double y, double w, double h) /*-{
 		this.@gwt.canvas.client.impl.CanvasImpl::context.rect(x, y, w, h);
 	}-*/;
+	
+	public native void clip() /*-{
+		this.@gwt.canvas.client.impl.CanvasImpl::context.clip();
+	}-*/;
+	
+	public native boolean isPointInPath(double x, double y) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.isPointInPath(x, y);
+	}-*/;
 
 	/////////////////////////////////////////////////////////////////
 	// STROKING AND FILLING
@@ -235,6 +243,24 @@ public class CanvasImpl {
 	
 	public native void strokeText(String text, double x, double y, double maxWidth) /*-{
 		this.@gwt.canvas.client.impl.CanvasImpl::context.strokeText(text, x, y, maxWidth);
+	}-*/;
+	
+	/////////////////////////////////////////////////////////////////
+	// PIXEL MANIPULATION
+	/////////////////////////////////////////////////////////////////
+	
+	public native JavaScriptObject createImageData(double width, double height) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.createImageData(width, height);
+	}-*/;
+	
+	public native JavaScriptObject getImageData(double x, double y, double width, double height) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.getImageData(x, y, width, height);
+	}-*/;
+	
+	public native void putImageData(JavaScriptObject imageData, double x, double y, 
+			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) /*-{
+		this.@gwt.canvas.client.impl.CanvasImpl::context.putImageData(imageData, x, y);
+		//,dirtyX, dirtyY, dirtyWidth, dirtyHeight);
 	}-*/;
 	
 	/////////////////////////////////////////////////////////////////
@@ -342,4 +368,36 @@ public class CanvasImpl {
 	public native double measureText(String text) /*-{
 		return this.@gwt.canvas.client.impl.CanvasImpl::context.measureText(text).width;
 	}-*/;
+	
+	public native double getShadowOffsetX() /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowOffsetX;
+	}-*/;
+	
+	public native void setShadowOffsetX(double shadowOffsetX) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowOffsetX = shadowOffsetX;
+	}-*/;
+	
+	public native double getShadowOffsetY() /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowOffsetY;
+	}-*/;
+	
+	public native void setShadowOffsetY(double shadowOffsetY) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowOffsetY = shadowOffsetY;
+	}-*/;
+	
+	public native double getShadowBlur() /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowBlur;
+	}-*/;
+	
+	public native void setShadowBlur(double shadowBlur) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowBlur = shadowBlur;
+	}-*/;
+	
+	public native String getShadowColor() /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowColor;
+	}-*/;
+	
+	public native void setShadowColor(String shadowColor) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.shadowColor = shadowColor;
+	}-*/; 
 }
