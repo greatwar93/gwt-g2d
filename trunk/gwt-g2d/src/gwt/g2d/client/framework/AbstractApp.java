@@ -43,44 +43,42 @@ public abstract class AbstractApp {
 	}
 	
 	/**
-	 * Gets the primary surface for the game.
+	 * Gets the primary surface for the application.
 	 */
 	public Surface getPrimarySurface() {
 		return primarySurface;
 	}
 	
 	/**
-	 * Gets whether the game is paused.
+	 * Gets whether the application is paused.
 	 */
 	public boolean isPaused() {
 		return paused;
 	}
 	
 	/**
-	 * Sets whether the game is paused.
-	 * Pausing the game will not take place immediately; instead, it will be
-	 * paused before the next update loop. 
+	 * Sets whether the application is paused.
+	 * Pausing the application will not take place immediately; instead, it will 
+	 * be paused before the next update loop. 
 	 */
 	public void setPaused(boolean paused) {
 		this.paused = paused;
 	}
 	
 	/**
-	 * Exits the game.
-	 * Exiting the game will not take place immediately; instead, it will 
-	 * exit before the next update loop.
+	 * Exits the application.
 	 */
 	public void exit() {
 		timer.cancel();
 	}
 	
 	/**
-	 * Runs the game at the desired FPS.
-	 * The game will try to call update and draw as many times as the given
-	 * frames per second, but it may be called less often if there is a 
+	 * Runs the application at the desired FPS.
+	 * The application will try to call update and draw as many times as the 
+	 * given frames per second, but it may be called less often if there is a 
 	 * performance hit in either method.
 	 * 
-	 * @param fps the number of frames per second to run the game at.
+	 * @param fps the number of frames per second to run the application at.
 	 */
 	public void run(int fps) {
 		initialize();
@@ -97,8 +95,8 @@ public abstract class AbstractApp {
 	}
 	
 	/**
-	 * Performs initialization logics before the game right before the game
-	 * is run.
+	 * Performs initialization logics before the application right before the 
+	 * application is run.
 	 */
 	public abstract void initialize();
 	

@@ -121,9 +121,6 @@ public class Canvas extends FocusWidget {
 	/** The current stroke gradient, if any. */
 	private Gradient strokeGradient;
 
-	// TODO investigate further
-//	private boolean preventSelection = false;
-
 	/////////////////////////////////////////////////////////////////
 	// CONSTRUCTORS AND PUBLIC METHODS
 	/////////////////////////////////////////////////////////////////
@@ -693,6 +690,24 @@ public class Canvas extends FocusWidget {
 	public void rect(double x, double y, double w, double h) {
 		impl.rect(x, y, w, h);
 	}
+	
+	/**
+	 * Further constrains the clipping region to the given path.
+	 */
+	public void clip() {
+		impl.clip();
+	}
+	
+	/**
+	 * Returns true if the given point is in the current path.
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean isPointInPath(double x, double y) {
+		return impl.isPointInPath(x, y);
+	}
 
 	/////////////////////////////////////////////////////////////////
 	// STROKING AND FILLING
@@ -951,6 +966,74 @@ public class Canvas extends FocusWidget {
 	 */
 	public void strokeText(String text, double x, double y, double maxWidth) {
 		impl.strokeText(text, x, y, maxWidth);
+	}
+	
+	/////////////////////////////////////////////////////////////////
+	// PIXEL MANIPULATION
+	/////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * width x height.
+	 * 
+	 * @param width
+	 * @param height
+	 * @return a new ImageData object.
+	 */
+	public ImageData createImageData(int width, int height) {
+		return new ImageData(impl.createImageData(width, height));
+	}
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * the given imageData.
+	 * 
+	 * @param imageData
+	 * @return a new ImageData object.
+	 */
+	public ImageData createImageData(ImageData imageData) {
+		return new ImageData(impl.createImageData(imageData.getWidth(), imageData.getHeight()));
+	}
+
+	/**
+	 * Returns an ImageData object representing the underlying pixel data for the 
+	 * area of the canvas denoted by the rectangle whose corners are the four 
+	 * points (x, y), (x + width, y), (x + width, y + height), (x, y + height), 
+	 * in canvas coordinate space units. Pixels outside the canvas must be 
+	 * returned as transparent black. Pixels must be returned as 
+	 * non-premultiplied alpha values.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @return
+	 */
+	public ImageData getImageData(double x, double y, double width, double height) {
+		return new ImageData(impl.getImageData(x, y, width, height));
+	}
+
+	/**
+	 * <p>Paints the data from the given ImageData object onto the canvas. If a 
+	 * dirty rectangle is provided, only the pixels from that rectangle are 
+	 * painted.</p>
+	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
+	 * shadow attributes, are ignored for the purposes of this method call; 
+	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * blending, no shadows, etc.</p>
+	 * 
+	 * @param imageData
+	 * @param x
+	 * @param y
+	 * @param dirtyX
+	 * @param dirtyY
+	 * @param dirtyWidth
+	 * @param dirtyHeight
+	 */
+	public void putImageData(ImageData imageData, double x, double y, 
+			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) {
+		impl.putImageData(imageData.getImageDataJsObject(), x, y, 
+				dirtyX, dirtyY, dirtyWidth, dirtyHeight);
 	}
 
 	/////////////////////////////////////////////////////////////////
@@ -1289,5 +1372,81 @@ public class Canvas extends FocusWidget {
 	 */
 	public double measureText(String text) {
 		return impl.measureText(text);
+	}
+	
+	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * horizontal direction.
+	 * 
+	 * @param shadowOffsetX
+	 */
+	public void setShadowOffsetX(double shadowOffsetX) {
+		impl.setShadowOffsetX(shadowOffsetX);
+	}
+	
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * horizontal direction.
+	 * 
+	 * @return
+	 */
+	public double getShadowOffsetX() {
+		return impl.getShadowOffsetX();		
+	}
+
+	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * vertical direction.
+	 * 
+	 * @param shadowOffsetY
+	 */
+	public void setShadowOffsetY(double shadowOffsetY) {
+		impl.setShadowOffsetY(shadowOffsetY);
+	}
+
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * vertical direction.
+	 * 
+	 * @return
+	 */
+	public double getShadowOffsetY() {
+		return impl.getShadowOffsetY();
+	}
+	
+	/**
+	 * Gets the size of the blurring effect.
+	 * 
+	 * @param shadowBlur
+	 */
+	public void setShadowBlur(double shadowBlur) {
+		impl.setShadowBlur(shadowBlur);
+	}
+	
+	/**
+	 * Gets the size of the blurring effect.
+	 * 	
+	 * @return
+	 */
+	public double getShadowBlur() {
+		return impl.getShadowBlur();
+	}
+
+	/**
+	 * Sets the color of the shadow.
+	 * 
+	 * @param shadowColor
+	 */
+	public void setShadowColor(String shadowColor) {
+		impl.setShadowColor(shadowColor);
+	}
+	
+	/**
+	 * Gets the color of the shadow.
+	 * 
+	 * @return
+	 */
+	public String getShadowColor() {
+		return impl.getShadowColor();
 	}
 }

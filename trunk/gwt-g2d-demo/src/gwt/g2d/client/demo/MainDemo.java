@@ -43,7 +43,8 @@ public class MainDemo implements EntryPoint {
 		demos.add(new ColorDemo("Color Demo", demoPanel));
 		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
 		demos.add(new TetrisDemo("Tetris", demoPanel));
-		demos.add(new TextDemo("Text Demo", demoPanel));
+		demos.add(new TextDemo("Text and Shadow Demo", demoPanel));
+		demos.add(new PixelManipulatorDemo("Pixel Manipulator Demo", demoPanel));
 				
 		final ListBox listBox = new ListBox();
 		for (AbstractDemo demo : demos) {

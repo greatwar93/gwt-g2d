@@ -15,15 +15,17 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
+import gwt.canvas.client.Gradient;
+
 /**
  * Adapter for accessing the gradient interface.
  * 
  * @author hao1300@gmail.com
  */
 public class GradientAdapter {
-	private gwt.canvas.client.Gradient nativeGradient;
+	private Gradient nativeGradient;
 	
-	GradientAdapter(gwt.canvas.client.Gradient nativeGradient) {
+	GradientAdapter(Gradient nativeGradient) {
 		this.nativeGradient = nativeGradient;
 	}
 	
@@ -37,7 +39,7 @@ public class GradientAdapter {
 	/**
 	 * Gets the underlying gradient implementation.
 	 */
-	gwt.canvas.client.Gradient getNativeGradient() {
+	Gradient getNativeGradient() {
 		return nativeGradient;
 	}
 }

@@ -16,6 +16,7 @@
 package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
@@ -489,11 +490,33 @@ public class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Create a new clipping region by calculating the intersection of the 
+	 * current clipping region and the area described by the rectangle, using 
+	 * the non-zero winding number rule.
+	 */
+	public Surface clipRectangle(double x, double y, double width, double height) {
+		canvas.rect(x, y, width, height);
+		canvas.clip();
+		return this;
+	}
+	
+	/**
+	 * Create a new clipping region by calculating the intersection of the 
+	 * current clipping region and the area described by the rectangle, using 
+	 * the non-zero winding number rule.
+	 */
+	public Surface clipRectangle(Rectangle rectangle) {
+		return clipRectangle(rectangle.getX(), rectangle.getY(), rectangle.getWidth(),
+				rectangle.getHeight());
+	}
+	
+	/**
 	 * Fills the specified shape using the fillStyle.
 	 */
 	public Surface fillShape(Shape shape) {
 		shape.draw(this);
-		return fill();
+		canvas.fill();
+		return this;
 	}
 	
 	/**
@@ -502,7 +525,19 @@ public class Surface extends FocusWidget {
 	 */
 	public Surface strokeShape(Shape shape) {
 		shape.draw(this);
-		return stroke();
+		canvas.stroke();
+		return this;
+	}
+	
+	/**
+	 * Create a new clipping region by calculating the intersection of the 
+	 * current clipping region and the area described by the given shape, using 
+	 * the non-zero winding number rule.
+	 */
+	public Surface clipShape(Shape shape) {
+		shape.draw(this);
+		canvas.clip();
+		return this;
 	}
 	
 	/**
@@ -526,26 +561,6 @@ public class Surface extends FocusWidget {
 	 */
 	public Surface clear() {
 		canvas.clear();
-		return this;
-	}
-	
-	/**
-	 * Paints the area within the current path.
-	 * 
-	 * @return self to support chaining.
-	 */
-	public Surface fill() {
-		canvas.fill();
-		return this;
-	}
-	
-	/**
-	 * Paints a line along the current path.
-	 * 
-	 * @return self to support chaining.
-	 */
-	public Surface stroke() {
-		canvas.stroke();
 		return this;
 	}
 	
@@ -640,6 +655,139 @@ public class Surface extends FocusWidget {
 				sourceRectangle.getWidth(), sourceRectangle.getHeight(),
 				destinationRectangle.getX(), destinationRectangle.getY(), 
 				destinationRectangle.getWidth(), destinationRectangle.getHeight());
+	}
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * width x height.
+	 * 
+	 * @param width
+	 * @param height
+	 * @return a new ImageData object.
+	 */
+	public ImageDataAdapter createImageData(int width, int height) {
+		return canvas.createImageData(width, height);
+	}
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * the dimension given, where (x, y) represents (width, height).
+	 * 
+	 * @param dimension
+	 * @return a new ImageData object.
+	 */
+	public ImageDataAdapter createImageData(Vector2 dimension) {
+		return createImageData(dimension.getIntX(), dimension.getIntY());
+	}
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * the given imageData.
+	 * 
+	 * @param imageData
+	 * @return a new ImageData object.
+	 */
+	public ImageDataAdapter createImageData(ImageDataAdapter imageData) {
+		return canvas.createImageData(imageData);
+	}
+
+	/**
+	 * Returns an ImageData object representing the underlying pixel data for the 
+	 * area of the canvas denoted by the rectangle whose corners are the four 
+	 * points (x, y), (x + width, y), (x + width, y + height), (x, y + height), 
+	 * in canvas coordinate space units. Pixels outside the canvas must be 
+	 * returned as transparent black. Pixels must be returned as 
+	 * non-premultiplied alpha values.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @return
+	 */
+	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
+		return canvas.getImageData(x, y, width, height);
+	}
+	
+	/**
+	 * Returns an ImageData object representing the underlying pixel data for the 
+	 * area of the canvas denoted by the given rectangle, in canvas coordinate 
+	 * space units. Pixels outside the canvas must be returned as transparent 
+	 * black. Pixels must be returned as non-premultiplied alpha values.
+	 * 
+	 * @param rect
+	 * @return
+	 */
+	public ImageDataAdapter getImageData(Rectangle rect) {
+		return getImageData(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+	}
+	
+	/**
+	 * <p>Paints the data from the given ImageData object onto the canvas. Only 
+	 * the pixels from the dirty rectangle are painted.</p>
+	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
+	 * shadow attributes, are ignored for the purposes of this method call; 
+	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * blending, no shadows, etc.</p>
+	 * 
+	 * @param imageData
+	 * @param x
+	 * @param y
+	 * @param dirtyX
+	 * @param dirtyY
+	 * @param dirtyWidth
+	 * @param dirtyHeight
+	 */
+	public void putImageData(ImageDataAdapter imageData, double x, double y, 
+			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) {
+		canvas.putImageData(imageData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+	}
+	
+	/**
+	 * <p>Paints the data from the given ImageData object onto the canvas. Only 
+	 * the pixels from the dirty rectangle are painted.</p>
+	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
+	 * shadow attributes, are ignored for the purposes of this method call; 
+	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * blending, no shadows, etc.</p>
+	 * 
+	 * @param imageData
+	 * @param position
+	 * @param dirtyRect
+	 */
+	public void putImageData(ImageDataAdapter imageData, Vector2 position, 
+			Rectangle dirtyRect) {
+		canvas.putImageData(imageData, position.getX(), position.getY(),
+				dirtyRect.getX(), dirtyRect.getY(), dirtyRect.getWidth(), dirtyRect.getHeight());
+	}
+	
+	/**
+	 * <p>Paints the data from the given ImageData object onto the canvas.</p>
+	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
+	 * shadow attributes, are ignored for the purposes of this method call; 
+	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * blending, no shadows, etc.</p>
+	 * 
+	 * @param imageData
+	 * @param x
+	 * @param y
+	 */
+	public void putImageData(ImageDataAdapter imageData, double x, double y) {
+		putImageData(imageData, x, y, 0, 0, imageData.getWidth(), imageData.getHeight());
+	}
+	
+	/**
+	 * <p>Paints the data from the given ImageData object onto the canvas.</p>
+	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
+	 * shadow attributes, are ignored for the purposes of this method call; 
+	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * blending, no shadows, etc.</p>
+	 * 
+	 * @param imageData
+	 * @param position
+	 */
+	public void putImageData(ImageDataAdapter imageData, Vector2 position) {
+		putImageData(imageData, position.getX(), position.getY());
 	}
 	
 	/**
@@ -751,5 +899,98 @@ public class Surface extends FocusWidget {
 	 */
 	public double measureText(String text) {
 		return canvas.measureText(text);
+	}
+	
+	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * horizontal direction.
+	 * 
+	 * @param shadowOffsetX
+	 */
+	public Surface setShadowOffsetX(double shadowOffsetX) {
+		canvas.setShadowOffsetX(shadowOffsetX);
+		return this;
+	}
+	
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * horizontal direction.
+	 * 
+	 * @return
+	 */
+	public double getShadowOffsetX() {
+		return canvas.getShadowOffsetX();		
+	}
+
+	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * vertical direction.
+	 * 
+	 * @param shadowOffsetY
+	 */
+	public Surface setShadowOffsetY(double shadowOffsetY) {
+		canvas.setShadowOffsetY(shadowOffsetY);
+		return this;
+	}
+
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * vertical direction.
+	 * 
+	 * @return
+	 */
+	public double getShadowOffsetY() {
+		return canvas.getShadowOffsetY();
+	}
+	
+	/**
+	 * Sets the distance that the shadow will be offset in the positive 
+	 * horizontal and vertical direction.
+	 * 
+	 * @param shadowOffset
+	 */
+	public Surface setShadowOffset(Vector2 shadowOffset) {
+		canvas.setShadowOffsetX(shadowOffset.getX());
+		canvas.setShadowOffsetY(shadowOffset.getY());
+		return this;
+	}
+
+	/**
+	 * Gets the distance that the shadow will be offset in the positive
+	 * horizontal and vertical direction.
+	 * 
+	 * @return
+	 */
+	public Vector2 getShadowOffset() {
+		return new Vector2(canvas.getShadowOffsetX(), canvas.getShadowOffsetY());
+	}
+	
+	/**
+	 * Gets the size of the blurring effect.
+	 * 
+	 * @param shadowBlur
+	 */
+	public Surface setShadowBlur(double shadowBlur) {
+		canvas.setShadowBlur(shadowBlur);
+		return this;
+	}
+	
+	/**
+	 * Gets the size of the blurring effect.
+	 * 	
+	 * @return
+	 */
+	public double getShadowBlur() {
+		return canvas.getShadowBlur();
+	}
+
+	/**
+	 * Sets the color of the shadow.
+	 * 
+	 * @param shadowColor
+	 */
+	public Surface setShadowColor(Color shadowColor) {
+		canvas.setShadowColor(shadowColor.getColorCode());
+		return this;
 	}
 }
