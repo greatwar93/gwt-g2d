@@ -15,23 +15,26 @@
  */
 package gwt.g2d.client.demo;
 
+import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.KnownColor;
+import gwt.g2d.client.graphics.LinearGradient;
 import gwt.g2d.client.graphics.TextBaseline;
+import gwt.g2d.client.math.Vector2;
 
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
- * Demo for rendering text.
  * Reference: <a href=
  * "http://dev.opera.com/articles/view/html-5-canvas-the-basics">
  * http://dev.opera.com/articles/view/html-5-canvas-the-basics</a>
  * 
  * @author hao1300@gmail.com
  */
-public class TextDemo extends AbstractDemo {
-	public TextDemo(String demoName, Panel parentContainer) {
+public class GradientDemo extends AbstractDemo {
+
+	public GradientDemo(String demoName, Panel parentContainer) {
 		super(demoName, parentContainer);
 	}
 
@@ -43,17 +46,42 @@ public class TextDemo extends AbstractDemo {
 		getParentContainer().add(new Anchor(
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics",
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics"));
-		getPrimarySurface().clear()
-				.setFillStyle(KnownColor.BLUE)
-				.setFont("italic 30px sans-serif")
-				.setTextBaseline(TextBaseline.TOP)
-				.fillText("Hello World!", 0, 20)
-				.setFont("bold 30px sans-serif")
-				.strokeText("Hello World", 0, 50);
+		getPrimarySurface().clear();
+		// The hue spectrum used by HSV color picker charts.
+		Color[] hue = { KnownColor.RED, 
+				KnownColor.YELLOW,
+				KnownColor.GREEN,
+				KnownColor.CYAN,
+				KnownColor.BLUE,
+				KnownColor.MAGENTA,
+				KnownColor.RED };
+
+		LinearGradient gradient = new LinearGradient(0, 0, 220, 0);
+		
+	// Add the color stops.
+		for (int i = 0; i < hue.length; i++) {
+			gradient.addColorStop(i / 6.0, hue[i]);
+		}
+	
+		// Use the gradient for the fillStyle.
+		getPrimarySurface().setFillStyle(gradient)
+		
+				// Now let's draw a rectangle with a black shadow.
+				.setShadowOffset(new Vector2(5, 5))
+				.setShadowBlur(4)
+				.setShadowColor(new Color(0, 0, 0, .5))
+				.fillRectangle(5, 5, 200, 100)
+				
+		    // For effect, let's also draw some text: "Hello world!".
+		    .setFont("bold 36px sans-serif")
+		    .setTextBaseline(TextBaseline.TOP)
+		    .fillText("Hello world!", 5, 120, 200)
+
+		    .setStrokeStyle(KnownColor.GRAY)
+		    .strokeText("Hello world!", 5, 120, 200);		       
 	}
 
 	@Override
 	public void update() {
-
 	}
 }

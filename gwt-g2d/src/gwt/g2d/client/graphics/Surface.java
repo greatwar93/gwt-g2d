@@ -885,6 +885,15 @@ public class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Renders the given text at the given (x, y), ensuring that the text is
+	 * not wider than maxWidth.
+	 */
+	public Surface strokeText(String text, double x, double y, double maxWidth) {
+		canvas.strokeText(text, x, y, maxWidth);
+		return this;
+	}
+	
+	/**
 	 * Renders the given text at the given position, ensuring that the text is
 	 * not wider than maxWidth.
 	 */

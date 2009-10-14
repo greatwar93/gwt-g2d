@@ -55,7 +55,7 @@ public class CanvasPixelArray {
 	 * next pixel to the right of the top left pixel.
 	 * @param data the color value at the given index.
 	 */
-	public native void setData(int index, byte data) /*-{
+	public native void setData(int index, int data) /*-{
 		this.@gwt.canvas.client.CanvasPixelArray::pixelArray[index] = data;
 	}-*/;
 }

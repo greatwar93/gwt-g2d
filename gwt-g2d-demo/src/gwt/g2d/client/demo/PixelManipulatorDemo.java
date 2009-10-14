@@ -36,8 +36,8 @@ public class PixelManipulatorDemo extends AbstractDemo {
 		getParentContainer().add(getPrimarySurface());
 		getPrimarySurface().fillBackground(KnownColor.BLUE);
 		ImageDataAdapter imageData = getPrimarySurface().getImageData(0, 0, 100, 100);
-		for (int r = 0; r < imageData.getHeight(); r++) {
-			for (int c = 0; c < imageData.getWidth(); c++) {
+		for (int r = 0; r < imageData.getWidth(); r++) {
+			for (int c = 0; c < imageData.getHeight(); c++) {
 				imageData.setColor(r, c, KnownColor.GOLD);
 			}
 		}

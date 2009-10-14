@@ -15,23 +15,24 @@
  */
 package gwt.g2d.client.demo;
 
+import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.KnownColor;
-import gwt.g2d.client.graphics.TextBaseline;
+import gwt.g2d.client.math.Vector2;
 
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
- * Demo for rendering text.
+ * Demo for rendering shadow.
  * Reference: <a href=
  * "http://dev.opera.com/articles/view/html-5-canvas-the-basics">
  * http://dev.opera.com/articles/view/html-5-canvas-the-basics</a>
  * 
  * @author hao1300@gmail.com
  */
-public class TextDemo extends AbstractDemo {
-	public TextDemo(String demoName, Panel parentContainer) {
+public class ShadowDemo extends AbstractDemo {
+	public ShadowDemo(String demoName, Panel parentContainer) {
 		super(demoName, parentContainer);
 	}
 
@@ -44,12 +45,11 @@ public class TextDemo extends AbstractDemo {
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics",
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics"));
 		getPrimarySurface().clear()
+				.setShadowOffset(new Vector2(5, 5))
+				.setShadowBlur(4)
+				.setShadowColor(new Color(255, 0, 0, .5))
 				.setFillStyle(KnownColor.BLUE)
-				.setFont("italic 30px sans-serif")
-				.setTextBaseline(TextBaseline.TOP)
-				.fillText("Hello World!", 0, 20)
-				.setFont("bold 30px sans-serif")
-				.strokeText("Hello World", 0, 50);
+				.fillRectangle(20, 20, 150, 100);
 	}
 
 	@Override
