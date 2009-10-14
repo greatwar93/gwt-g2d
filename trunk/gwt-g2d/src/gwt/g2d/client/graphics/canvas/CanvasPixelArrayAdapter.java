@@ -58,7 +58,7 @@ public class CanvasPixelArrayAdapter {
 	 * next pixel to the right of the top left pixel.
 	 * @param data the color value at the given index.
 	 */
-	public void setData(int index, byte data) {
+	public void setData(int index, int data) {
 		nativeCanvasPixelArray.setData(index, data);
 	}
 	

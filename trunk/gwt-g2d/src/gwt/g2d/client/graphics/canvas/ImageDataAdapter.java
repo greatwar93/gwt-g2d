@@ -170,10 +170,10 @@ public class ImageDataAdapter {
 	 */
 	public void setColor(int x, int y, Color color) {
 		int index = getIndex(x, y);
-		canvasPixelArrayAdapter.setData(index, (byte) color.getR());
-		canvasPixelArrayAdapter.setData(index + 1, (byte) color.getG());
-		canvasPixelArrayAdapter.setData(index + 2, (byte) color.getB());
-		canvasPixelArrayAdapter.setData(index + 3, (byte) (color.getAlpha() * 255));
+		canvasPixelArrayAdapter.setData(index, color.getR());
+		canvasPixelArrayAdapter.setData(index + 1, color.getG());
+		canvasPixelArrayAdapter.setData(index + 2, color.getB());
+		canvasPixelArrayAdapter.setData(index + 3, (int) (color.getAlpha() * 255));
 	}
 	
 	/**
@@ -196,7 +196,7 @@ public class ImageDataAdapter {
 	 * @return
 	 */
 	public void setRed(int x, int y, int value) {
-		canvasPixelArrayAdapter.setData(getIndex(x, y), (byte) value);
+		canvasPixelArrayAdapter.setData(getIndex(x, y), value);
 	}
 	
 	/**
@@ -219,7 +219,7 @@ public class ImageDataAdapter {
 	 * @return
 	 */
 	public void setGreen(int x, int y, int value) {
-		canvasPixelArrayAdapter.setData(getIndex(x, y) + 1, (byte) value);
+		canvasPixelArrayAdapter.setData(getIndex(x, y) + 1, value);
 	}
 	
 	/**
@@ -242,7 +242,7 @@ public class ImageDataAdapter {
 	 * @return
 	 */
 	public void setBlue(int x, int y, int value) {
-		canvasPixelArrayAdapter.setData(getIndex(x, y) + 2, (byte) value);
+		canvasPixelArrayAdapter.setData(getIndex(x, y) + 2, value);
 	}
 	
 	/**
@@ -265,7 +265,7 @@ public class ImageDataAdapter {
 	 * @return
 	 */
 	public void setAlpha(int x, int y, int value) {
-		canvasPixelArrayAdapter.setData(getIndex(x, y) + 3, (byte) value);
+		canvasPixelArrayAdapter.setData(getIndex(x, y) + 3, value);
 	}
 	
 	/**
