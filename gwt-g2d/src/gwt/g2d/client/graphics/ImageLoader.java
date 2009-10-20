@@ -48,6 +48,23 @@ public class ImageLoader {
   private static Set<ImageLoader> imageLoaders = new HashSet<ImageLoader>();
   
   /**
+   * Takes in an url String corresponding to the image needed to be loaded. 
+   * The onImagesLoaded() method in the specified CallBack
+   * object is invoked with an array of ImageElements corresponding to
+   * the where the first element of the array is the image requested.
+   * 
+   * @param url Array of urls for the images that need to be loaded
+   * @param cb CallBack object
+   */
+  public static void loadImages(String url, CallBack cb) {
+    ImageLoader il = new ImageLoader();
+    il.addHandle(il.prepareImage(url));
+    il.finalize(cb);
+    ImageLoader.imageLoaders.add(il);
+    il.images.get(0).setSrc(url);
+  }
+  
+  /**
    * Takes in an array of url Strings corresponding to the images needed to
    * be loaded. The onImagesLoaded() method in the specified CallBack
    * object is invoked with an array of ImageElements corresponding to
