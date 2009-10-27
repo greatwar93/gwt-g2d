@@ -23,4 +23,6 @@ The primary way to draw vector graphics is through the ShapeBuilder class. Calli
 For more examples, please look at the demos on svn.
 
 Please make sure that you have added gwt-g2d.jar to your build path, and the following line to your .gwt.xml file:
+{{{
 <inherits name='gwt.g2d.g2d'/>
+}}}
