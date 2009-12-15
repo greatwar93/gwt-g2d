@@ -30,9 +30,9 @@ public class Color implements Serializable {
 	protected static final double DEFAULT_ALPHA = 1.0;
 	
 	private static final long serialVersionUID = 5370658935618812361L;
-	private String colorCode;
-	private int red, green, blue;
-	private double alpha;
+	private final String colorCode;
+	private final int red, green, blue;
+	private final double alpha;
 	
 	/**
 	 * Constructor.
@@ -100,7 +100,7 @@ public class Color implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated color.
 	 */
-	public static Color lerp(Color value1, Color value2, double amount) {
+	public static final Color lerp(Color value1, Color value2, double amount) {
 		return new Color(
 				(int) MathHelper.lerp(value1.getR(), value2.getR(), amount),
 				(int) MathHelper.lerp(value1.getG(), value2.getG(), amount),
@@ -116,7 +116,7 @@ public class Color implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated color.
 	 */
-	public static Color smoothStep(Color value1, Color value2, double amount) {
+	public static final Color smoothStep(Color value1, Color value2, double amount) {
 		return new Color(
 				(int) MathHelper.smoothStep(value1.getR(), value2.getR(), amount),
 				(int) MathHelper.smoothStep(value1.getG(), value2.getG(), amount),
@@ -127,7 +127,7 @@ public class Color implements Serializable {
 	/**
 	 * Gets the string representation of the color.
 	 */
-	public String getColorCode() {
+	public final String getColorCode() {
 		return colorCode;
 	}
 	
@@ -136,7 +136,7 @@ public class Color implements Serializable {
 	 * 
 	 * @return a value between 0 to 255, inclusive.
 	 */
-	public int getR() {
+	public final int getR() {
 		return red;
 	}
 	
@@ -145,7 +145,7 @@ public class Color implements Serializable {
 	 * 
 	 * @return a value between 0 to 255, inclusive.
 	 */
-	public int getG() {
+	public final int getG() {
 		return green;
 	}
 	
@@ -154,7 +154,7 @@ public class Color implements Serializable {
 	 * 
 	 * @return a value between 0 to 255, inclusive.
 	 */
-	public int getB() {
+	public final int getB() {
 		return blue;
 	}
 	
@@ -163,34 +163,34 @@ public class Color implements Serializable {
 	 * 
 	 * @return a value between 0.0 to 1.0, inclusive.
 	 */
-	public double getAlpha() {
+	public final double getAlpha() {
 		return alpha;
 	}
 	
 	@Override
-	public String toString() {
+	public final String toString() {
 		return getColorCode();
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		return (obj instanceof Color) ? equals((Color) obj) : false;
 	}
 	
-	public boolean equals(Color rhs) {
+	public final boolean equals(Color rhs) {
 		return getR() == rhs.getR() && getG() == rhs.getG() && getB() == rhs.getB()
 				&& getAlpha() == rhs.getAlpha();
 	}
 	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return Arrays.hashCode(new double[]{getHexValue(getR(), getG(), getB()), getAlpha()});
 	}
 	
 	/**
 	 * Gets the integer value of the given rgb value.
 	 */
-	private int getHexValue(int r, int g, int b) {
+	private final int getHexValue(int r, int g, int b) {
 		return ((r << 16) & 0xFF0000) | ((g << 8) & 0xFF00) | (b & 0xFF);
 	}
 }

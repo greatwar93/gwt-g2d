@@ -32,7 +32,7 @@ import com.google.gwt.user.client.ui.FocusWidget;
  * 
  * @author hao1300@gmail.com
  */
-public class Surface extends FocusWidget {	
+public final class Surface extends FocusWidget {	
 	private final CanvasAdapter canvas;
 	
 	/**
@@ -43,7 +43,6 @@ public class Surface extends FocusWidget {
 	 */
 	public Surface(int width, int height) {
 		canvas = new CanvasAdapter(width, height);
-		setSize(width, height);
 		setElement(canvas.getElement());
 	}
 	

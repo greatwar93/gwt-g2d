@@ -46,7 +46,7 @@ public class LinearGradient extends Gradient {
 	}
 	
 	@Override
-	public GradientAdapter createGradientAdapter(CanvasAdapter canvas) {
+	public final GradientAdapter createGradientAdapter(CanvasAdapter canvas) {
 		return canvas.createLinearGradient(x0, y0, x1, y1);
 	}
 }

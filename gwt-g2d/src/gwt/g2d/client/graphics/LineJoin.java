@@ -15,7 +15,6 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.canvas.client.Canvas;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ public enum LineJoin {
 	/**
 	 * This value means that this is all that is rendered at joins.
 	 */
-	BEVEL(Canvas.BEVEL),
+	BEVEL("bevel"),
 	/**
 	 * This value means that a second filled triangle must (if it can given the 
 	 * miter length) be rendered at the join, with one line being the line 
@@ -45,14 +44,14 @@ public enum LineJoin {
 	 * length.
 	 * (This is the default {@link LineJoin} value).
 	 */
-	MITER(Canvas.MITER),
+	MITER("miter"),
 	/**
 	 * This value means that a filled arc connecting the two aforementioned 
 	 * corners of the join, abutting (and not overlapping) the aforementioned 
 	 * triangle, with the diameter equal to the line width and the origin at the 
 	 * point of the join, must be rendered at joins.
 	 */
-	ROUND(Canvas.ROUND);
+	ROUND("round");
 	
 	private final String lineJoinName;
 	

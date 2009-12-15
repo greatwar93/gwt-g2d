@@ -73,7 +73,7 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated vector.
 	 */
-	public static Vector2 catmullRom(Vector2 value1, Vector2 value2, Vector2 value3, 
+	public static final Vector2 catmullRom(Vector2 value1, Vector2 value2, Vector2 value3, 
 			Vector2 value4, double amount) {
     return new Vector2().mutableCatmullRom(value1, value2, value3, value4, amount);
   }
@@ -88,7 +88,7 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated vector.
 	 */
-	public static Vector2 hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, 
+	public static final Vector2 hermite(Vector2 value1, Vector2 tangent1, Vector2 value2, 
 			Vector2 tangent2, double amount) {
     return new Vector2().mutableHermite(value1, tangent1, value2, tangent2, amount);
   }
@@ -101,7 +101,7 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated vector.
 	 */
-	public static Vector2 lerp(Vector2 value1, Vector2 value2, double amount) {
+	public static final Vector2 lerp(Vector2 value1, Vector2 value2, double amount) {
     return new Vector2().mutableLerp(value1, value2, amount);
   }
 	
@@ -112,7 +112,7 @@ public class Vector2 implements Serializable {
 	 * @return a random vector that lies within a circle with (0, 0) as the 
 	 * 				 origin and the radius as given.
 	 */
-	public static Vector2 random(int radius) {
+	public static final Vector2 random(int radius) {
 		Vector2 vector = new Vector2(Math.random(), Math.random());
 		double radiusSquared = MathHelper.square(radius);
 		while (vector.lengthSquared() > radiusSquared) {
@@ -129,7 +129,7 @@ public class Vector2 implements Serializable {
 	 * @return a random vector whose x value is in [0, maxX), and y value is
 	 * 				 in [0, maxY)
 	 */
-	public static Vector2 random(double maxX, double maxY) {
+	public static final Vector2 random(double maxX, double maxY) {
 		return new Vector2(Math.random() * maxX, Math.random() * maxY);
 	}
 	
@@ -143,7 +143,7 @@ public class Vector2 implements Serializable {
 	 * @return a random vector whose x value is in [minX, maxX), and y value is
 	 * 				 in [minY, maxY)
 	 */
-	public static Vector2 random(double minX, double minY, double maxX, double maxY) {
+	public static final Vector2 random(double minX, double minY, double maxX, double maxY) {
 		return new Vector2(Math.random() * (maxX - minX) + minX,
 				Math.random() * (maxY - minY) + minY);
 	}
@@ -154,7 +154,7 @@ public class Vector2 implements Serializable {
 	 * @param rectangle
 	 * @return a new vector that lies inside the given rectangle.
 	 */
-	public static Vector2 random(Rectangle rectangle) {
+	public static final Vector2 random(Rectangle rectangle) {
 		return new Vector2(Math.random() * rectangle.getWidth() + rectangle.getX(),
 				Math.random() * rectangle.getHeight() + rectangle.getY());
 	}
@@ -164,7 +164,7 @@ public class Vector2 implements Serializable {
 	 * 
 	 * @return a random normalized vector.
 	 */
-	public static Vector2 randomNormalize() {
+	public static final Vector2 randomNormalize() {
 		Vector2 vector = random(1);
 		while (vector.getX() == 0 && vector.getY() == 0) {
 			vector = random(1);
@@ -180,35 +180,35 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated vector.
 	 */
-	public static Vector2 smoothStep(Vector2 value1, Vector2 value2, double amount) {
+	public static final Vector2 smoothStep(Vector2 value1, Vector2 value2, double amount) {
     return new Vector2().mutableSmoothStep(value1, value2, amount);
   }
 	
 	/**
 	 * Gets the x-coordinate.
 	 */
-	public double getX() {
+	public final double getX() {
 		return x;
 	}
 	
 	/**
 	 * Gets the x-coordinate as an integer.
 	 */
-	public int getIntX() {
+	public final int getIntX() {
 		return (int) getX();
 	}
 	
 	/**
 	 * Gets the y-coordinate.
 	 */
-	public double getY() {
+	public final double getY() {
 		return y;
 	}
 	
 	/**
 	 * Gets the y-coordinate as an integer.
 	 */
-	public int getIntY() {
+	public final int getIntY() {
 		return (int) getY();
 	}
 	
@@ -232,7 +232,7 @@ public class Vector2 implements Serializable {
 	 * @param x
 	 * @param y
 	 */
-	public void set(double x, double y) {
+	public final void set(double x, double y) {
 		setX(x);
 		setY(y);
 	}
@@ -243,7 +243,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector to add.
 	 * @return a new vector that is this + rhs. 
 	 */
-	public Vector2 add(Vector2 rhs) {
+	public final Vector2 add(Vector2 rhs) {
 		return new Vector2(getX() + rhs.getX(), getY() + rhs.getY());
 	}
 	
@@ -254,7 +254,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector to add.
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableAdd(Vector2 rhs) {
+	public final Vector2 mutableAdd(Vector2 rhs) {
 		setX(getX() + rhs.getX());
 		setY(getY() + rhs.getY());
 		return this;
@@ -266,7 +266,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector to subtract from this.
 	 * @return a new vector that is this - rhs. 
 	 */
-	public Vector2 subtract(Vector2 rhs) {
+	public final Vector2 subtract(Vector2 rhs) {
 		return new Vector2(getX() - rhs.getX(), getY() - rhs.getY());
 	}
 	
@@ -278,7 +278,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector to subtract from this.
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableSubtract(Vector2 rhs) {
+	public final Vector2 mutableSubtract(Vector2 rhs) {
 		setX(getX() - rhs.getX());
 		setY(getY() - rhs.getY());
 		return this;
@@ -290,7 +290,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector to multiply.
 	 * @return a new vector that is this * rhs. 
 	 */
-	public Vector2 multiply(Vector2 rhs) {
+	public final Vector2 multiply(Vector2 rhs) {
 		return new Vector2(getX() * rhs.getX(), getY() * rhs.getY());
 	}
 	
@@ -302,7 +302,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector to multiply.
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableMultiply(Vector2 rhs) {
+	public final Vector2 mutableMultiply(Vector2 rhs) {
 		setX(getX() * rhs.getX());
 		setY(getY() * rhs.getY());
 		return this;
@@ -314,7 +314,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector by which this is to be divided.
 	 * @return a new vector that is this / rhs. 
 	 */
-	public Vector2 divide(Vector2 rhs) {
+	public final Vector2 divide(Vector2 rhs) {
 		return new Vector2(getX() / rhs.getX(), getY() / rhs.getY());
 	}
 	
@@ -326,7 +326,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the vector by which this is to be divided.
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableDivide(Vector2 rhs) {
+	public final Vector2 mutableDivide(Vector2 rhs) {
 		setX(getX() / rhs.getX());
 		setY(getY() / rhs.getY());
 		return this;
@@ -340,7 +340,7 @@ public class Vector2 implements Serializable {
 	 * @param max
 	 * @return a new vector that is inside [min, max]
 	 */
-	public Vector2 clamp(Vector2 min, Vector2 max) {
+	public final Vector2 clamp(Vector2 min, Vector2 max) {
     return new Vector2(
         MathHelper.clamp(getX(), min.getX(), max.getX()),
         MathHelper.clamp(getY(), min.getY(), max.getY()));
@@ -354,7 +354,7 @@ public class Vector2 implements Serializable {
 	 * @param max
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutatableClamp(Vector2 min, Vector2 max) {
+	public final Vector2 mutatableClamp(Vector2 min, Vector2 max) {
 		setX(MathHelper.clamp(getX(), min.getX(), max.getX()));
     setY(MathHelper.clamp(getY(), min.getY(), max.getY()));
     return this;
@@ -366,7 +366,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return the dot product of this and rhs.
 	 */
-	public double dot(Vector2 rhs) {
+	public final double dot(Vector2 rhs) {
 		return getX() * rhs.getX() + getY() * rhs.getY();
 	}
 	
@@ -376,7 +376,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return the distance squared from this to rhs.
 	 */
-	public double distanceSquared(Vector2 rhs) {
+	public final double distanceSquared(Vector2 rhs) {
 		return square(getX() - rhs.getX()) + square(getY() - rhs.getY());
 	}
 	
@@ -386,7 +386,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return the distance from this to rhs.
 	 */
-	public double distance(Vector2 rhs) {
+	public final double distance(Vector2 rhs) {
 		return Math.sqrt(distanceSquared(rhs));
 	}
 	
@@ -395,7 +395,7 @@ public class Vector2 implements Serializable {
 	 * 
 	 * @return the length of this vector squared.
 	 */
-	public double lengthSquared() {
+	public final double lengthSquared() {
 		return square(getX()) + square(getY());
 	}
 	
@@ -404,7 +404,7 @@ public class Vector2 implements Serializable {
 	 * 
 	 * @return the length of this vector.
 	 */
-	public double length() {
+	public final double length() {
 		return Math.sqrt(lengthSquared());
 	}
 	
@@ -415,7 +415,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return a new vector whose x and y values are the max of this and rhs.
 	 */
-	public Vector2 max(Vector2 rhs) {
+	public final Vector2 max(Vector2 rhs) {
     return new Vector2(
         Math.max(getX(), rhs.getX()),
         Math.max(getY(), rhs.getY()));
@@ -428,7 +428,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableMax(Vector2 rhs) {
+	public final Vector2 mutableMax(Vector2 rhs) {
     setX(Math.max(getX(), rhs.getX()));
     setY(Math.max(getY(), rhs.getY()));
     return this;
@@ -441,7 +441,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return a new vector whose x and y values are the min of this and rhs.
 	 */
-	public Vector2 min(Vector2 rhs) {
+	public final Vector2 min(Vector2 rhs) {
     return new Vector2(
         Math.min(getX(), rhs.getX()),
         Math.min(getY(), rhs.getY()));
@@ -454,7 +454,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableMin(Vector2 rhs) {
+	public final Vector2 mutableMin(Vector2 rhs) {
     setX(Math.min(getX(), rhs.getX()));
     setY(Math.min(getY(), rhs.getY()));
     return this;
@@ -466,7 +466,7 @@ public class Vector2 implements Serializable {
 	 * @return a new vector whose x and y values have the opposite sign of this
 	 * 				 vector's x and y values.
 	 */
-	public Vector2 negate() {
+	public final Vector2 negate() {
       return new Vector2(-getX(), -getY());
   }
 
@@ -476,7 +476,7 @@ public class Vector2 implements Serializable {
 	 * 
 	 * @return self to support chaining.
 	 */
-  public Vector2 mutableNegate() {
+  public final Vector2 mutableNegate() {
       setX(-getX());
       setY(-getY());
       return this;
@@ -487,7 +487,7 @@ public class Vector2 implements Serializable {
    * 
    * @return a new vector that is the unit vector of this vector.
    */
-  public Vector2 normalize() {
+  public final Vector2 normalize() {
   	return this.scale(1.0 / length());
   }
 
@@ -497,7 +497,7 @@ public class Vector2 implements Serializable {
    * 
    * @return self to support chaining.
    */
-  public Vector2 mutableNormalize() {
+  public final Vector2 mutableNormalize() {
   	return this.mutableScale(1.0 / length());
   }
   
@@ -507,7 +507,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the value to scale this vector by.
 	 * @return a new vector that is this * rhs. 
 	 */
-	public Vector2 scale(double rhs) {
+	public final Vector2 scale(double rhs) {
 		return new Vector2(getX() * rhs, getY() * rhs);
 	}
 	
@@ -518,7 +518,7 @@ public class Vector2 implements Serializable {
 	 * @param rhs the value to scale this vector by.
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableScale(double rhs) {
+	public final Vector2 mutableScale(double rhs) {
 		setX(getX() * rhs);
 		setY(getY() * rhs);
 		return this;
@@ -535,7 +535,7 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableCatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, 
+	public final Vector2 mutableCatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, 
 			Vector2 value4, double amount) {
     setX(MathHelper.catmullRom(value1.getX(), value2.getX(), value3.getX(), 
     		value4.getX(), amount));
@@ -555,7 +555,7 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableHermite(Vector2 value1, Vector2 tangent1, 
+	public final Vector2 mutableHermite(Vector2 value1, Vector2 tangent1, 
 			Vector2 value2, Vector2 tangent2, double amount) {
     setX(MathHelper.hermite(value1.getX(), tangent1.getX(), value2.getX(), 
     		tangent2.getX(), amount));
@@ -573,7 +573,7 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return self to support chaining.
 	 */
-	public Vector2 mutableLerp(Vector2 value1, Vector2 value2, double amount) {
+	public final Vector2 mutableLerp(Vector2 value1, Vector2 value2, double amount) {
     setX(MathHelper.lerp(value1.getX(), value2.getX(), amount));
     setY(MathHelper.lerp(value1.getY(), value2.getY(), amount));
     return this;
@@ -589,23 +589,23 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated vector.
 	 */
-	public Vector2 mutableSmoothStep(Vector2 value1, Vector2 value2, double amount) {
+	public final Vector2 mutableSmoothStep(Vector2 value1, Vector2 value2, double amount) {
     setX(MathHelper.smoothStep(value1.getX(), value2.getX(), amount));
     setY(MathHelper.smoothStep(value1.getY(), value2.getY(), amount));
     return this;
   }
 	
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		return (obj instanceof Vector2) ? equals((Vector2) obj) : false;
 	}
 	
-	public boolean equals(Vector2 rhs) {
+	public final boolean equals(Vector2 rhs) {
 		return getX() == rhs.getX() && getY() == rhs.getY();
 	}
 	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return Arrays.hashCode(new double[]{getX(), getY()});
 	}
 	

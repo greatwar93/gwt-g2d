@@ -32,7 +32,7 @@ public class Cycle {
 	 * 
 	 * @return true if the cycle has completed.
 	 */
-	public boolean cycleTick() {
+	public final boolean cycleTick() {
 		if (countDown.isCompleted() && (numCycle != 0)) {
 			countDown.reset();
 			if (numCycle > 0) {
@@ -45,7 +45,7 @@ public class Cycle {
 	/**
 	 * Resets the count down in this cycle.
 	 */
-	public void resetTick() {
+	public final void resetTick() {
 		countDown.reset();
 	}
 }

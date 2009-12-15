@@ -48,7 +48,7 @@ public class ShapeBuilder {
 	 * @param shapeVisitor the shape visitor to be added.
 	 * @return self to support chaining.
 	 */
-	public ShapeBuilder append(ShapeVisitor shapeVisitor) {
+	public final ShapeBuilder append(ShapeVisitor shapeVisitor) {
 		shapes.add(shapeVisitor);
 		return this;
 	}
@@ -56,35 +56,35 @@ public class ShapeBuilder {
 	/**
 	 * @see MoveToVisitor#MoveToVisitor(double, double)
 	 */
-	public ShapeBuilder moveTo(double x, double y) {
+	public final ShapeBuilder moveTo(double x, double y) {
 		return append(new MoveToVisitor(x, y));
 	}
 	
 	/**
 	 * @see MoveToVisitor#MoveToVisitor(Vector2)
 	 */
-	public ShapeBuilder moveTo(Vector2 position) {
+	public final ShapeBuilder moveTo(Vector2 position) {
 		return append(new MoveToVisitor(position));
 	}
 	
 	/**
 	 * @see LineToVisitor#LineToVisitor(double, double)
 	 */
-	public ShapeBuilder drawLineTo(double x, double y) {
+	public final ShapeBuilder drawLineTo(double x, double y) {
 		return append(new LineToVisitor(x, y));
 	}
 	
 	/**
 	 * @see LineToVisitor#LineToVisitor(Vector2)
 	 */
-	public ShapeBuilder drawLineTo(Vector2 position) {
+	public final ShapeBuilder drawLineTo(Vector2 position) {
 		return append(new LineToVisitor(position));
 	}
 	
 	/**
 	 * @see LineSegmentVisitor#LineSegmentVisitor(double, double, double, double)
 	 */
-	public ShapeBuilder drawLineSegment(double fromX, double fromY, double toX, 
+	public final ShapeBuilder drawLineSegment(double fromX, double fromY, double toX, 
 			double toY) {
 		return append(new LineSegmentVisitor(fromX, fromY, toX, toY));
 	}
@@ -92,14 +92,14 @@ public class ShapeBuilder {
 	/**
 	 * @see LineSegmentVisitor#LineSegmentVisitor(Vector2, Vector2)
 	 */
-	public ShapeBuilder drawLineSegment(Vector2 fromPosition, Vector2 toPosition) {
+	public final ShapeBuilder drawLineSegment(Vector2 fromPosition, Vector2 toPosition) {
 		return append(new LineSegmentVisitor(fromPosition, toPosition));
 	}
 	
 	/**
 	 * @see ArcVisitor#ArcVisitor(double, double, double, double, double, boolean)
 	 */
-	public ShapeBuilder drawArc(double x, double y, double radius, 
+	public final ShapeBuilder drawArc(double x, double y, double radius, 
 			double startAngle, double endAngle, boolean antiClockwise) {
 		return append(new ArcVisitor(x, y, radius, startAngle, endAngle, antiClockwise));
 	}
@@ -107,7 +107,7 @@ public class ShapeBuilder {
 	/**
 	 * @see ArcVisitor#ArcVisitor(Vector2, double, double, double, boolean)
 	 */
-	public ShapeBuilder drawArc(Vector2 position, double radius, double startAngle,
+	public final ShapeBuilder drawArc(Vector2 position, double radius, double startAngle,
 			double endAngle, boolean antiClockwise) {
 		return append(new ArcVisitor(position, radius, startAngle, endAngle, 
 				antiClockwise));
@@ -116,28 +116,28 @@ public class ShapeBuilder {
 	/**
 	 * @see ArcVisitor#ArcVisitor(Arc)
 	 */
-	public ShapeBuilder drawArc(Arc arc) {
+	public final ShapeBuilder drawArc(Arc arc) {
 		return append(new ArcVisitor(arc));
 	}
 	
 	/**
 	 * @see CircleVisitor#CircleVisitor(double, double, double)
 	 */
-	public ShapeBuilder drawCircle(double x, double y, double radius) {
+	public final ShapeBuilder drawCircle(double x, double y, double radius) {
 		return append(new CircleVisitor(x, y, radius));
 	}
 	
 	/**
 	 * @see CircleVisitor#CircleVisitor(Vector2, double)
 	 */
-	public ShapeBuilder drawCircle(Vector2 center, double radius) {
+	public final ShapeBuilder drawCircle(Vector2 center, double radius) {
 		return append(new CircleVisitor(center, radius));
 	}
 	
 	/**
 	 * @see CircleVisitor#CircleVisitor(Circle)
 	 */
-	public ShapeBuilder drawCircle(Circle circle) {
+	public final ShapeBuilder drawCircle(Circle circle) {
 		return append(new CircleVisitor(circle));
 	}
 	
@@ -145,7 +145,7 @@ public class ShapeBuilder {
 	 * @see CubicCurveToVisitor#CubicCurveToVisitor(double, double, double, 
 	 * double, double, double)
 	 */
-	public ShapeBuilder drawCubicCurveTo(double controlPoint1X, double controlPoint1Y, 
+	public final ShapeBuilder drawCubicCurveTo(double controlPoint1X, double controlPoint1Y, 
 			double controlPoint2X, double controlPoint2Y, double endPointX, double endPointY) {
 		return append(new CubicCurveToVisitor(controlPoint1X, controlPoint1Y, 
 				controlPoint2X, controlPoint2Y, 
@@ -155,7 +155,7 @@ public class ShapeBuilder {
 	/**
 	 * @see CubicCurveToVisitor#CubicCurveToVisitor(Vector2, Vector2, Vector2)
 	 */
-	public ShapeBuilder drawCubicCurveTo(Vector2 controlPoint1, Vector2 controlPoint2, 
+	public final ShapeBuilder drawCubicCurveTo(Vector2 controlPoint1, Vector2 controlPoint2, 
 			Vector2 endPoint) {
 		return append(new CubicCurveToVisitor(controlPoint1, controlPoint2, endPoint));
 	}
@@ -164,7 +164,7 @@ public class ShapeBuilder {
 	 * @see CubicCurveVisitor#CubicCurveVisitor(Vector2, Vector2, Vector2, 
 	 * Vector2)
 	 */
-	public ShapeBuilder drawCubicCurve(double startPointX, double startPointY,
+	public final ShapeBuilder drawCubicCurve(double startPointX, double startPointY,
 			double controlPoint1X, double controlPoint1Y, 
 			double controlPoint2X, double controlPoint2Y, 
 			double endPointX, double endPointY) {
@@ -178,7 +178,7 @@ public class ShapeBuilder {
 	 * @see CubicCurveVisitor#CubicCurveVisitor(double, double, double, double, 
 	 * double, double, double, double)
 	 */
-	public ShapeBuilder drawCubicCurve(Vector2 startPoint, Vector2 controlPoint1, 
+	public final ShapeBuilder drawCubicCurve(Vector2 startPoint, Vector2 controlPoint1, 
 			Vector2 controlPoint2, Vector2 endpoint) {
 		return append(new CubicCurveVisitor(startPoint, controlPoint1, 
 				controlPoint2, endpoint));
@@ -188,7 +188,7 @@ public class ShapeBuilder {
 	 * @see QuadraticCurveToVisitor#QuadraticCurveToVisitor(double, double, 
 	 * double, double)
 	 */
-	public ShapeBuilder drawQuadraticCurveTo(double controlPointX, 
+	public final ShapeBuilder drawQuadraticCurveTo(double controlPointX, 
 			double controlPointY, double endPointX, double endPointY) {
 		return append(new QuadraticCurveToVisitor(controlPointX, controlPointY, 
 				endPointX, endPointY));
@@ -197,7 +197,7 @@ public class ShapeBuilder {
 	/**
 	 * @see QuadraticCurveToVisitor#QuadraticCurveToVisitor(Vector2, Vector2)
 	 */
-	public ShapeBuilder drawQuadraticCurveTo(Vector2 controlPoint, Vector2 endPoint) {
+	public final ShapeBuilder drawQuadraticCurveTo(Vector2 controlPoint, Vector2 endPoint) {
 		return append(new QuadraticCurveToVisitor(controlPoint, endPoint));
 
 	}
@@ -206,7 +206,7 @@ public class ShapeBuilder {
 	 * @see QuadraticCurveVisitor#QuadraticCurveVisitor(double, double, double, 
 	 * double, double, double)
 	 */
-	public ShapeBuilder drawQuadraticCurveTo(double startPointX, double startPointY,
+	public final ShapeBuilder drawQuadraticCurveTo(double startPointX, double startPointY,
 			double controlPointX, double controlPointY, double endPointX, double endPointY) {
 		return append(new QuadraticCurveVisitor(startPointX, startPointY, 
 				controlPointX, controlPointY, endPointX, endPointY));
@@ -215,7 +215,7 @@ public class ShapeBuilder {
 	/**
 	 * @see QuadraticCurveVisitor#QuadraticCurveVisitor(Vector2, Vector2, Vector2)
 	 */
-	public ShapeBuilder drawQuadraticCurve(Vector2 startPoint, Vector2 controlPoint, 
+	public final ShapeBuilder drawQuadraticCurve(Vector2 startPoint, Vector2 controlPoint, 
 			Vector2 endPoint) {
 		return append(new QuadraticCurveVisitor(startPoint, controlPoint, endPoint));
 	}
@@ -223,16 +223,16 @@ public class ShapeBuilder {
 	/**
 	 * Builds the customized shape.
 	 */
-	public Shape build() {
+	public final Shape build() {
 		return new CustomShape();
 	}
 	
 	/**
 	 * Represents a custom shape.
 	 */
-	public class CustomShape extends Shape {
+	public final class CustomShape extends Shape {
 		@Override
-		public void draw(Surface surface) {
+		public final void draw(Surface surface) {
 			CanvasAdapter canvas = surface.getCanvas();
 			canvas.beginPath();
 			for (ShapeVisitor shape : shapes) {

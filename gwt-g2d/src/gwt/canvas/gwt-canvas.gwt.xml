@@ -27,24 +27,6 @@
 		</any>
 	</replace-with>
 
-	<replace-with class='gwt.canvas.client.impl.CanvasImplSafari'>
-		<when-type-is class='gwt.canvas.client.impl.CanvasImpl'/>
-		<when-property-is name='user.agent' value='safari'/>
-	</replace-with>
-
-	<replace-with class='gwt.canvas.client.impl.CanvasImplOpera'>
-		<when-type-is class='gwt.canvas.client.impl.CanvasImpl'/>
-		<when-property-is name='user.agent' value='opera'/>
-	</replace-with>
-
-	<replace-with class='gwt.canvas.client.impl.CanvasImplMozilla'>
-		<when-type-is class='gwt.canvas.client.impl.CanvasImpl'/>
-		<any>
-			<when-property-is name='user.agent' value='gecko'/>
-			<when-property-is name='user.agent' value='gecko1_8'/>
-		</any>
-	</replace-with>
-
 	<script src='excanvas.js'/>
 	<source path='client'/>
 

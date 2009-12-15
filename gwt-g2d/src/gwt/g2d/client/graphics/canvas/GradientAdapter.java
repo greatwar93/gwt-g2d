@@ -15,7 +15,7 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-import gwt.canvas.client.Gradient;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Adapter for accessing the gradient interface.
@@ -23,23 +23,24 @@ import gwt.canvas.client.Gradient;
  * @author hao1300@gmail.com
  */
 public class GradientAdapter {
-	private Gradient nativeGradient;
+	private final JavaScriptObject nativeGradient;
 	
-	GradientAdapter(Gradient nativeGradient) {
+	GradientAdapter(JavaScriptObject nativeGradient) {
 		this.nativeGradient = nativeGradient;
 	}
 	
 	/**
 	 * Adds a color stop to the native gradient.
 	 */
-	public void addColorStop(double offset, String color) {
-		nativeGradient.addColorStop(offset, color);
-	}
+	public native void addColorStop(double offset, String color) /*-{
+		this.@gwt.g2d.client.graphics.canvas.GradientAdapter::nativeGradient.addColorStop(
+				offset, color);
+	}-*/;
 	
 	/**
 	 * Gets the underlying gradient implementation.
 	 */
-	Gradient getNativeGradient() {
+	final JavaScriptObject getNativeGradient() {
 		return nativeGradient;
 	}
 }

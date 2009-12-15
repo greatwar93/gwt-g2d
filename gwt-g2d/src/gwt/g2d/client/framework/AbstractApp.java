@@ -45,7 +45,7 @@ public abstract class AbstractApp {
 	/**
 	 * Gets the primary surface for the application.
 	 */
-	public Surface getPrimarySurface() {
+	public final Surface getPrimarySurface() {
 		return primarySurface;
 	}
 	

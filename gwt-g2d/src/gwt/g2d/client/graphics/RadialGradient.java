@@ -61,7 +61,7 @@ public class RadialGradient extends Gradient {
 	}
 	
 	@Override
-	public GradientAdapter createGradientAdapter(CanvasAdapter canvas) {
+	public final GradientAdapter createGradientAdapter(CanvasAdapter canvas) {
 		return canvas.createRadialGradient(x0, y0, radius0, x1, y1, radius1);
 	}
 }

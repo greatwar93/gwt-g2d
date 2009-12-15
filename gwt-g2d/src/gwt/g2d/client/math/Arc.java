@@ -70,28 +70,28 @@ public class Arc extends Circle {
 	/**
 	 * Gets the starting angle of the arc.
 	 */
-	public double getStartAngle() {
+	public final double getStartAngle() {
 		return startAngle;
 	}
 	
 	/**
 	 * Sets the starting angle of the arc.
 	 */
-	public void setStartAngle(double startAngle) {
+	public final void setStartAngle(double startAngle) {
 		this.startAngle = startAngle;
 	}
 	
 	/**
 	 * Gets the ending angle of the arc.
 	 */
-	public double getEndAngle() {
+	public final double getEndAngle() {
 		return endAngle;
 	}
 	
 	/**
 	 * Sets the ending angle of the arc.
 	 */
-	public void setEndAngle(double endAngle) {
+	public final void setEndAngle(double endAngle) {
 		this.endAngle = endAngle;
 	}
 	
@@ -99,7 +99,7 @@ public class Arc extends Circle {
 	 * Gets whether the start angle to the end angle should be considered as
 	 * anticlockwise direction.
 	 */
-	public boolean isAnticlockwise() {
+	public final boolean isAnticlockwise() {
 		return anticlockwise;
 	}
 	
@@ -107,14 +107,14 @@ public class Arc extends Circle {
 	 * Sets whether the start angle to the end angle should be considered as 
 	 * anticlockwise direction.
 	 */
-	public void setAnticlockwise(boolean anticlockwise) {
+	public final void setAnticlockwise(boolean anticlockwise) {
 		this.anticlockwise = anticlockwise;
 	}
 	
 	/**
 	 * Offset both the start angle and the end angle by the given amount.
 	 */
-	public void offsetAngle(double angle) {
+	public final void offsetAngle(double angle) {
 		this.startAngle += angle;
 		this.endAngle += angle;
 	}
