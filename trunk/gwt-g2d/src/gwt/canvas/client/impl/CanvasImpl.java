@@ -16,12 +16,9 @@
 
 package gwt.canvas.client.impl;
 
-import gwt.canvas.client.Gradient;
-
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 
 /**
  * The default implementation of the canvas widget.
@@ -43,58 +40,10 @@ public class CanvasImpl {
 	/////////////////////////////////////////////////////////////////
 
 	protected JavaScriptObject context;
-
-	protected Element element;
-
-	protected String backgroundColor;
-
-	// TODO investigate further
-//	protected native void cancelSelections() /*-{
-//		try {
-//			$wnd.getSelection().removeAllRanges();
-//		} catch (e) {
-//			// do nothing
-//		}
-//	}-*/;
-
-	protected native void init() /*-{
-		this.@gwt.canvas.client.impl.CanvasImpl::context = this.@gwt.canvas.client.impl.CanvasImpl::element.getContext("2d");
+	
+	public native void init(Element element) /*-{
+		this.@gwt.canvas.client.impl.CanvasImpl::context = element.getContext("2d");
 	}-*/;
-
-	/////////////////////////////////////////////////////////////////
-	// CONSTRUCTORS AND PUBLIC METHODS
-	/////////////////////////////////////////////////////////////////
-
-	public void init(Element element) {
-		this.element = element;
-		init();
-	}
-
-	public void setBackgroundColor(String color) {
-		backgroundColor = color;
-		DOM.setStyleAttribute(element, "backgroundColor", backgroundColor);
-	}
-
-	public String getBackgroundColor() {
-		return backgroundColor;
-	}
-
-	public void setWidth(String width) {
-		DOM.setElementAttribute(element, "width", width);
-	}
-
-	public void setHeight(String height) {
-		DOM.setElementAttribute(element, "height", height);
-	}
-
-//	public void onMouseDown(Event event) {
-//		cancelSelections();
-//		DOM.eventPreventDefault(event);
-//	}
-
-//	public void onMouseUp() {
-//		// method stub to be overridden by IE implementation
-//	}
 
 	/////////////////////////////////////////////////////////////////
 	// CANVAS STATE METHODS
@@ -208,13 +157,17 @@ public class CanvasImpl {
 	// GRADIENT STYLES
 	/////////////////////////////////////////////////////////////////
 
-	public Gradient createLinearGradient(double x0, double y0, double x1, double y1) {
-		return new LinearGradientImpl(x0, y0, x1, y1, context);
-	}
+	public native JavaScriptObject createLinearGradient(double x0, 
+			double y0, double x1, double y1) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.createLinearGradient(
+				x0, y0, x1, y1);
+	}-*/;
 
-	public Gradient createRadialGradient(double x0, double y0, double r0, double x1, double y1, double r1) {
-		return new RadialGradientImpl(x0, y0, r0, x1, y1, r1, context);
-	}
+	public native JavaScriptObject createRadialGradient(double x0, 
+			double y0, double r0, double x1, double y1, double r1) /*-{
+		return this.@gwt.canvas.client.impl.CanvasImpl::context.createRadialGradient(
+				x0, y0, r0, x1, y1, r1);
+	}-*/;
 
 	/////////////////////////////////////////////////////////////////
 	// DRAWING IMAGES
@@ -287,18 +240,16 @@ public class CanvasImpl {
 		this.@gwt.canvas.client.impl.CanvasImpl::context.strokeStyle = strokeStyle;
 	}-*/;
 	
-	public native void setStrokeStyle(Gradient strokeStyle) /*-{
-		this.@gwt.canvas.client.impl.CanvasImpl::context.strokeStyle =
-			strokeStyle.@gwt.canvas.client.impl.GradientImpl::gradient;
+	public native void setStrokeStyle(JavaScriptObject strokeStyle) /*-{
+		this.@gwt.canvas.client.impl.CanvasImpl::context.strokeStyle = strokeStyle;
 	}-*/;
 
 	public native String getStrokeStyle() /*-{
 		return this.@gwt.canvas.client.impl.CanvasImpl::context.strokeStyle;
 	}-*/;
 
-	public native void setFillStyle(Gradient fillStyle) /*-{
-		this.@gwt.canvas.client.impl.CanvasImpl::context.fillStyle =
-			fillStyle.@gwt.canvas.client.impl.GradientImpl::gradient;
+	public native void setFillStyle(JavaScriptObject fillStyle) /*-{
+		this.@gwt.canvas.client.impl.CanvasImpl::context.fillStyle = fillStyle;
 	}-*/;
 
 	public native void setFillStyle(String fillStyle) /*-{

@@ -44,42 +44,42 @@ public class Circle implements Serializable {
 	/**
 	 * Gets the center of the arc.
 	 */
-	public Vector2 getCenter() {
+	public final Vector2 getCenter() {
 		return center;
 	}
 	
 	/**
 	 * Gets the center X-coordinate of the arc.
 	 */
-	public double getCenterX() {
+	public final double getCenterX() {
 		return center.getX();
 	}
 	
 	/**
 	 * Gets the center Y-coordinate of the arc.
 	 */
-	public double getCenterY() {
+	public final double getCenterY() {
 		return center.getY();
 	}
 	
 	/**
 	 * Sets the center of the arc.
 	 */
-	public void setCenter(Vector2 center) {
+	public final void setCenter(Vector2 center) {
 		this.center = center;
 	}
 	
 	/**
 	 * Gets the radius of the arc.
 	 */
-	public double getRadius() {
+	public final double getRadius() {
 		return radius;
 	}
 	
 	/**
 	 * Sets the radius of the arc.
 	 */
-	public void setRadius(double radius) {
+	public final void setRadius(double radius) {
 		this.radius = radius;
 	}
 }

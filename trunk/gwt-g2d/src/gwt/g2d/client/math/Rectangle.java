@@ -58,7 +58,7 @@ public class Rectangle implements Serializable {
 	 * @param halfHeight half the height of the rectangle.
 	 * @return the rectangle created.
 	 */
-	public static Rectangle createAtCenter(double x, double y, double halfWidth, 
+	public static final Rectangle createAtCenter(double x, double y, double halfWidth, 
 			double halfHeight) {
 		return new Rectangle(x - halfWidth, y - halfHeight, x + halfWidth, y + halfHeight);
 	}
@@ -71,7 +71,7 @@ public class Rectangle implements Serializable {
 	 * @param halfHeight half the height of the rectangle.
 	 * @return the rectangle created.
 	 */
-	public static Rectangle createAtCenter(Vector2 center, double halfWidth, 
+	public static final Rectangle createAtCenter(Vector2 center, double halfWidth, 
 			double halfHeight) {
 		return createAtCenter(center.getX(), center.getY(), halfWidth, halfHeight);
 	}
@@ -79,7 +79,7 @@ public class Rectangle implements Serializable {
 	/**
 	 * Gets the top-left x-coordinate of the rectangle.
 	 */
-	public double getX() {
+	public final double getX() {
 		return x;
 	}
 	
@@ -93,7 +93,7 @@ public class Rectangle implements Serializable {
 	/**
 	 * Gets the top-left y-coordinate of the rectangle.
 	 */
-	public double getY() {
+	public final double getY() {
 		return y;
 	}
 	
@@ -107,7 +107,7 @@ public class Rectangle implements Serializable {
 	/**
 	 * Gets the width of the rectangle.
 	 */
-	public double getWidth() {
+	public final double getWidth() {
 		return width;
 	}
 	
@@ -138,7 +138,7 @@ public class Rectangle implements Serializable {
 	 * @param x
 	 * @param y
 	 */
-	public void move(double x, double y) {
+	public final void move(double x, double y) {
 		setX(x);
 		setY(y);
 	}
@@ -148,22 +148,22 @@ public class Rectangle implements Serializable {
 	 * 
 	 * @param position the position to move the rectangle to.
 	 */
-	public void move(Vector2 position) {
+	public final void move(Vector2 position) {
 		move(position.getX(), position.getY());
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		return (obj instanceof Rectangle) ? equals((Rectangle) obj) : false;
 	}
 	
-	public boolean equals(Rectangle rhs) {
+	public final boolean equals(Rectangle rhs) {
 		return getX() == rhs.getX() && getY() == rhs.getY() && getWidth() == rhs.getWidth()
 				&& getHeight() == rhs.getHeight();
 	}
 	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return Arrays.hashCode(new double[]{getX(), getY(), getWidth(), getHeight()});
 	}
 	

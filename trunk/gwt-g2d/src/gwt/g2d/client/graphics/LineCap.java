@@ -15,7 +15,6 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.canvas.client.Canvas;
 
 /**
  * Defines the type of endings that UAs will place on the end of lines.
@@ -31,19 +30,19 @@ public enum LineCap {
 	 * to the direction of the line (and that no additional line cap is added).
 	 * (This is the default {@link LineCap} value)
 	 */
-	BUTT(Canvas.BUTT),
+	BUTT("butt"),
 	/**
 	 * The round value means that a semi-circle with the diameter equal to the 
 	 * width of the line must then be added on to the end of the line.
 	 */
-	ROUND(Canvas.ROUND),
+	ROUND("round"),
 	/**
 	 * The square value means that a rectangle with the length of the line width 
 	 * and the width of half the line width, placed flat against the edge 
 	 * perpendicular to the direction of the line, must be added at the end of 
 	 * each line.
 	 */
-	SQUARE(Canvas.SQUARE);
+	SQUARE("square");
 	
 	private final String lineCapName;
 	

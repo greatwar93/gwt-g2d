@@ -37,7 +37,7 @@ public abstract class Gradient {
 	 * @param color color at the given offset.
 	 * @return self to support chaining.
 	 */
-	public Gradient addColorStop(double offset, Color color) {
+	public final Gradient addColorStop(double offset, Color color) {
 		return addColorStop(new ColorStop(offset, color));
 	}
 	
@@ -47,7 +47,7 @@ public abstract class Gradient {
 	 * @param colorStop the color stop to add.
 	 * @return self to support chaining.
 	 */
-	public Gradient addColorStop(ColorStop colorStop) {
+	public final Gradient addColorStop(ColorStop colorStop) {
 		colorStops.add(colorStop);
 		return this;
 	}
@@ -58,7 +58,7 @@ public abstract class Gradient {
 	 * @param colorStops the collection of color stops to add.
 	 * @return self to support chaining.
 	 */
-	public Gradient addColorStops(Collection<ColorStop> colorStops) {
+	public final Gradient addColorStops(Collection<ColorStop> colorStops) {
 		for (ColorStop colorStop : colorStops) {
 			addColorStop(colorStop);
 		}
@@ -71,7 +71,7 @@ public abstract class Gradient {
 	 * @param colorStops the array of color stops to add.
 	 * @return self to support chaining.
 	 */
-	public Gradient addColorStops(ColorStop... colorStops) {
+	public final Gradient addColorStops(ColorStop... colorStops) {
 		for (ColorStop colorStop : colorStops) {
 			addColorStop(colorStop);
 		}
@@ -81,7 +81,7 @@ public abstract class Gradient {
 	/**
 	 * Gets the gradient adapter.
 	 */
-	public GradientAdapter getGradientAdapter(CanvasAdapter canvas) {
+	public final GradientAdapter getGradientAdapter(CanvasAdapter canvas) {
 		GradientAdapter gradientAdapter = createGradientAdapter(canvas);
 		for (ColorStop colorStop : colorStops) {
 			gradientAdapter.addColorStop(colorStop.getOffset(), 

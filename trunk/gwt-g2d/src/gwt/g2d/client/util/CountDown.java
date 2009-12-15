@@ -19,7 +19,7 @@ public class CountDown {
 	 * @return true if tick() has been called for at least as many times
 	 * 				 the number of count down specified. 
 	 */
-	public boolean tick() {
+	public final boolean tick() {
 		++count;
 		return isCompleted();
 	}
@@ -29,21 +29,21 @@ public class CountDown {
 	 * 
 	 * @return true if the count down is completed.
 	 */
-	public boolean isCompleted() {
+	public final boolean isCompleted() {
 		return count >= maxCount;
 	}
 	
 	/**
 	 * Gets the percentage of down down that this has completed.
 	 */
-	public double getPercent() {
+	public final double getPercent() {
 		return count / (double) maxCount;
 	}
 	
 	/**
 	 * Resets the count.
 	 */
-	public void reset() {
+	public final void reset() {
 		count = 0;
 	}
 }

@@ -15,7 +15,7 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-import gwt.canvas.client.CanvasPixelArray;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
  * Adapter for accessing the canvas pixel array object.
@@ -23,10 +23,10 @@ import gwt.canvas.client.CanvasPixelArray;
  * @author hao1300@gmail.com
  */
 public class CanvasPixelArrayAdapter {
-	private CanvasPixelArray nativeCanvasPixelArray;
+	private final JavaScriptObject pixelArray;
 	
-	CanvasPixelArrayAdapter(CanvasPixelArray nativeCanvasPixelArray) {
-		this.nativeCanvasPixelArray = nativeCanvasPixelArray;
+	CanvasPixelArrayAdapter(JavaScriptObject pixelArray) {
+		this.pixelArray = pixelArray;
 	}
 	
 	/**
@@ -34,9 +34,9 @@ public class CanvasPixelArrayAdapter {
 	 * 
 	 * @return.
 	 */
-	public int getLength() {
-		return nativeCanvasPixelArray.getLength();
-	}
+	public native int getLength() /*-{
+		return this.@gwt.g2d.client.graphics.canvas.CanvasPixelArrayAdapter::pixelArray.length;
+	}-*/;
 	
 	/**
 	 * Gets the pixel color value at the given index. 
@@ -46,9 +46,9 @@ public class CanvasPixelArrayAdapter {
 	 * next pixel to the right of the top left pixel.
 	 * @return the color value at the given index.
 	 */
-	public int getData(int index) {
-		return nativeCanvasPixelArray.getData(index);
-	}
+	public native byte getData(int index) /*-{
+		return this.@gwt.g2d.client.graphics.canvas.CanvasPixelArrayAdapter::pixelArray[index];
+	}-*/;
 	
 	/**
 	 * Sets the pixel color value at the given index. 
@@ -58,14 +58,14 @@ public class CanvasPixelArrayAdapter {
 	 * next pixel to the right of the top left pixel.
 	 * @param data the color value at the given index.
 	 */
-	public void setData(int index, int data) {
-		nativeCanvasPixelArray.setData(index, data);
-	}
+	public final native void setData(int index, int data) /*-{
+		this.@gwt.g2d.client.graphics.canvas.CanvasPixelArrayAdapter::pixelArray[index] = data;
+	}-*/;
 	
 	/**
 	 * Gets the underlying canvas pixel array implementation.
 	 */
-	CanvasPixelArray getNativeCanvasPixelArray() {
-		return nativeCanvasPixelArray;
+	public JavaScriptObject getPixelArrayJsObject() {
+		return pixelArray;
 	}
 }

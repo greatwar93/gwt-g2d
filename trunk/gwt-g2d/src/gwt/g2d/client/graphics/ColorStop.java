@@ -38,29 +38,29 @@ public final class ColorStop {
 	/**
 	 * Gets the offset of the color stop.
 	 */
-	public double getOffset() {
+	public final double getOffset() {
 		return offset;
 	}
 	
 	/**
 	 * Gets the color at the color stop.
 	 */
-	public Color getColor() {
+	public final Color getColor() {
 		return color;
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
+	public final boolean equals(Object obj) {
 		return (obj instanceof ColorStop) ? equals((ColorStop) obj) : false;
 	}
 	
-	public boolean equals(ColorStop colorStop) {
+	public final boolean equals(ColorStop colorStop) {
 		return getOffset() == colorStop.getOffset() 
 				&& colorStop.getColor().equals(colorStop.getColor());
 	}
 	
 	@Override
-	public int hashCode() {
+	public final int hashCode() {
 		return Arrays.hashCode(new double[]{getOffset(), getColor().hashCode()});
 	}
 }

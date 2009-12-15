@@ -15,8 +15,10 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-import gwt.canvas.client.Canvas;
+import gwt.canvas.client.impl.CanvasImpl;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.ImageElement;
 
@@ -26,7 +28,8 @@ import com.google.gwt.dom.client.ImageElement;
  * @author hao1300@gmail.com
  */
 public class CanvasAdapter {
-	private final Canvas canvas;
+	private final CanvasImpl canvas = (CanvasImpl) GWT.create(CanvasImpl.class);
+	private final Element canvasElement;
 	private int width, height;
 	
 	/**
@@ -36,14 +39,17 @@ public class CanvasAdapter {
 	 * @param height height of the canvas in pixels.
 	 */
 	public CanvasAdapter(int width, int height) {
-		canvas = new Canvas(width, height);
+		canvasElement = Document.get().createElement("canvas");
+		setWidth(width);
+		setHeight(height);
+		canvas.init(canvasElement);
 	}
 	
 	/**
 	 * Sets the width of the canvas in pixels.
 	 */
 	public void setWidth(int width) {
-		canvas.setWidth(width);
+		canvasElement.setAttribute("width", width + "px");
 		this.width = width;
 	}
 	
@@ -51,7 +57,7 @@ public class CanvasAdapter {
 	 * Sets the height of the canvas in pixels.
 	 */
 	public void setHeight(int height) {
-		canvas.setHeight(height);
+		canvasElement.setAttribute("height", height + "px");
 		this.height = height;
 	}
 	
@@ -73,7 +79,7 @@ public class CanvasAdapter {
 	 * Gets the canvas element.
 	 */
 	public Element getElement() {
-		return canvas.getElement();
+		return canvasElement;
 	}
 	
 	/**
@@ -137,15 +143,17 @@ public class CanvasAdapter {
 	 * Draws the given image onto the canvas.
 	 */
 	public void drawImage(ImageElement image, double x, double y) {
-		canvas.drawImage(image, x, y);
+		drawImage(image, 0, 0, image.getWidth(), image.getHeight(), 
+				x, y, image.getWidth(), image.getHeight());
 	}
 	
 	/**
 	 * Draws the given image onto the canvas.
 	 */
-	public void drawImage(ImageElement image, double x, double y, double width,
-			double height) {
-		canvas.drawImage(image, x, y, width, height);
+	public void drawImage(ImageElement image, double x, double y, 
+			double width, double height) {
+		drawImage(image, 0, 0, image.getWidth(), image.getHeight(),
+				x, y, width, height);
 	}
 	
 	/**
@@ -182,7 +190,8 @@ public class CanvasAdapter {
 	 * @return a new ImageData object.
 	 */
 	public ImageDataAdapter createImageData(ImageDataAdapter imageData) {
-		return new ImageDataAdapter(canvas.createImageData(imageData.getNativeImageData()));
+		return new ImageDataAdapter(canvas.createImageData(imageData.getWidth(), 
+				imageData.getHeight()));
 	}
 
 	/**
