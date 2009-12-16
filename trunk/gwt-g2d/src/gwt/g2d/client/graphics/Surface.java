@@ -15,13 +15,15 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.Canvas;
+import gwt.g2d.client.graphics.canvas.CanvasImpl;
 import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.user.client.ui.FocusWidget;
@@ -35,8 +37,9 @@ import com.google.gwt.user.client.ui.FocusWidget;
  * @author hao1300@gmail.com
  */
 public final class Surface extends FocusWidget {	
-	private final CanvasAdapter canvas;
+	private final Canvas canvas = (CanvasImpl) GWT.create(CanvasImpl.class);
 	private final Context context;
+	private int width, height;
 	
 	/**
 	 * Initialize a surface of the given size.
@@ -46,7 +49,9 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface(int width, int height) {
 		setElement(Document.get().createElement("canvas"));
-		canvas = new CanvasAdapter(getElement(), width, height);
+		canvas.init(getElement(), width, height);
+		this.width = width;
+		this.height = height;
 		context = canvas.getContext();
 	}
 	
@@ -70,14 +75,14 @@ public final class Surface extends FocusWidget {
 	 * Gets the width of the surface.
 	 */
 	public int getWidth() {
-		return canvas.getWidth();
+		return width;
 	}
 	
 	/**
 	 * Gets the height of the surface.
 	 */
 	public int getHeight() {
-		return canvas.getHeight();
+		return height;
 	}
 	
 	/**
@@ -95,6 +100,7 @@ public final class Surface extends FocusWidget {
 	 * Sets the width of the surface.
 	 */
 	public void setWidth(int width) {
+		this.width = width;
 		canvas.setWidth(width);
 	}
 	
@@ -102,6 +108,7 @@ public final class Surface extends FocusWidget {
 	 * Sets the height of the surface.
 	 */
 	public void setHeight(int height) {
+		this.height = height;
 		canvas.setHeight(height);
 	}
 	
@@ -118,7 +125,7 @@ public final class Surface extends FocusWidget {
 	 * 
 	 * @return the underlying canvas implementation.
 	 */
-	public CanvasAdapter getCanvas() {
+	public Canvas getCanvas() {
 		return canvas;
 	}
 	
