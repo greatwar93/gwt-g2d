@@ -29,6 +29,6 @@ public class MoveToVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getCanvas().moveTo(x, y);
+		surface.getContext().moveTo(x, y);
 	}
 }

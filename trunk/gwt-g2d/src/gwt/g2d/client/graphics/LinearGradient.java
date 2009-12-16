@@ -15,7 +15,7 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.canvas.GradientAdapter;
 import gwt.g2d.client.math.Vector2;
 
@@ -46,7 +46,7 @@ public class LinearGradient extends Gradient {
 	}
 	
 	@Override
-	public final GradientAdapter createGradientAdapter(CanvasAdapter canvas) {
-		return canvas.createLinearGradient(x0, y0, x1, y1);
+	protected GradientAdapter createGradientAdapter(Context context) {
+		return GradientAdapter.as(context.createLinearGradient(x0, y0, x1, y1));
 	}
 }

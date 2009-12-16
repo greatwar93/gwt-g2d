@@ -16,11 +16,13 @@
 package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
 
+import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.user.client.ui.FocusWidget;
 
@@ -34,6 +36,7 @@ import com.google.gwt.user.client.ui.FocusWidget;
  */
 public final class Surface extends FocusWidget {	
 	private final CanvasAdapter canvas;
+	private final Context context;
 	
 	/**
 	 * Initialize a surface of the given size.
@@ -42,8 +45,9 @@ public final class Surface extends FocusWidget {
 	 * @param height height of the surface.
 	 */
 	public Surface(int width, int height) {
-		canvas = new CanvasAdapter(width, height);
-		setElement(canvas.getElement());
+		setElement(Document.get().createElement("canvas"));
+		canvas = new CanvasAdapter(getElement(), width, height);
+		context = canvas.getContext();
 	}
 	
 	/**
@@ -119,6 +123,16 @@ public final class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Gets the underlying context implementation.
+	 * Use with caution!
+	 * 
+	 * @return the underlying context implementation for drawing onto the canvas.
+	 */
+	public Context getContext() {
+		return context;
+	}
+	
+	/**
 	 * Pushes the current state onto the stack.
 	 * 
 	 * Drawing states consist of:
@@ -137,7 +151,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface save() {
-		canvas.save();
+		context.save();
 		return this;
 	}
 	
@@ -148,7 +162,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface restore() {
-		canvas.restore();
+		context.restore();
 		return this;
 	}
 	
@@ -160,7 +174,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface scale(double x, double y) {
-		canvas.scale(x, y);
+		context.scale(x, y);
 		return this;
 	}
 	
@@ -181,7 +195,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface rotate(double angle) {
-		canvas.rotate(angle);
+		context.rotate(angle);
 		return this;
 	}
 	
@@ -203,7 +217,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface translate(double x, double y) {
-		canvas.translate(x, y);
+		context.translate(x, y);
 		return this;
 	}
 	
@@ -227,7 +241,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface transform(double m11, double m12, double m21, double m22,
       double dx, double dy) {
-		canvas.transform(m11, m12, m21, m22, dx, dy);
+		context.transform(m11, m12, m21, m22, dx, dy);
 		return this;
 	}
 	
@@ -251,7 +265,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface setTransform(double m11, double m12, double m21, double m22,
       double dx, double dy) {
-		canvas.setTransform(m11, m12, m21, m22, dx, dy);
+		context.setTransform(m11, m12, m21, m22, dx, dy);
 		return this;
 	}
 	
@@ -262,7 +276,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setGlobalAlpha(double alpha) {
-		canvas.setGlobalAlpha(alpha);
+		context.setGlobalAlpha(alpha);
 		return this;
 	}
 	
@@ -270,7 +284,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the current alpha value applied to rendering operations.
 	 */
 	public double getGlobalAlpha() {
-		return canvas.getGlobalAlpha();
+		return context.getGlobalAlpha();
 	}
 	
 	/**
@@ -281,7 +295,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setGlobalCompositeOperation(Composition compositeOperation) {
-		canvas.setGlobalCompositeOperation(compositeOperation.toString());
+		context.setGlobalCompositeOperation(compositeOperation.toString());
 		return this;
 	}
 	
@@ -289,7 +303,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the current composition operation.
 	 */
 	public Composition getGlobalCompositeOperation() {
-		return Composition.valueOf(canvas.getGlobalCompositeOperation());
+		return Composition.valueOf(context.getGlobalCompositeOperation());
 	}
 	
 	/**
@@ -299,7 +313,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setFillStyle(Color color) {
-		canvas.setFillStyle(color.getColorCode());
+		context.setFillStyle(color.getColorCode());
 		return this;
 	}
 	
@@ -310,7 +324,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setFillStyle(Gradient gradient) {
-		canvas.setFillStyle(gradient.getGradientAdapter(canvas));
+		context.setFillStyle(gradient.getGradientAdapter(context));
 		return this;
 	}
 	
@@ -318,7 +332,7 @@ public final class Surface extends FocusWidget {
 	 * Sets the stroke style.
 	 */
 	public Surface setStrokeStyle(Color color) {
-		canvas.setStrokeStyle(color.getColorCode());
+		context.setStrokeStyle(color.getColorCode());
 		return this;
 	}
 	
@@ -326,7 +340,7 @@ public final class Surface extends FocusWidget {
 	 * Sets the stroke style.
 	 */
 	public Surface setStrokeStyle(Gradient gradient) {
-		canvas.setStrokeStyle(gradient.getGradientAdapter(canvas));
+		context.setStrokeStyle(gradient.getGradientAdapter(context));
 		return this;
 	}
 	
@@ -340,7 +354,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setLineWidth(double lineWidth) {
-		canvas.setLineWidth(lineWidth);		
+		context.setLineWidth(lineWidth);		
 		return this;
 	}
 	
@@ -348,7 +362,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the width of lines, in coordinate space units.
 	 */
 	public double getLineWidth() {
-		return canvas.getLineWidth();
+		return context.getLineWidth();
 	}
 	
 	/**
@@ -359,7 +373,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setLineCap(LineCap lineCap) {
-		canvas.setLineCap(lineCap.toString());
+		context.setLineCap(lineCap.toString());
 		return this;
 	}
 	
@@ -367,7 +381,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the type of endings that UAs will place on the end of lines.
 	 */
 	public LineCap getLineCap() {
-		return LineCap.valueOf(canvas.getLineCap());
+		return LineCap.valueOf(context.getLineCap());
 	}
 	
 	/**
@@ -378,7 +392,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setLineJoin(LineJoin lineJoin) {
-		canvas.setLineJoin(lineJoin.toString());
+		context.setLineJoin(lineJoin.toString());
 		return this;
 	}
 	
@@ -386,7 +400,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the type of corners that UAs will place where two lines meet.
 	 */
 	public LineJoin getLineJoin() {
-		return LineJoin.valueOf(canvas.getLineJoin());
+		return LineJoin.valueOf(context.getLineJoin());
 	}
 	
 	/**
@@ -407,7 +421,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setMiterLimit(double miterLimit) {
-		canvas.setMiterLimit(miterLimit);
+		context.setMiterLimit(miterLimit);
 		return this;
 	}
 	
@@ -415,7 +429,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the current miter limit ratio.
 	 */
 	public double getMiterLimit() {
-		return canvas.getMiterLimit();
+		return context.getMiterLimit();
 	}
 	
 	/**
@@ -429,7 +443,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface clearRectangle(double x, double y, double width, double height) {
-		canvas.clearRect(x, y, width, height);
+		context.clearRect(x, y, width, height);
 		return this;
 	}
 	
@@ -455,7 +469,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface fillRectangle(double x, double y, double width, double height) {
-		canvas.fillRect(x, y, width, height);
+		context.fillRect(x, y, width, height);
 		return this;
 	}
 	
@@ -475,7 +489,7 @@ public final class Surface extends FocusWidget {
 	 * lineJoin, and (if appropriate) miterLimit attributes
 	 */
 	public Surface strokeRectangle(double x, double y, double width, double height) {
-		canvas.strokeRect(x, y, width, height);
+		context.strokeRect(x, y, width, height);
 		return this;
 	}
 	
@@ -494,8 +508,8 @@ public final class Surface extends FocusWidget {
 	 * the non-zero winding number rule.
 	 */
 	public Surface clipRectangle(double x, double y, double width, double height) {
-		canvas.rect(x, y, width, height);
-		canvas.clip();
+		context.rect(x, y, width, height);
+		context.clip();
 		return this;
 	}
 	
@@ -514,7 +528,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface fillShape(Shape shape) {
 		shape.draw(this);
-		canvas.fill();
+		context.fill();
 		return this;
 	}
 	
@@ -524,7 +538,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface strokeShape(Shape shape) {
 		shape.draw(this);
-		canvas.stroke();
+		context.stroke();
 		return this;
 	}
 	
@@ -535,7 +549,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface clipShape(Shape shape) {
 		shape.draw(this);
-		canvas.clip();
+		context.clip();
 		return this;
 	}
 	
@@ -559,7 +573,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface clear() {
-		canvas.clear();
+		context.clear();
 		return this;
 	}
 	
@@ -572,7 +586,7 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface drawImage(ImageElement image, double x, double y) {
-		canvas.drawImage(image, x, y);
+		context.drawImage(image, x, y);
 		return this;
 	}
 	
@@ -599,7 +613,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public Surface drawImage(ImageElement image, double x, double y, double width, 
 			double height) {
-		canvas.drawImage(image, x, y, width, height);
+		context.drawImage(image, x, y, width, height);
 		return this;
 	}
 	
@@ -633,7 +647,7 @@ public final class Surface extends FocusWidget {
 	public Surface drawImage(ImageElement image, double sourceX, double sourceY, 
 			double sourceWidth, double sourceHeight, double destinationX, 
 			double destinationY, double destinationWidth, double destinationHeight) {
-		canvas.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight,
+		context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight,
 				destinationX, destinationY, destinationWidth, destinationHeight);
 		return this;
 	}
@@ -665,7 +679,7 @@ public final class Surface extends FocusWidget {
 	 * @return a new ImageData object.
 	 */
 	public ImageDataAdapter createImageData(int width, int height) {
-		return canvas.createImageData(width, height);
+		return new ImageDataAdapter(context.createImageData(width, height));
 	}
 	
 	/**
@@ -687,14 +701,14 @@ public final class Surface extends FocusWidget {
 	 * @return a new ImageData object.
 	 */
 	public ImageDataAdapter createImageData(ImageDataAdapter imageData) {
-		return canvas.createImageData(imageData);
+		return new ImageDataAdapter(context.createImageData(imageData.getImageData()));
 	}
 
 	/**
 	 * Returns an ImageData object representing the underlying pixel data for the 
-	 * area of the canvas denoted by the rectangle whose corners are the four 
+	 * area of the context denoted by the rectangle whose corners are the four 
 	 * points (x, y), (x + width, y), (x + width, y + height), (x, y + height), 
-	 * in canvas coordinate space units. Pixels outside the canvas must be 
+	 * in context coordinate space units. Pixels outside the context must be 
 	 * returned as transparent black. Pixels must be returned as 
 	 * non-premultiplied alpha values.
 	 * 
@@ -705,13 +719,13 @@ public final class Surface extends FocusWidget {
 	 * @return
 	 */
 	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
-		return canvas.getImageData(x, y, width, height);
+		return new ImageDataAdapter(context.getImageData(x, y, width, height));
 	}
 	
 	/**
 	 * Returns an ImageData object representing the underlying pixel data for the 
-	 * area of the canvas denoted by the given rectangle, in canvas coordinate 
-	 * space units. Pixels outside the canvas must be returned as transparent 
+	 * area of the context denoted by the given rectangle, in context coordinate 
+	 * space units. Pixels outside the context must be returned as transparent 
 	 * black. Pixels must be returned as non-premultiplied alpha values.
 	 * 
 	 * @param rect
@@ -722,11 +736,11 @@ public final class Surface extends FocusWidget {
 	}
 	
 	/**
-	 * <p>Paints the data from the given ImageData object onto the canvas. Only 
+	 * <p>Paints the data from the given ImageData object onto the context. Only 
 	 * the pixels from the dirty rectangle are painted.</p>
 	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
 	 * shadow attributes, are ignored for the purposes of this method call; 
-	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * pixels in the context are replaced wholesale, with no composition, alpha 
 	 * blending, no shadows, etc.</p>
 	 * 
 	 * @param imageData
@@ -739,15 +753,16 @@ public final class Surface extends FocusWidget {
 	 */
 	public void putImageData(ImageDataAdapter imageData, double x, double y, 
 			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) {
-		canvas.putImageData(imageData, x, y, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+		context.putImageData(imageData.getImageData(), x, y, dirtyX, dirtyY, 
+				dirtyWidth, dirtyHeight);
 	}
 	
 	/**
-	 * <p>Paints the data from the given ImageData object onto the canvas. Only 
+	 * <p>Paints the data from the given ImageData object onto the context. Only 
 	 * the pixels from the dirty rectangle are painted.</p>
 	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
 	 * shadow attributes, are ignored for the purposes of this method call; 
-	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * pixels in the context are replaced wholesale, with no composition, alpha 
 	 * blending, no shadows, etc.</p>
 	 * 
 	 * @param imageData
@@ -756,15 +771,15 @@ public final class Surface extends FocusWidget {
 	 */
 	public void putImageData(ImageDataAdapter imageData, Vector2 position, 
 			Rectangle dirtyRect) {
-		canvas.putImageData(imageData, position.getX(), position.getY(),
+		context.putImageData(imageData.getImageData(), position.getX(), position.getY(),
 				dirtyRect.getX(), dirtyRect.getY(), dirtyRect.getWidth(), dirtyRect.getHeight());
 	}
 	
 	/**
-	 * <p>Paints the data from the given ImageData object onto the canvas.</p>
+	 * <p>Paints the data from the given ImageData object onto the context.</p>
 	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
 	 * shadow attributes, are ignored for the purposes of this method call; 
-	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * pixels in the context are replaced wholesale, with no composition, alpha 
 	 * blending, no shadows, etc.</p>
 	 * 
 	 * @param imageData
@@ -776,10 +791,10 @@ public final class Surface extends FocusWidget {
 	}
 	
 	/**
-	 * <p>Paints the data from the given ImageData object onto the canvas.</p>
+	 * <p>Paints the data from the given ImageData object onto the context.</p>
 	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
 	 * shadow attributes, are ignored for the purposes of this method call; 
-	 * pixels in the canvas are replaced wholesale, with no composition, alpha 
+	 * pixels in the context are replaced wholesale, with no composition, alpha 
 	 * blending, no shadows, etc.</p>
 	 * 
 	 * @param imageData
@@ -794,7 +809,7 @@ public final class Surface extends FocusWidget {
 	 * property; values that cannot be parsed as CSS font values are ignored.
 	 */
 	public Surface setFont(String font) {
-		canvas.setFont(font);
+		context.setFont(font);
 		return this;
 	}
 	
@@ -802,14 +817,14 @@ public final class Surface extends FocusWidget {
 	 * Gets the font settings.
 	 */
 	public String getFont() {
-		return canvas.getFont();
+		return context.getFont();
 	}
 	
 	/**
 	 * Sets the text alignment settings.
 	 */
 	public Surface setTextAlign(TextAlign textAlign) {
-		canvas.setTextAlign(textAlign.toString());
+		context.setTextAlign(textAlign.toString());
 		return this;
 	}
 	
@@ -817,14 +832,14 @@ public final class Surface extends FocusWidget {
 	 * Gets the text alignment settings.
 	 */
 	public TextAlign getTextAlign() {
-		return TextAlign.valueOf(canvas.getTextAlign());
+		return TextAlign.valueOf(context.getTextAlign());
 	}
 	
 	/**
 	 * Sets the text baseline alignment settings.
 	 */
 	public Surface setTextBaseline(TextBaseline textBaseline) {
-		canvas.setTextBaseline(textBaseline.toString());
+		context.setTextBaseline(textBaseline.toString());
 		return this;
 	}
 	
@@ -832,14 +847,14 @@ public final class Surface extends FocusWidget {
 	 * Gets the text baseline alignment settings.
 	 */
 	public TextBaseline getTextBaseline() {
-		return TextBaseline.valueOf(canvas.getTextBaseline());
+		return TextBaseline.valueOf(context.getTextBaseline());
 	}
 	
 	/**
 	 * Renders the given text at the given (x, y).
 	 */
 	public Surface fillText(String text, double x, double y) {
-		canvas.fillText(text, x, y);
+		context.fillText(text, x, y);
 		return this;
 	}
 	
@@ -855,7 +870,7 @@ public final class Surface extends FocusWidget {
 	 * not wider than maxWidth.
 	 */
 	public Surface fillText(String text, double x, double y, double maxWidth) {
-		canvas.fillText(text, x, y, maxWidth);
+		context.fillText(text, x, y, maxWidth);
 		return this;
 	}
 	
@@ -871,7 +886,7 @@ public final class Surface extends FocusWidget {
 	 * Renders the given text at the given (x, y).
 	 */
 	public Surface strokeText(String text, double x, double y) {
-		canvas.strokeText(text, x, y);
+		context.strokeText(text, x, y);
 		return this;
 	}
 	
@@ -879,7 +894,7 @@ public final class Surface extends FocusWidget {
 	 * Renders the given text at the given position.
 	 */
 	public Surface strokeText(String text, Vector2 position) {
-		canvas.strokeText(text, position.getX(), position.getY());
+		context.strokeText(text, position.getX(), position.getY());
 		return this;
 	}
 	
@@ -888,7 +903,7 @@ public final class Surface extends FocusWidget {
 	 * not wider than maxWidth.
 	 */
 	public Surface strokeText(String text, double x, double y, double maxWidth) {
-		canvas.strokeText(text, x, y, maxWidth);
+		context.strokeText(text, x, y, maxWidth);
 		return this;
 	}
 	
@@ -897,7 +912,7 @@ public final class Surface extends FocusWidget {
 	 * not wider than maxWidth.
 	 */
 	public Surface strokeText(String text, Vector2 position, double maxWidth) {
-		canvas.strokeText(text, position.getX(), position.getY(), maxWidth);
+		context.strokeText(text, position.getX(), position.getY(), maxWidth);
 		return this;
 	}
 	
@@ -906,7 +921,7 @@ public final class Surface extends FocusWidget {
 	 * current font.
 	 */
 	public double measureText(String text) {
-		return canvas.measureText(text);
+		return context.measureText(text);
 	}
 	
 	/**
@@ -916,7 +931,7 @@ public final class Surface extends FocusWidget {
 	 * @param shadowOffsetX
 	 */
 	public Surface setShadowOffsetX(double shadowOffsetX) {
-		canvas.setShadowOffsetX(shadowOffsetX);
+		context.setShadowOffsetX(shadowOffsetX);
 		return this;
 	}
 	
@@ -927,7 +942,7 @@ public final class Surface extends FocusWidget {
 	 * @return
 	 */
 	public double getShadowOffsetX() {
-		return canvas.getShadowOffsetX();		
+		return context.getShadowOffsetX();		
 	}
 
 	/**
@@ -937,7 +952,7 @@ public final class Surface extends FocusWidget {
 	 * @param shadowOffsetY
 	 */
 	public Surface setShadowOffsetY(double shadowOffsetY) {
-		canvas.setShadowOffsetY(shadowOffsetY);
+		context.setShadowOffsetY(shadowOffsetY);
 		return this;
 	}
 
@@ -948,7 +963,7 @@ public final class Surface extends FocusWidget {
 	 * @return
 	 */
 	public double getShadowOffsetY() {
-		return canvas.getShadowOffsetY();
+		return context.getShadowOffsetY();
 	}
 	
 	/**
@@ -958,8 +973,8 @@ public final class Surface extends FocusWidget {
 	 * @param shadowOffset
 	 */
 	public Surface setShadowOffset(Vector2 shadowOffset) {
-		canvas.setShadowOffsetX(shadowOffset.getX());
-		canvas.setShadowOffsetY(shadowOffset.getY());
+		context.setShadowOffsetX(shadowOffset.getX());
+		context.setShadowOffsetY(shadowOffset.getY());
 		return this;
 	}
 
@@ -970,7 +985,7 @@ public final class Surface extends FocusWidget {
 	 * @return
 	 */
 	public Vector2 getShadowOffset() {
-		return new Vector2(canvas.getShadowOffsetX(), canvas.getShadowOffsetY());
+		return new Vector2(context.getShadowOffsetX(), context.getShadowOffsetY());
 	}
 	
 	/**
@@ -979,7 +994,7 @@ public final class Surface extends FocusWidget {
 	 * @param shadowBlur
 	 */
 	public Surface setShadowBlur(double shadowBlur) {
-		canvas.setShadowBlur(shadowBlur);
+		context.setShadowBlur(shadowBlur);
 		return this;
 	}
 	
@@ -989,7 +1004,7 @@ public final class Surface extends FocusWidget {
 	 * @return
 	 */
 	public double getShadowBlur() {
-		return canvas.getShadowBlur();
+		return context.getShadowBlur();
 	}
 
 	/**
@@ -998,7 +1013,7 @@ public final class Surface extends FocusWidget {
 	 * @param shadowColor
 	 */
 	public Surface setShadowColor(Color shadowColor) {
-		canvas.setShadowColor(shadowColor.getColorCode());
+		context.setShadowColor(shadowColor.getColorCode());
 		return this;
 	}
 }

@@ -25,16 +25,20 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author hao1300@gmail.com
  */
-public class ImageDataAdapter {
+public final class ImageDataAdapter {
 	private final JavaScriptObject imageData;
-	private final CanvasPixelArrayAdapter pixelData;
-	private final int width, height;
+	private final CanvasPixelArray pixelData;
 	
-	ImageDataAdapter(JavaScriptObject imageData) {
+	/**
+	 * Casts the JavaScriptObject into an ImageData.
+	 * Requires: the given JavaScriptObject must be an instance of ImageData.
+	 * 
+	 * @param imageData
+	 * @return
+	 */
+	public ImageDataAdapter(JavaScriptObject imageData) {
 		this.imageData = imageData;
-		this.width = getJsImageWidth();
-		this.height = getJsImageHeight();
-		this.pixelData = new CanvasPixelArrayAdapter(getPixelArray(imageData));
+		this.pixelData = CanvasPixelArray.as(getJsPixelArray());
 	}
 	
 	/**
@@ -44,7 +48,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @return color
 	 */
-	public final Color getColor(int x, int y) {
+	public Color getColor(int x, int y) {
 		int index = getIndex(x, y);
 		return new Color(pixelData.getData(index), 
 				pixelData.getData(index + 1), 
@@ -58,7 +62,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @return color
 	 */
-	public final Color getColor(Vector2 position) {
+	public Color getColor(Vector2 position) {
 		return getColor(position.getIntX(), position.getIntY());
 	}
 	
@@ -69,7 +73,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @return red value
 	 */
-	public final int getRed(int x, int y) {
+	public int getRed(int x, int y) {
 		return pixelData.getData(getIndex(x, y));
 	}
 	
@@ -79,7 +83,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @return red value
 	 */
-	public final int getRed(Vector2 position) {
+	public int getRed(Vector2 position) {
 		return getRed(position.getIntX(), position.getIntY());
 	}
 	
@@ -90,7 +94,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @return green value
 	 */
-	public final int getGreen(int x, int y) {
+	public int getGreen(int x, int y) {
 		return pixelData.getData(getIndex(x, y) + 1);
 	}
 	
@@ -100,7 +104,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @return green value
 	 */
-	public final int getGreen(Vector2 position) {
+	public int getGreen(Vector2 position) {
 		return getGreen(position.getIntX(), position.getIntY());
 	}
 	
@@ -111,7 +115,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @return blue value
 	 */
-	public final int getBlue(int x, int y) {
+	public int getBlue(int x, int y) {
 		return pixelData.getData(getIndex(x, y) + 2);
 	}
 	
@@ -121,7 +125,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @return blue value
 	 */
-	public final int getBlue(Vector2 position) {
+	public int getBlue(Vector2 position) {
 		return getBlue(position.getIntX(), position.getIntY());
 	}
 	
@@ -132,7 +136,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @return alpha value
 	 */
-	public final int getAlpha(int x, int y) {
+	public int getAlpha(int x, int y) {
 		return pixelData.getData(getIndex(x, y) + 3);
 	}
 	
@@ -142,7 +146,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @return alpha value
 	 */
-	public final int getAlpha(Vector2 position) {
+	public int getAlpha(Vector2 position) {
 		return getAlpha(position.getIntX(), position.getIntY());
 	}
 	
@@ -153,7 +157,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @param color
 	 */
-	public final void setColor(int x, int y, Color color) {
+	public void setColor(int x, int y, Color color) {
 		int index = getIndex(x, y);
 		pixelData.setData(index, color.getR());
 		pixelData.setData(index + 1, color.getG());
@@ -167,7 +171,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @param color
 	 */
-	public final void setColor(Vector2 position, Color color) {
+	public void setColor(Vector2 position, Color color) {
 		setColor(position.getIntX(), position.getIntY(), color);
 	}
 	
@@ -178,7 +182,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @param value
 	 */
-	public final void setRed(int x, int y, int value) {
+	public void setRed(int x, int y, int value) {
 		pixelData.setData(getIndex(x, y), value);
 	}
 	
@@ -188,7 +192,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @param value
 	 */
-	public final void setRed(Vector2 position, int value) {
+	public void setRed(Vector2 position, int value) {
 		setRed(position.getIntX(), position.getIntY(), value);
 	}
 	
@@ -199,7 +203,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @param value
 	 */
-	public final void setGreen(int x, int y, int value) {
+	public void setGreen(int x, int y, int value) {
 		pixelData.setData(getIndex(x, y) + 1, value);
 	}
 	
@@ -209,7 +213,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @param value
 	 */
-	public final void setGreen(Vector2 position, int value) {
+	public void setGreen(Vector2 position, int value) {
 		setGreen(position.getIntX(), position.getIntY(), value);
 	}
 	
@@ -220,7 +224,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @param value
 	 */
-	public final void setBlue(int x, int y, int value) {
+	public void setBlue(int x, int y, int value) {
 		pixelData.setData(getIndex(x, y) + 2, value);
 	}
 	
@@ -230,7 +234,7 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @param value
 	 */
-	public final void setBlue(Vector2 position, int value) {
+	public void setBlue(Vector2 position, int value) {
 		setBlue(position.getIntX(), position.getIntY(), value);
 	}
 	
@@ -241,7 +245,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @param value
 	 */
-	public final void setAlpha(int x, int y, int value) {
+	public void setAlpha(int x, int y, int value) {
 		pixelData.setData(getIndex(x, y) + 3, value);
 	}
 	
@@ -251,24 +255,26 @@ public class ImageDataAdapter {
 	 * @param position
 	 * @param value
 	 */
-	public final void setAlpha(Vector2 position, int value) {
+	public void setAlpha(Vector2 position, int value) {
 		setAlpha(position.getIntX(), position.getIntY(), value);
 	}
 	
 	/**
-	 * Gets the image data representation.
+	 * Gets the image data as a JavaScriptObject.
 	 * 
-	 * @return pixel array
+	 * @return
 	 */
-	public final CanvasPixelArrayAdapter getpixelData() {
-		return pixelData;
+	public JavaScriptObject getImageData() {
+		return imageData;
 	}
 	
 	/**
-	 * Gets the underlying image data implementation.
+	 * Gets the image data's pixel array representation.
+	 * 
+	 * @return pixel array
 	 */
-	final JavaScriptObject getNativeImageData() {
-		return imageData;
+	public CanvasPixelArray getPixelData() {
+		return pixelData;
 	}
 	
 	/**
@@ -278,7 +284,7 @@ public class ImageDataAdapter {
 	 * @param y
 	 * @return
 	 */
-	private final int getIndex(int x, int y) {
+	private int getIndex(int x, int y) {
 		return 4 * (y * getWidth() + x);
 	}
 	
@@ -287,7 +293,7 @@ public class ImageDataAdapter {
 	 * 
 	 * @return
 	 */
-	public final CanvasPixelArrayAdapter getData() {
+	public CanvasPixelArray getData() {
 		return pixelData;
 	}
 	
@@ -296,40 +302,25 @@ public class ImageDataAdapter {
 	 * 
 	 * @return
 	 */
-	public final int getWidth() {
-		return width;
-	}
+	public native int getWidth() /*-{
+		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.width;
+	}-*/;
 	
 	/**
 	 * Gets the height of the image data.
 	 * 
 	 * @return
 	 */
-	public final int getHeight() {
-		return height;
-	}
-	
-	/**
-	 * Gets the pixel array JavaScriptObject from an image data JavaScriptObject.
-	 * 
-	 * @param imageData
-	 * @return
-	 */
-	private static final native JavaScriptObject getPixelArray(JavaScriptObject imageData) /*-{
-		return imageData.data;
+	public native int getHeight() /*-{
+		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.height;
 	}-*/;
 	
 	/**
-	 * Gets the width of the image data.
+	 * Gets the CanvasPixelArray JavaScriptObject from this ImageData.
+	 * 
+	 * @return
 	 */
-	private final native int getJsImageWidth() /*-{
-		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.width;
-	}-*/;	
-	
-	/**
-	 * Gets the width of the image data.
-	 */
-	private final native int getJsImageHeight() /*-{
-		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.height;
+	private native JavaScriptObject getJsPixelArray() /*-{
+		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.data;
 	}-*/;
 }

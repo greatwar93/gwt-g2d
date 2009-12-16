@@ -15,7 +15,7 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.canvas.GradientAdapter;
 import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.Vector2;
@@ -61,7 +61,8 @@ public class RadialGradient extends Gradient {
 	}
 	
 	@Override
-	public final GradientAdapter createGradientAdapter(CanvasAdapter canvas) {
-		return canvas.createRadialGradient(x0, y0, radius0, x1, y1, radius1);
+	public final GradientAdapter createGradientAdapter(Context context) {
+		return GradientAdapter.as(context.createRadialGradient(x0, y0, radius0, 
+				x1, y1, radius1));
 	}
 }

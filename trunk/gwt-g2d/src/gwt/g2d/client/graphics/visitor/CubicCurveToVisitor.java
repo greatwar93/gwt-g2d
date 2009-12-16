@@ -58,7 +58,7 @@ public class CubicCurveToVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getCanvas().bezierCurveTo(controlPoint1X, controlPoint1Y, 
+		surface.getContext().bezierCurveTo(controlPoint1X, controlPoint1Y, 
 				controlPoint2X, controlPoint2Y, 
 				endPointX, endPointY);
 	}

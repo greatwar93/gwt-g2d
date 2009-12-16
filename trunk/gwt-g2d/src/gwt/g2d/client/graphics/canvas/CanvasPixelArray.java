@@ -22,11 +22,22 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author hao1300@gmail.com
  */
-public class CanvasPixelArrayAdapter {
-	private final JavaScriptObject pixelArray;
+public final class CanvasPixelArray extends JavaScriptObject {
 	
-	CanvasPixelArrayAdapter(JavaScriptObject pixelArray) {
-		this.pixelArray = pixelArray;
+	/**
+	 * Casts the JavaScriptObject into a CanvasPixelArray.
+	 * Requires: the given JavaScriptObject must be an instance of 
+	 * CanvasPixelArray.
+	 * 
+	 * @param pixelArray
+	 * @return
+	 */
+	public static CanvasPixelArray as(JavaScriptObject pixelArray) {
+		return pixelArray.<CanvasPixelArray>cast();
+	}
+	
+	protected CanvasPixelArray() {
+
 	}
 	
 	/**
@@ -35,7 +46,7 @@ public class CanvasPixelArrayAdapter {
 	 * @return.
 	 */
 	public native int getLength() /*-{
-		return this.@gwt.g2d.client.graphics.canvas.CanvasPixelArrayAdapter::pixelArray.length;
+		return this.length;
 	}-*/;
 	
 	/**
@@ -47,7 +58,7 @@ public class CanvasPixelArrayAdapter {
 	 * @return the color value at the given index.
 	 */
 	public native byte getData(int index) /*-{
-		return this.@gwt.g2d.client.graphics.canvas.CanvasPixelArrayAdapter::pixelArray[index];
+		return this[index];
 	}-*/;
 	
 	/**
@@ -58,14 +69,7 @@ public class CanvasPixelArrayAdapter {
 	 * next pixel to the right of the top left pixel.
 	 * @param data the color value at the given index.
 	 */
-	public final native void setData(int index, int data) /*-{
-		this.@gwt.g2d.client.graphics.canvas.CanvasPixelArrayAdapter::pixelArray[index] = data;
+	public native void setData(int index, int data) /*-{
+		this[index] = data;
 	}-*/;
-	
-	/**
-	 * Gets the underlying canvas pixel array implementation.
-	 */
-	public JavaScriptObject getPixelArrayJsObject() {
-		return pixelArray;
-	}
 }

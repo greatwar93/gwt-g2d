@@ -45,6 +45,6 @@ public class CircleVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getCanvas().arc(x, y, radius, 0, MathHelper.TWO_PI, true);
+		surface.getContext().arc(x, y, radius, 0, MathHelper.TWO_PI, true);
 	}
 }

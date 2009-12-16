@@ -45,6 +45,6 @@ public class RectangleVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getCanvas().lineTo(x, y);
+		surface.getContext().lineTo(x, y);
 	}
 }
