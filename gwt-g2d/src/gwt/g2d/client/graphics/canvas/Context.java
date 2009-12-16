@@ -1,8 +1,37 @@
+/*
+ * Copyright 2009 Hao Nguyen
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package gwt.g2d.client.graphics.canvas;
 
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.ImageElement;
 
+/**
+ * Represents a 2D context used for drawing vector graphics onto canvas.
+ * 
+ * This is inspired by Oliver Zoran's gwt-canvas.
+ * 
+ * @see <a href="http://www.whatwg.org/specs/web-apps/current-work/#the-canvas">
+ *      http://www.whatwg.org/specs/web-apps/current-work/#the-canvas</a>
+ * @see <a href="http://www.w3.org/html/wg/html5/#the-canvas">
+ *      http://www.w3.org/html/wg/html5/#the-canvas</a>
+ * @see <a href="http://canvex.lazyilluminati.com/tests/tests/results.html">
+ *      http://canvex.lazyilluminati.com/tests/tests/results.html</a>
+ *      
+ * @author hao1300@gmail.com
+ */
 public interface Context {
 	/**
 	 * Adds points to the subpath such that the arc described by the 
