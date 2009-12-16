@@ -51,7 +51,7 @@ public class QuadraticCurveToVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getCanvas().quadraticCurveTo(controlPointX, controlPointY,
+		surface.getContext().quadraticCurveTo(controlPointX, controlPointY,
 				endPointX, endPointY);
 	}
 }

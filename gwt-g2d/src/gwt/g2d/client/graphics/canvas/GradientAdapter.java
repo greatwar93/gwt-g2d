@@ -22,25 +22,19 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author hao1300@gmail.com
  */
-public class GradientAdapter {
-	private final JavaScriptObject nativeGradient;
+public final class GradientAdapter extends JavaScriptObject {
 	
-	GradientAdapter(JavaScriptObject nativeGradient) {
-		this.nativeGradient = nativeGradient;
+	protected GradientAdapter() {
+	}
+	
+	public static GradientAdapter as(JavaScriptObject jsObject) {
+		return jsObject.<GradientAdapter>cast();
 	}
 	
 	/**
 	 * Adds a color stop to the native gradient.
 	 */
 	public native void addColorStop(double offset, String color) /*-{
-		this.@gwt.g2d.client.graphics.canvas.GradientAdapter::nativeGradient.addColorStop(
-				offset, color);
+		this.addColorStop(offset, color);
 	}-*/;
-	
-	/**
-	 * Gets the underlying gradient implementation.
-	 */
-	final JavaScriptObject getNativeGradient() {
-		return nativeGradient;
-	}
 }

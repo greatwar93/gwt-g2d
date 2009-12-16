@@ -39,6 +39,6 @@ public class RectangleShape extends Shape {
 	
 	@Override
 	public final void draw(Surface surface) {
-		surface.getCanvas().rect(x, y, width, height);
+		surface.getContext().rect(x, y, width, height);
 	}
 }

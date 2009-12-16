@@ -16,7 +16,7 @@
 package gwt.g2d.client.graphics.shapes;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.canvas.CanvasAdapter;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.CircleVisitor;
 import gwt.g2d.client.graphics.visitor.CubicCurveToVisitor;
@@ -233,12 +233,12 @@ public class ShapeBuilder {
 	public final class CustomShape extends Shape {
 		@Override
 		public final void draw(Surface surface) {
-			CanvasAdapter canvas = surface.getCanvas();
-			canvas.beginPath();
+			Context context = surface.getContext();
+			context.beginPath();
 			for (ShapeVisitor shape : shapes) {
 				shape.visit(surface);
 			}
-			canvas.closePath();
+			context.closePath();
 		}
 	}
 }

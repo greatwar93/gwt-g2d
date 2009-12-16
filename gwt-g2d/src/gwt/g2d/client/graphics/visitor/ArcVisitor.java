@@ -68,6 +68,6 @@ public class ArcVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getCanvas().arc(x, y, radius, startAngle, endAngle, antiClockwise);
+		surface.getContext().arc(x, y, radius, startAngle, endAngle, antiClockwise);
 	}
 }
