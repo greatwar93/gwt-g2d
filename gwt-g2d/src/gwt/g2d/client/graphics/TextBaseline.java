@@ -15,6 +15,9 @@
  */
 package gwt.g2d.client.graphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Determines the text baseline alignment settings.
  * 
@@ -55,6 +58,7 @@ public enum TextBaseline {
 	 */
 	BOTTOM("bottom");
 	
+	private static Map<String, TextBaseline> textBaselineMap;
 	private final String textBaselineName;
 	
 	private TextBaseline(String textBaselineName) {
@@ -64,5 +68,21 @@ public enum TextBaseline {
 	@Override
 	public String toString() {
 		return textBaselineName;
+	}
+	
+	/**
+	 * Parses a string into a TextAlign.
+	 * 
+	 * @param textBaseline
+	 * @return
+	 */
+	public static TextBaseline parseTextBaseline(String textBaseline) {
+		if (textBaselineMap == null) {
+			textBaselineMap = new HashMap<String, TextBaseline>();
+			for (TextBaseline v : values()) {
+				textBaselineMap.put(v.toString(), v);
+			}
+		}
+		return textBaselineMap.get(textBaseline);
 	}
 }

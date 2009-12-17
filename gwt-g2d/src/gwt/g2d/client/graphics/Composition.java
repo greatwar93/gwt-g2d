@@ -15,6 +15,9 @@
  */
 package gwt.g2d.client.graphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Determines how shapes and images are drawn onto the existing bitmap.
  * The source image, A, is the shape or image being rendered. 
@@ -83,6 +86,7 @@ public enum Composition {
 	 */
 	XOR("xor");
 	
+	private static Map<String, Composition> compositionMap;
 	private final String compositionName;
 	
 	private Composition(String compositionName) {
@@ -92,5 +96,21 @@ public enum Composition {
 	@Override
 	public String toString() {
 		return compositionName;
+	}
+	
+	/**
+	 * Parses a string into a Composition.
+	 * 
+	 * @param composition
+	 * @return
+	 */
+	public static Composition parseComposition(String composition) {
+		if (compositionMap == null) {
+			compositionMap = new HashMap<String, Composition>();
+			for (Composition v : values()) {
+				compositionMap.put(v.toString(), v);
+			}
+		}
+		return compositionMap.get(composition);
 	}
 }

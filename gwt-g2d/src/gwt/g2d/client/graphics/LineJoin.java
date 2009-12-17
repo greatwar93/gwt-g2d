@@ -15,6 +15,9 @@
  */
 package gwt.g2d.client.graphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * <p>
@@ -53,6 +56,7 @@ public enum LineJoin {
 	 */
 	ROUND("round");
 	
+	private static Map<String, LineJoin> lineJoinMap;
 	private final String lineJoinName;
 	
 	private LineJoin(String lineJoinName) {
@@ -62,5 +66,21 @@ public enum LineJoin {
 	@Override
 	public String toString() {
 		return lineJoinName;
+	}
+	
+	/**
+	 * Parses a string into a LineJoin.
+	 * 
+	 * @param lineJoin
+	 * @return
+	 */
+	public static LineJoin parseLineJoin(String lineJoin) {
+		if (lineJoinMap == null) {
+			lineJoinMap = new HashMap<String, LineJoin>();
+			for (LineJoin v : values()) {
+				lineJoinMap.put(v.toString(), v);
+			}
+		}
+		return lineJoinMap.get(lineJoin);
 	}
 }

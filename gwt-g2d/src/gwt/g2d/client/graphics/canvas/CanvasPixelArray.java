@@ -33,7 +33,7 @@ public final class CanvasPixelArray extends JavaScriptObject {
 	 * @return
 	 */
 	public static CanvasPixelArray as(JavaScriptObject pixelArray) {
-		return pixelArray.<CanvasPixelArray>cast();
+		return pixelArray.cast();
 	}
 	
 	protected CanvasPixelArray() {

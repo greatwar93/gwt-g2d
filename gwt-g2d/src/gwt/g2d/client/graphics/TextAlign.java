@@ -15,6 +15,9 @@
  */
 package gwt.g2d.client.graphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Determines the text alignment settings.
  * 
@@ -53,6 +56,7 @@ public enum TextAlign {
 	 */
 	CENTER("center");
 	
+	private static Map<String, TextAlign> textAlignMap;
 	private final String textAlignName;
 	
 	private TextAlign(String textAlignName) {
@@ -62,5 +66,21 @@ public enum TextAlign {
 	@Override
 	public String toString() {
 		return textAlignName;
+	}
+	
+	/**
+	 * Parses a string into a TextAlign.
+	 * 
+	 * @param textAlign
+	 * @return
+	 */
+	public static TextAlign parseTextAlign(String textAlign) {
+		if (textAlignMap == null) {
+			textAlignMap = new HashMap<String, TextAlign>();
+			for (TextAlign v : values()) {
+				textAlignMap.put(v.toString(), v);
+			}
+		}
+		return textAlignMap.get(textAlign);
 	}
 }

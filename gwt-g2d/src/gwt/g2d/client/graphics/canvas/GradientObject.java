@@ -22,13 +22,13 @@ import com.google.gwt.core.client.JavaScriptObject;
  * 
  * @author hao1300@gmail.com
  */
-public final class GradientAdapter extends JavaScriptObject {
+public final class GradientObject extends JavaScriptObject {
 	
-	protected GradientAdapter() {
+	protected GradientObject() {
 	}
 	
-	public static GradientAdapter as(JavaScriptObject jsObject) {
-		return jsObject.<GradientAdapter>cast();
+	public static GradientObject as(JavaScriptObject jsObject) {
+		return jsObject.cast();
 	}
 	
 	/**

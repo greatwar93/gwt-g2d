@@ -31,7 +31,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}
 
 	public static ContextImpl as(JavaScriptObject jsContext) {
-		return jsContext.<ContextImpl> cast();
+		return jsContext.cast();
 	}
 
 	@Override
