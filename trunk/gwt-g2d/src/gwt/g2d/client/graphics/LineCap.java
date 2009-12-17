@@ -15,6 +15,9 @@
  */
 package gwt.g2d.client.graphics;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * Defines the type of endings that UAs will place on the end of lines.
@@ -44,6 +47,7 @@ public enum LineCap {
 	 */
 	SQUARE("square");
 	
+	private static Map<String, LineCap> lineCapMap;
 	private final String lineCapName;
 	
 	private LineCap(String lineCapName) {
@@ -53,5 +57,21 @@ public enum LineCap {
 	@Override
 	public String toString() {
 		return lineCapName;
+	}
+	
+	/**
+	 * Parses a string into a LineCap.
+	 * 
+	 * @param lineCap
+	 * @return
+	 */
+	public static LineCap parseLineCap(String lineCap) {
+		if (lineCapMap == null) {
+			lineCapMap = new HashMap<String, LineCap>();
+			for (LineCap v : values()) {
+				lineCapMap.put(v.toString(), v);
+			}
+		}
+		return lineCapMap.get(lineCap);
 	}
 }

@@ -310,7 +310,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the current composition operation.
 	 */
 	public Composition getGlobalCompositeOperation() {
-		return Composition.valueOf(context.getGlobalCompositeOperation());
+		return Composition.parseComposition(context.getGlobalCompositeOperation());
 	}
 	
 	/**
@@ -388,7 +388,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the type of endings that UAs will place on the end of lines.
 	 */
 	public LineCap getLineCap() {
-		return LineCap.valueOf(context.getLineCap());
+		return LineCap.parseLineCap(context.getLineCap());
 	}
 	
 	/**
@@ -407,7 +407,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the type of corners that UAs will place where two lines meet.
 	 */
 	public LineJoin getLineJoin() {
-		return LineJoin.valueOf(context.getLineJoin());
+		return LineJoin.parseLineJoin(context.getLineJoin());
 	}
 	
 	/**
@@ -839,7 +839,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the text alignment settings.
 	 */
 	public TextAlign getTextAlign() {
-		return TextAlign.valueOf(context.getTextAlign());
+		return TextAlign.parseTextAlign(context.getTextAlign());
 	}
 	
 	/**
@@ -854,7 +854,7 @@ public final class Surface extends FocusWidget {
 	 * Gets the text baseline alignment settings.
 	 */
 	public TextBaseline getTextBaseline() {
-		return TextBaseline.valueOf(context.getTextBaseline());
+		return TextBaseline.parseTextBaseline(context.getTextBaseline());
 	}
 	
 	/**
