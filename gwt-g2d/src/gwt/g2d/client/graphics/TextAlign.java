@@ -72,7 +72,6 @@ public enum TextAlign {
 	 * Parses a string into a TextAlign.
 	 * 
 	 * @param textAlign
-	 * @return
 	 */
 	public static TextAlign parseTextAlign(String textAlign) {
 		if (textAlignMap == null) {

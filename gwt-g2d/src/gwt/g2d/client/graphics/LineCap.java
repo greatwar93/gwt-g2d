@@ -63,7 +63,6 @@ public enum LineCap {
 	 * Parses a string into a LineCap.
 	 * 
 	 * @param lineCap
-	 * @return
 	 */
 	public static LineCap parseLineCap(String lineCap) {
 		if (lineCapMap == null) {
