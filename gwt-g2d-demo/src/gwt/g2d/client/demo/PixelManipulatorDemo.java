@@ -15,33 +15,51 @@
  */
 package gwt.g2d.client.demo;
 
-import gwt.g2d.client.graphics.KnownColor;
+import gwt.g2d.client.graphics.Color;
+import gwt.g2d.client.graphics.ImageLoader;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
-import gwt.g2d.client.math.Vector2;
 
+import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
  * Demo for pixel manipulation.
+
+ * Reference <a href=
+ * "http://dev.opera.com/articles/view/html-5-canvas-the-basics">
+ * http://dev.opera.com/articles/view/html-5-canvas-the-basics</a>
  * 
  * @author hao1300@gmail.com
  */
-public class PixelManipulatorDemo extends AbstractDemo {
+public class PixelManipulatorDemo extends ReferenceDemo {
 	public PixelManipulatorDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+		super(demoName, parentContainer, 
+				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 
 	@Override
 	public void initialize() {
-		getParentContainer().add(getPrimarySurface());
-		getPrimarySurface().fillBackground(KnownColor.BLUE);
-		ImageDataAdapter imageData = getPrimarySurface().getImageData(0, 0, 100, 100);
-		for (int r = 0; r < imageData.getWidth(); r++) {
-			for (int c = 0; c < imageData.getHeight(); c++) {
-				imageData.setColor(r, c, KnownColor.GOLD);
+		super.initialize();
+		ImageLoader.loadImages("images/gwt-logo.png", new ImageLoader.CallBack() {
+			@Override
+			public void onImagesLoaded(ImageElement[] imageElements) {
+				ImageElement image = imageElements[0];
+				getPrimarySurface().drawImage(image, 0, 0);
+				
+				ImageDataAdapter imageData = getPrimarySurface()
+						.getImageData(0, 0, image.getWidth(), image.getHeight());
+				for (int r = 0; r < image.getWidth(); r++) {
+					for (int c = 0; c < image.getHeight(); c++) {
+						Color color = imageData.getColor(r, c);
+						imageData.setColor(r, c, new Color(
+								255 - color.getR(), 
+								255 - color.getG(), 
+								255 - color.getB()));
+					}
+				}
+				getPrimarySurface().putImageData(imageData, image.getWidth(), 0);
 			}
-		}
-		getPrimarySurface().putImageData(imageData, Vector2.ZERO);
+		});
 	}
 
 	@Override

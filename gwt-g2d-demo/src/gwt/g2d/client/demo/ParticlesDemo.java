@@ -97,8 +97,8 @@ public class ParticlesDemo extends AbstractDemo {
 	 * @author hao1300@gmail.com
 	 */
 	private static class Particle {
-		private Vector2 position, velocity;
-		private Color color;
+		private final Vector2 position, velocity;
+		private final Color color;
 		
 		public Particle(Vector2 position, Vector2 velocity, Color color) {
 			this.position = position;
@@ -106,15 +106,15 @@ public class ParticlesDemo extends AbstractDemo {
 			this.color = color;
 		}
 		
-		public Color getColor() {
+		public final Color getColor() {
 			return color;
 		}
 		
-		public Vector2 getPosition() {
+		public final Vector2 getPosition() {
 			return position;
 		}
 		
-		public Vector2 getVelocity() {
+		public final Vector2 getVelocity() {
 			return velocity;
 		}
 	}

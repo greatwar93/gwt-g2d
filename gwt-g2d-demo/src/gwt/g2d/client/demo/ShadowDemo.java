@@ -19,8 +19,6 @@ import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.math.Vector2;
 
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -31,29 +29,19 @@ import com.google.gwt.user.client.ui.Panel;
  * 
  * @author hao1300@gmail.com
  */
-public class ShadowDemo extends AbstractDemo {
+public class ShadowDemo extends ReferenceDemo {
 	public ShadowDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+		super(demoName, parentContainer,
+				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 
 	@Override
 	public void initialize() {
-		getParentContainer().clear();
-		getParentContainer().add(getPrimarySurface());
-		getParentContainer().add(new InlineLabel("Reference: "));
-		getParentContainer().add(new Anchor(
-				"http://dev.opera.com/articles/view/html-5-canvas-the-basics",
-				"http://dev.opera.com/articles/view/html-5-canvas-the-basics"));
-		getPrimarySurface().clear()
-				.setShadowOffset(new Vector2(5, 5))
+		super.initialize();
+		getPrimarySurface().setShadowOffset(new Vector2(5, 5))
 				.setShadowBlur(4)
 				.setShadowColor(new Color(255, 0, 0, .5))
 				.setFillStyle(KnownColor.BLUE)
 				.fillRectangle(20, 20, 150, 100);
-	}
-
-	@Override
-	public void update() {
-
 	}
 }
