@@ -31,6 +31,11 @@ import com.google.gwt.user.client.ui.FocusWidget;
 /**
  * The surface that an application uses to render to the screen.
  * 
+ * <h3>CSS Style Rules</h3>
+ * <ul class='css'>
+ * <li>.g2d-Surface { }</li>
+ * </ul>
+ * 
  * @see <a href="http://dev.w3.org/html5/spec/Overview.html#the-canvas-element">
  * http://dev.w3.org/html5/spec/Overview.html#the-canvas-element</a>
  * 
@@ -50,6 +55,7 @@ public final class Surface extends FocusWidget {
 	public Surface(int width, int height) {
 		setElement(Document.get().createElement("canvas"));
 		canvas.init(getElement(), width, height);
+		setStylePrimaryName("g2d-Surface");
 		this.width = width;
 		this.height = height;
 		context = canvas.getContext();
