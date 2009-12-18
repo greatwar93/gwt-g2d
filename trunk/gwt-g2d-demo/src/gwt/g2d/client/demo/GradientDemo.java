@@ -21,8 +21,6 @@ import gwt.g2d.client.graphics.LinearGradient;
 import gwt.g2d.client.graphics.TextBaseline;
 import gwt.g2d.client.math.Vector2;
 
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -32,21 +30,16 @@ import com.google.gwt.user.client.ui.Panel;
  * 
  * @author hao1300@gmail.com
  */
-public class GradientDemo extends AbstractDemo {
+public class GradientDemo extends ReferenceDemo {
 
 	public GradientDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+		super(demoName, parentContainer,
+				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 
 	@Override
 	public void initialize() {
-		getParentContainer().clear();
-		getParentContainer().add(getPrimarySurface());
-		getParentContainer().add(new InlineLabel("Reference: "));
-		getParentContainer().add(new Anchor(
-				"http://dev.opera.com/articles/view/html-5-canvas-the-basics",
-				"http://dev.opera.com/articles/view/html-5-canvas-the-basics"));
-		getPrimarySurface().clear();
+		super.initialize();
 		// The hue spectrum used by HSV color picker charts.
 		Color[] hue = { KnownColor.RED, 
 				KnownColor.YELLOW,
@@ -79,9 +72,5 @@ public class GradientDemo extends AbstractDemo {
 
 		    .setStrokeStyle(KnownColor.GRAY)
 		    .strokeText("Hello world!", 5, 120, 200);		       
-	}
-
-	@Override
-	public void update() {
 	}
 }

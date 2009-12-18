@@ -1,3 +1,18 @@
+/*
+ * Copyright 2009 Hao Nguyen
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.Color;
@@ -9,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.user.client.Random;
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -20,7 +33,7 @@ import com.google.gwt.user.client.ui.Panel;
  * 
  * @author hao1300@gmail.com
  */
-public class AnimationDemo extends AbstractDemo {
+public class AnimationDemo extends ReferenceDemo {
 	private static final Vector2 MIN = new Vector2(50, 50);
 	private static final Vector2 MAX = new Vector2(550, 550);
 	private static final int MAX_SPRITES = 80;
@@ -28,19 +41,14 @@ public class AnimationDemo extends AbstractDemo {
 	private final List<Sprite> sprites = new ArrayList<Sprite>();
 
 	public AnimationDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+		super(demoName, parentContainer,
+				"http://blogoscoped.com/files/canvas-test.html");
 	}
 
 	@Override
 	public void initialize() {
-		getParentContainer().clear();
-		getParentContainer().add(getPrimarySurface());
-		getParentContainer().add(new InlineLabel("Reference: "));
-		getParentContainer().add(new Anchor(
-				"http://blogoscoped.com/files/canvas-test.html",
-				"http://blogoscoped.com/files/canvas-test.html"));
+		super.initialize();
 		sprites.clear();
-		getPrimarySurface().clear();
 		sprites.add(new Sprite());
 	}
 
@@ -56,14 +64,14 @@ public class AnimationDemo extends AbstractDemo {
 		}
 	}
 
-	private static int getRandomInt(double min, double max) {
+	private static final int getRandomInt(double min, double max) {
 		return (int) (((max + 1 - min) * Random.nextDouble()) + min);
 	}
 
 	private static class Sprite {
 		private static final int COLOR_MIN = 100, COLOR_MAX = 230;
 		private static final Vector2 SPEED_MAX = new Vector2(6);
-		private Vector2 pos, speed;
+		private final Vector2 pos, speed;
 		private final int[] color = new int[3];
 		private final int[] colorSpeed = {1, 1, 1};
 
@@ -76,7 +84,7 @@ public class AnimationDemo extends AbstractDemo {
 			}
 		}
 
-		public void move() {
+		public final void move() {
 			pos.mutableAdd(speed);
 			if (pos.getX() < MIN.getX()) {
 				pos.setX(MIN.getX());
@@ -94,7 +102,7 @@ public class AnimationDemo extends AbstractDemo {
 			}
 		}
 
-		private void changeAppearance() {
+		private final void changeAppearance() {
 			for (int i = 0; i < color.length; i++) {
 				color[i] += colorSpeed[i];
 				if (color[i] < COLOR_MIN) {
@@ -107,7 +115,7 @@ public class AnimationDemo extends AbstractDemo {
 			}
 		}
 
-		public void draw(Surface surface) {
+		public final void draw(Surface surface) {
 			int padding = 2;
 			int fluff = 10;
 			int size = 10;
@@ -124,7 +132,7 @@ public class AnimationDemo extends AbstractDemo {
 			}
 		}
 
-		private int getRandomSpeed(double maxSpeed) {
+		private final int getRandomSpeed(double maxSpeed) {
 			return getRandomInt(maxSpeed, maxSpeed * 1.5);
 		}
 	}

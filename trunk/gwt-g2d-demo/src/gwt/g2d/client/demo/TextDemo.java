@@ -18,8 +18,6 @@ package gwt.g2d.client.demo;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.graphics.TextBaseline;
 
-import com.google.gwt.user.client.ui.Anchor;
-import com.google.gwt.user.client.ui.InlineLabel;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -30,30 +28,21 @@ import com.google.gwt.user.client.ui.Panel;
  * 
  * @author hao1300@gmail.com
  */
-public class TextDemo extends AbstractDemo {
+public class TextDemo extends ReferenceDemo {
 	public TextDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+		super(demoName, parentContainer,
+				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 
 	@Override
 	public void initialize() {
-		getParentContainer().clear();
-		getParentContainer().add(getPrimarySurface());
-		getParentContainer().add(new InlineLabel("Reference: "));
-		getParentContainer().add(new Anchor(
-				"http://dev.opera.com/articles/view/html-5-canvas-the-basics",
-				"http://dev.opera.com/articles/view/html-5-canvas-the-basics"));
-		getPrimarySurface().clear()
-				.setFillStyle(KnownColor.BLUE)
+		super.initialize();
+		getPrimarySurface().setFillStyle(KnownColor.BLUE)
 				.setFont("italic 30px sans-serif")
 				.setTextBaseline(TextBaseline.TOP)
 				.fillText("Hello World!", 0, 20)
 				.setFont("bold 30px sans-serif")
+				.setStrokeStyle(KnownColor.BLACK)
 				.strokeText("Hello World", 0, 50);
-	}
-
-	@Override
-	public void update() {
-
 	}
 }

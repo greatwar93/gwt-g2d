@@ -81,7 +81,7 @@ public class Tetris extends AbstractApp {
 		Surface surface = getPrimarySurface();
 		
 		DockPanel panel = new DockPanel();
-		surface.setStyleName("mainPanel");
+		parentContainer.add(panel);
 		panel.add(surface, DockPanel.LINE_START);
 		final Button resetButton = new Button("Reset", new ClickHandler() {
 			@Override
@@ -119,7 +119,6 @@ public class Tetris extends AbstractApp {
 		nextPiecePanel.setStyleName("sidePanel");
 		nextPiecePanel.setHeight(surface.getHeight() + "px");
 		panel.add(nextPiecePanel, DockPanel.LINE_END);
-		parentContainer.add(panel);
 		
 		nextPieceSurface.fillBackground(KnownColor.BLACK);
 		

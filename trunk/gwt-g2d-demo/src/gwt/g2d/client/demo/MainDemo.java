@@ -38,7 +38,7 @@ public class MainDemo implements EntryPoint {
 	private final List<AbstractDemo> demos = new ArrayList<AbstractDemo>();
 	private int selectedIndex = 0;
 	
-	public void onModuleLoad() {
+	public void onModuleLoad() {		
 		final Panel demoPanel = new FlowPanel();
 		demos.add(new AnimationDemo("Animation Demo", demoPanel));
 		demos.add(new ColorDemo("Color Demo", demoPanel));
@@ -48,6 +48,7 @@ public class MainDemo implements EntryPoint {
 		demos.add(new TetrisDemo("Tetris", demoPanel));
 		demos.add(new TextDemo("Text Demo", demoPanel));
 		demos.add(new ShadowDemo("Shadow Demo", demoPanel));
+		demos.add(new PropertyTest("Property Tests", demoPanel));
 				
 		final ListBox listBox = new ListBox();
 		for (AbstractDemo demo : demos) {
@@ -66,10 +67,9 @@ public class MainDemo implements EntryPoint {
 		});
 		
 		Panel panel = new FlowPanel();
-		panel.add(new HTML("This application is created using " 
-				+ "<a href=\"http://code.google.com/p/gwt-canvas/\">gwt-canvas</a>"
-				+ " and "
-				+ "<a href=\"http://code.google.com/p/gwt-g2d/\">gwt-g2d</a>"));
+		panel.add(new HTML("This demo is created using " 
+				+ "<a href=\"http://code.google.com/p/gwt-g2d/\">gwt-g2d</a>"
+				+ " inspired by <a href=\"http://code.google.com/p/gwt-canvas/\">gwt-canvas</a>"));
 		panel.add(listBox);
 	  panel.add(demoPanel);
 		RootPanel.get().add(panel);
