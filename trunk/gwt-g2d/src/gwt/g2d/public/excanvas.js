@@ -602,12 +602,29 @@ if (!document.createElement('canvas').getContext) {
   }
 
   var contextPrototype = CanvasRenderingContext2D_.prototype;
-  contextPrototype.clearRect = function() {
-    if (this.textMeasureEl_) {
-      this.textMeasureEl_.removeNode(true);
-      this.textMeasureEl_ = null;
+  // Reference: http://code.google.com/p/explorercanvas/issues/detail?id=20
+  // Be careful in using this as it may cause serious memory leak!
+  contextPrototype.clearRect = function(aX, aY, aWidth, aHeight) {
+    if ((aX == null && aY == null && aWidth == null && aHeight == null) 
+	    || (aX <= 0 && aY <= 0 && aX + aWidth >= this.canvas.clientWidth
+		    && aY + aHeight >= this.canvas.clientHeight)) {
+	  if (this.textMeasureEl_) {
+		this.textMeasureEl_.removeNode(true);
+		this.textMeasureEl_ = null;
+	  }
+      this.element_.innerHTML = '';
+    } else {
+      if (this.canvas.style.backgroundColor != null && 
+		  this.canvas.style.backgroundColor != "") {
+      	newColor = this.canvas.style.backgroundColor;
+      } else {
+      	newColor = document.bgColor;
+      }
+      oldColor = this.fillStyle;
+      this.fillStyle = newColor;
+      this.fillRect(aX, aY, aWidth, aHeight);
+      this.fillStyle = oldColor;
     }
-    this.element_.innerHTML = '';
   };
 
   contextPrototype.beginPath = function() {
