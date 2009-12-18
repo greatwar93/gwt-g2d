@@ -72,7 +72,6 @@ public enum LineJoin {
 	 * Parses a string into a LineJoin.
 	 * 
 	 * @param lineJoin
-	 * @return
 	 */
 	public static LineJoin parseLineJoin(String lineJoin) {
 		if (lineJoinMap == null) {

@@ -729,7 +729,6 @@ public final class Surface extends FocusWidget {
 	 * @param y
 	 * @param width
 	 * @param height
-	 * @return
 	 */
 	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
 		return new ImageDataAdapter(context.getImageData(x, y, width, height));
@@ -742,7 +741,6 @@ public final class Surface extends FocusWidget {
 	 * black. Pixels must be returned as non-premultiplied alpha values.
 	 * 
 	 * @param rect
-	 * @return
 	 */
 	public ImageDataAdapter getImageData(Rectangle rect) {
 		return getImageData(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
@@ -951,8 +949,6 @@ public final class Surface extends FocusWidget {
 	/**
 	 * Gets the distance that the shadow will be offset in the positive
 	 * horizontal direction.
-	 * 
-	 * @return
 	 */
 	public double getShadowOffsetX() {
 		return context.getShadowOffsetX();		
@@ -972,8 +968,6 @@ public final class Surface extends FocusWidget {
 	/**
 	 * Gets the distance that the shadow will be offset in the positive
 	 * vertical direction.
-	 * 
-	 * @return
 	 */
 	public double getShadowOffsetY() {
 		return context.getShadowOffsetY();
@@ -994,8 +988,6 @@ public final class Surface extends FocusWidget {
 	/**
 	 * Gets the distance that the shadow will be offset in the positive
 	 * horizontal and vertical direction.
-	 * 
-	 * @return
 	 */
 	public Vector2 getShadowOffset() {
 		return new Vector2(context.getShadowOffsetX(), context.getShadowOffsetY());
@@ -1013,8 +1005,6 @@ public final class Surface extends FocusWidget {
 	
 	/**
 	 * Gets the size of the blurring effect.
-	 * 	
-	 * @return
 	 */
 	public double getShadowBlur() {
 		return context.getShadowBlur();

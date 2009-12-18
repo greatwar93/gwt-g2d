@@ -74,7 +74,6 @@ public enum TextBaseline {
 	 * Parses a string into a TextAlign.
 	 * 
 	 * @param textBaseline
-	 * @return
 	 */
 	public static TextBaseline parseTextBaseline(String textBaseline) {
 		if (textBaselineMap == null) {

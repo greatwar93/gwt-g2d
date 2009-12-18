@@ -34,7 +34,6 @@ public final class ImageDataAdapter {
 	 * Requires: the given JavaScriptObject must be an instance of ImageData.
 	 * 
 	 * @param imageData
-	 * @return
 	 */
 	public ImageDataAdapter(JavaScriptObject imageData) {
 		this.imageData = imageData;
@@ -261,8 +260,6 @@ public final class ImageDataAdapter {
 	
 	/**
 	 * Gets the image data as a JavaScriptObject.
-	 * 
-	 * @return
 	 */
 	public JavaScriptObject getImageData() {
 		return imageData;
@@ -282,7 +279,6 @@ public final class ImageDataAdapter {
 	 * 
 	 * @param x
 	 * @param y
-	 * @return
 	 */
 	private int getIndex(int x, int y) {
 		return 4 * (y * getWidth() + x);
@@ -290,8 +286,6 @@ public final class ImageDataAdapter {
 	
 	/**
 	 * Gets the image data representation.
-	 * 
-	 * @return
 	 */
 	public CanvasPixelArray getData() {
 		return pixelData;
@@ -299,8 +293,6 @@ public final class ImageDataAdapter {
 	
 	/**
 	 * Gets the width of the image data.
-	 * 
-	 * @return
 	 */
 	public native int getWidth() /*-{
 		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.width;
@@ -308,8 +300,6 @@ public final class ImageDataAdapter {
 	
 	/**
 	 * Gets the height of the image data.
-	 * 
-	 * @return
 	 */
 	public native int getHeight() /*-{
 		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.height;
@@ -317,8 +307,6 @@ public final class ImageDataAdapter {
 	
 	/**
 	 * Gets the CanvasPixelArray JavaScriptObject from this ImageData.
-	 * 
-	 * @return
 	 */
 	private native JavaScriptObject getJsPixelArray() /*-{
 		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.data;

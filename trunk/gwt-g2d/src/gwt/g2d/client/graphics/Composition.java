@@ -102,7 +102,6 @@ public enum Composition {
 	 * Parses a string into a Composition.
 	 * 
 	 * @param composition
-	 * @return
 	 */
 	public static Composition parseComposition(String composition) {
 		if (compositionMap == null) {

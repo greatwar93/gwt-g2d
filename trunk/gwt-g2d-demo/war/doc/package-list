@@ -1,0 +1,7 @@
+gwt.g2d.client.framework
+gwt.g2d.client.graphics
+gwt.g2d.client.graphics.canvas
+gwt.g2d.client.graphics.shapes
+gwt.g2d.client.graphics.visitor
+gwt.g2d.client.math
+gwt.g2d.client.util

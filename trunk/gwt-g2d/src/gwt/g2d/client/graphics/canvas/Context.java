@@ -176,7 +176,6 @@ public interface Context {
 	 * @param y
 	 * @param width
 	 * @param height
-	 * @return
 	 */
 	JavaScriptObject getImageData(double x, double y, double width, double height);	
 	
@@ -202,31 +201,23 @@ public interface Context {
 	
 	/**
 	 * Gets the size of the blurring effect.
-	 * 	
-	 * @return
 	 */
 	double getShadowBlur();
 	
 	/**
 	 * Gets the color of the shadow.
-	 * 
-	 * @return
 	 */
 	String getShadowColor();
 	
 	/**
 	 * Gets the distance that the shadow will be offset in the positive
 	 * horizontal direction.
-	 * 
-	 * @return
 	 */
 	double getShadowOffsetX();
 	
 	/**
 	 * Gets the distance that the shadow will be offset in the positive
 	 * vertical direction.
-	 * 
-	 * @return
 	 */
 	double getShadowOffsetY();
 	

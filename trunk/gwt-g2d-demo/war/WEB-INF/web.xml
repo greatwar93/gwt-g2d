@@ -5,10 +5,10 @@
 
 <web-app>
 
-	<!-- <servlet-mapping>  
+	<servlet-mapping>  
     <servlet-name>doc</servlet-name> 
   	<url-pattern>/doc/*</url-pattern> 
-  </servlet-mapping> -->
+  </servlet-mapping>
           
   <!-- Default page to serve -->
   <welcome-file-list>

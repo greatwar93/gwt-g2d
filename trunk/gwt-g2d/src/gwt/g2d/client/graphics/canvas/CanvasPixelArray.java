@@ -30,7 +30,6 @@ public final class CanvasPixelArray extends JavaScriptObject {
 	 * CanvasPixelArray.
 	 * 
 	 * @param pixelArray
-	 * @return
 	 */
 	public static CanvasPixelArray as(JavaScriptObject pixelArray) {
 		return pixelArray.cast();
@@ -42,8 +41,6 @@ public final class CanvasPixelArray extends JavaScriptObject {
 	
 	/**
 	 * Gets the length the pixel array, which is height * width * 4.
-	 * 
-	 * @return.
 	 */
 	public native int getLength() /*-{
 		return this.length;
