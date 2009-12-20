@@ -15,7 +15,6 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.ImageElement;
 
 /**
@@ -85,7 +84,7 @@ public interface Context {
 	 * @param height
 	 * @return a new ImageData object.
 	 */
-	JavaScriptObject createImageData(int width, int height);
+	ImageData createImageData(int width, int height);
 	
 	/**
 	 * Instantiate new blank ImageData objects whose dimension is equal to
@@ -94,18 +93,18 @@ public interface Context {
 	 * @param imageData
 	 * @return a new ImageData object.
 	 */
-	JavaScriptObject createImageData(JavaScriptObject imageData);
+	ImageData createImageData(ImageData imageData);
 	
 	/**
 	 * Gets the adapter for a linear gradient between two points.
 	 */
-	JavaScriptObject createLinearGradient(double x0, double y0, 
+	CanvasGradient createLinearGradient(double x0, double y0, 
 			double x1, double y1);
 	
 	/**
 	 * Gets the adapter for a radial gradient.
 	 */
-	JavaScriptObject createRadialGradient(double x0, double y0, 
+	CanvasGradient createRadialGradient(double x0, double y0, 
 			double radius0, double x1, double y1, double radius1);
 	
 	/**
@@ -123,6 +122,26 @@ public interface Context {
 	 * Draws the given image onto the canvas.
 	 */
 	void drawImage(ImageElement image, 
+			double sourceX, double sourceY, 
+			double sourceWidth, double sourceHeight, 
+			double destinationX, double destinationY, 
+			double destinationWidth, double destinationHeight);
+	
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(CanvasElement image, double x, double y);
+
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(CanvasElement image, double x, double y, 
+			double width, double height);
+
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(CanvasElement image, 
 			double sourceX, double sourceY, 
 			double sourceWidth, double sourceHeight, 
 			double destinationX, double destinationY, 
@@ -177,7 +196,7 @@ public interface Context {
 	 * @param width
 	 * @param height
 	 */
-	JavaScriptObject getImageData(double x, double y, double width, double height);	
+	ImageData getImageData(double x, double y, double width, double height);	
 	
 	/**
 	 * Gets the current line cap style.
@@ -270,7 +289,7 @@ public interface Context {
 	 * @param dirtyWidth
 	 * @param dirtyHeight
 	 */
-	void putImageData(JavaScriptObject imageData, double x, double y, 
+	void putImageData(ImageData imageData, double x, double y, 
 			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight);
 	
 	/**
@@ -309,7 +328,7 @@ public interface Context {
 	/**
 	 * Sets the current style used for filling shapes.
 	 */
-	void setFillStyle(JavaScriptObject gradient);
+	void setFillStyle(CanvasGradient gradient);
 	
 	/**
 	 * Sets the current style used for filling shapes
@@ -385,7 +404,7 @@ public interface Context {
 	/**
 	 * Sets the current style used for stroking shapes.
 	 */
-	void setStrokeStyle(JavaScriptObject gradient);
+	void setStrokeStyle(CanvasGradient gradient);
 	
 	/**
 	 * Sets the current style used for stroking shapes.
