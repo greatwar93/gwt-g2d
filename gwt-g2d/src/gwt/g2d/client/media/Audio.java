@@ -13,42 +13,35 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package gwt.g2d.client.graphics.canvas;
+package gwt.g2d.client.media;
+
+import com.google.gwt.dom.client.Document;
 
 /**
- * Helper class for initializing a canvas element.
+ * Represents a widget for manipulating an audio element
  * 
  * @author hao1300@gmail.com
  */
-public class CanvasInitializer {
-	
-	/**
-	 * Initializes the canvas element.
-	 * 
-	 * @param element
-	 * @param width
-	 * @param height
-	 */
-	public void init(CanvasElement element, int width, int height) {
-		setWidth(element, width);
-		setHeight(element, height);
-	}
+public class Audio extends Media {
 
 	/**
-	 * Sets the width for the canvas.
-	 * 
-	 * @param width
+	 * Creates a new audio element.
 	 */
-	public void setWidth(CanvasElement element, int width) {
-		element.setWidth(width);
+	public Audio() {
+		super(Document.get().createElement("audio").<MediaElement>cast());
 	}
 	
 	/**
-	 * Sets the height for the canvas.
+	 * Creates a new audio element with the given src.
 	 * 
-	 * @param height
+	 * @param source
 	 */
-	public void setHeight(CanvasElement element, int height) {
-		element.setHeight(height);
-	} 
+	public Audio(String source) {
+		this();
+		getMediaElement().setSrc(source);
+	}
+	
+	public Audio(AudioElement element) {
+		super(element);
+	}
 }
