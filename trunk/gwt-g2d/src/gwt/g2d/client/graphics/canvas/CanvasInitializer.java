@@ -15,26 +15,40 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
 /**
- * Adapter for accessing the gradient interface.
+ * Helper class for initializing a canvas element.
  * 
  * @author hao1300@gmail.com
  */
-public final class GradientObject extends JavaScriptObject {
+public class CanvasInitializer {
 	
-	protected GradientObject() {
+	/**
+	 * Initializes the canvas element.
+	 * 
+	 * @param element
+	 * @param width
+	 * @param height
+	 */
+	public void init(CanvasElement element, int width, int height) {
+		setWidth(element, width);
+		setHeight(element, height);
 	}
-	
-	public static GradientObject as(JavaScriptObject jsObject) {
-		return jsObject.cast();
+
+	/**
+	 * Sets the width for the canvas.
+	 * 
+	 * @param width
+	 */
+	public void setWidth(CanvasElement element, int width) {
+		element.setAttribute("width", width + "px");
 	}
 	
 	/**
-	 * Adds a color stop to the native gradient.
+	 * Sets the height for the canvas.
+	 * 
+	 * @param height
 	 */
-	public native void addColorStop(double offset, String color) /*-{
-		this.addColorStop(offset, color);
-	}-*/;
+	public void setHeight(CanvasElement element, int height) {
+		element.setAttribute("height", height + "px");
+	} 
 }

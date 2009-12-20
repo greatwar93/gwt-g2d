@@ -4,8 +4,8 @@
   <inherits name='com.google.gwt.core.Core'/>
   <inherits name='com.google.gwt.user.UserAgent'/>
 
-  <replace-with class='gwt.g2d.client.graphics.canvas.CanvasImplIE'>
-  	<when-type-is class='gwt.g2d.client.graphics.canvas.CanvasImpl'/>
+  <replace-with class='gwt.g2d.client.graphics.canvas.CanvasInitializerIE'>
+  	<when-type-is class='gwt.g2d.client.graphics.canvas.CanvasInitializer'/>
     <any>
     	<when-property-is name='user.agent' value='ie6'/>
       <when-property-is name='user.agent' value='ie8'/>
