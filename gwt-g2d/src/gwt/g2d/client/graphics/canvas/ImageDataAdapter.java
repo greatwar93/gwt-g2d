@@ -20,13 +20,14 @@ import gwt.g2d.client.math.Vector2;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-/**
+/**x
  * Adapter for accessing the image data object.
  * 
  * @author hao1300@gmail.com
  */
 public final class ImageDataAdapter {
-	private final JavaScriptObject imageData;
+	private final int width, height;
+	private final ImageData imageData;
 	private final CanvasPixelArray pixelData;
 	
 	/**
@@ -35,9 +36,11 @@ public final class ImageDataAdapter {
 	 * 
 	 * @param imageData
 	 */
-	public ImageDataAdapter(JavaScriptObject imageData) {
+	public ImageDataAdapter(ImageData imageData) {
 		this.imageData = imageData;
-		this.pixelData = CanvasPixelArray.as(getJsPixelArray());
+		this.width = imageData.getWidth();
+		this.height = imageData.getHeight();
+		this.pixelData = imageData.getPixelArray();
 	}
 	
 	/**
@@ -281,7 +284,7 @@ public final class ImageDataAdapter {
 	 * @param y
 	 */
 	private int getIndex(int x, int y) {
-		return 4 * (y * getWidth() + x);
+		return 4 * (y * width + x);
 	}
 	
 	/**
@@ -294,21 +297,14 @@ public final class ImageDataAdapter {
 	/**
 	 * Gets the width of the image data.
 	 */
-	public native int getWidth() /*-{
-		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.width;
-	}-*/;
+	public int getWidth() {
+		return width;
+	}
 	
 	/**
 	 * Gets the height of the image data.
 	 */
-	public native int getHeight() /*-{
-		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.height;
-	}-*/;
-	
-	/**
-	 * Gets the CanvasPixelArray JavaScriptObject from this ImageData.
-	 */
-	private native JavaScriptObject getJsPixelArray() /*-{
-		return this.@gwt.g2d.client.graphics.canvas.ImageDataAdapter::imageData.data;
-	}-*/;
+	public int getHeight() {
+		return height;
+	}
 }

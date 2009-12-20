@@ -15,39 +15,26 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-
 import com.google.gwt.core.client.JavaScriptObject;
-import com.google.gwt.dom.client.Element;
-import com.google.gwt.dom.client.Style.Unit;
 
 /**
- * The IE implementation of the canvas widget.
+ * Adapter for accessing the gradient interface.
  * 
  * @author hao1300@gmail.com
  */
-public class CanvasImplIE extends CanvasImpl {
+public final class CanvasGradient extends JavaScriptObject {
 	
-	@Override
-	public void init(Element element, int width, int height) {
-		this.element = element;
-		this.context = ContextImpl.as(getJsContext(element));
-		setWidth(width);
-		setHeight(height);
+	protected CanvasGradient() {
 	}
 	
-	@Override
-	public void setWidth(int width) {
-		element.getStyle().setWidth(width, Unit.PX);
+	public static CanvasGradient as(JavaScriptObject jsObject) {
+		return jsObject.cast();
 	}
 	
-	@Override
-	public void setHeight(int height) {
-		element.getStyle().setHeight(height, Unit.PX);
-	}
-	
-	@Override
-	protected native JavaScriptObject getJsContext(Element element) /*-{
-		$wnd.G_vmlCanvasManager.initElement(element);
-		return element.getContext("2d");
+	/**
+	 * Adds a color stop to the native gradient.
+	 */
+	public native void addColorStop(double offset, String color) /*-{
+		this.addColorStop(offset, color);
 	}-*/;
 }

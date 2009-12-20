@@ -166,7 +166,7 @@ public class ImageLoader {
   /**
    * Returns a handle to an img object. Ties back to the ImageLoader instance
    */
-  private native ImageElement prepareImage(String url)/*-{
+  private native ImageElement prepareImage(String url) /*-{
     // if( callback specified )
     // do nothing
      

@@ -15,40 +15,38 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
-import com.google.gwt.dom.client.Element;
+import com.google.gwt.core.client.JavaScriptObject;
 
 /**
- * Interface for the canvas element.
+ * Wrapper class for ImageData, which stores the width, height, and the 
+ * pixel data of a dynamic image.
  * 
  * @author hao1300@gmail.com
  */
-public interface Canvas {
+public final class ImageData extends JavaScriptObject {
+	
+	protected ImageData() {
+		
+	}
 	
 	/**
-	 * Initializes the canvas element.
-	 * 
-	 * @param element
-	 * @param width
-	 * @param height
+	 * Gets the width of the image data.
 	 */
-	public void init(Element element, int width, int height);
-
-	/**
-	 * Sets the width for the canvas.
-	 * 
-	 * @param width
-	 */
-	public void setWidth(int width);
+	public native int getWidth() /*-{
+		return this.width;
+	}-*/;
 	
 	/**
-	 * Sets the height for the canvas.
-	 * 
-	 * @param height
+	 * Gets the height of the image data.
 	 */
-	public void setHeight(int height);
+	public native int getHeight() /*-{
+		return this.height;
+	}-*/;
 	
 	/**
-	 * Gets the context for rendering onto the canvas.
+	 * Gets the CanvasPixelArray JavaScriptObject from this ImageData.
 	 */
-	public Context getContext();
+	public native CanvasPixelArray getPixelArray() /*-{
+		return this.data;
+	}-*/;
 }

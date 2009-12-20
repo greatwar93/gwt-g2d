@@ -16,7 +16,7 @@
 package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.graphics.canvas.Context;
-import gwt.g2d.client.graphics.canvas.GradientObject;
+import gwt.g2d.client.graphics.canvas.CanvasGradient;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -81,8 +81,8 @@ public abstract class Gradient {
 	/**
 	 * Gets the gradient adapter.
 	 */
-	public final GradientObject getGradientAdapter(Context context) {
-		GradientObject gradientAdapter = createGradientAdapter(context);
+	public final CanvasGradient getGradientAdapter(Context context) {
+		CanvasGradient gradientAdapter = createGradientAdapter(context);
 		for (ColorStop colorStop : colorStops) {
 			gradientAdapter.addColorStop(colorStop.getOffset(), 
 					colorStop.getColor().toString());
@@ -93,5 +93,5 @@ public abstract class Gradient {
 	/**
 	 * Creates a new gradient adapter.
 	 */
-	protected abstract GradientObject createGradientAdapter(Context context);
+	protected abstract CanvasGradient createGradientAdapter(Context context);
 }

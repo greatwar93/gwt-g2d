@@ -15,9 +15,10 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.g2d.client.graphics.canvas.Canvas;
-import gwt.g2d.client.graphics.canvas.CanvasImpl;
+import gwt.g2d.client.graphics.canvas.CanvasElement;
+import gwt.g2d.client.graphics.canvas.CanvasInitializer;
 import gwt.g2d.client.graphics.canvas.Context;
+import gwt.g2d.client.graphics.canvas.ImageData;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Rectangle;
@@ -42,7 +43,9 @@ import com.google.gwt.user.client.ui.FocusWidget;
  * @author hao1300@gmail.com
  */
 public final class Surface extends FocusWidget {	
-	private final Canvas canvas = (CanvasImpl) GWT.create(CanvasImpl.class);
+	private static final CanvasInitializer canvasInitializer = 
+			GWT.create(CanvasInitializer.class);
+	private final CanvasElement canvas;
 	private final Context context;
 	private int width, height;
 	
@@ -53,12 +56,13 @@ public final class Surface extends FocusWidget {
 	 * @param height height of the surface.
 	 */
 	public Surface(int width, int height) {
-		setElement(Document.get().createElement("canvas"));
-		canvas.init(getElement(), width, height);
+		canvas = Document.get().createElement("canvas").cast();
+		setElement(canvas);
+		canvasInitializer.init(canvas, width, height);
 		setStylePrimaryName("g2d-Surface");
 		this.width = width;
 		this.height = height;
-		context = canvas.getContext();
+		context = canvas.getContext2D();
 	}
 	
 	/**
@@ -107,7 +111,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public void setWidth(int width) {
 		this.width = width;
-		canvas.setWidth(width);
+		canvasInitializer.setWidth(canvas, width);
 	}
 	
 	/**
@@ -115,7 +119,7 @@ public final class Surface extends FocusWidget {
 	 */
 	public void setHeight(int height) {
 		this.height = height;
-		canvas.setHeight(height);
+		canvasInitializer.setHeight(canvas, height);
 	}
 	
 	/**
@@ -126,18 +130,16 @@ public final class Surface extends FocusWidget {
 	}
 
 	/**
-	 * Gets the underlying canvas implementation.
-	 * Use with caution!
+	 * Gets the canvas element.
 	 * 
-	 * @return the underlying canvas implementation.
+	 * @return the underlying canvas element.
 	 */
-	public Canvas getCanvas() {
+	public CanvasElement getCanvas() {
 		return canvas;
 	}
 	
 	/**
-	 * Gets the underlying context implementation.
-	 * Use with caution!
+	 * Gets the context 2D.
 	 * 
 	 * @return the underlying context implementation for drawing onto the canvas.
 	 */
@@ -192,6 +194,16 @@ public final class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Scales by (scales.x, scales.y) units.
+	 * 
+	 * @param scales
+	 * @return self to support chaining.
+	 */
+	public Surface scale(Vector2 scales) {
+		return scale(scales.getX(), scales.getY());
+	}
+	
+	/**
 	 * Scales uniformly by scale units.
 	 * 
 	 * @param scale
@@ -232,6 +244,16 @@ public final class Surface extends FocusWidget {
 	public Surface translate(double x, double y) {
 		context.translate(x, y);
 		return this;
+	}
+	
+	/**
+	 * Translates the origin of the surface by (x, y) units.
+	 * 
+	 * @param translation
+	 * @return self to support chaining.
+	 */
+	public Surface translate(Vector2 translation) {
+		return translate(translation.getX(), translation.getY());
 	}
 	
 	/**
@@ -692,7 +714,8 @@ public final class Surface extends FocusWidget {
 	 * @return a new ImageData object.
 	 */
 	public ImageDataAdapter createImageData(int width, int height) {
-		return new ImageDataAdapter(context.createImageData(width, height));
+		return new ImageDataAdapter(context.createImageData(width, height)
+				.<ImageData>cast());
 	}
 	
 	/**
@@ -714,7 +737,8 @@ public final class Surface extends FocusWidget {
 	 * @return a new ImageData object.
 	 */
 	public ImageDataAdapter createImageData(ImageDataAdapter imageData) {
-		return new ImageDataAdapter(context.createImageData(imageData.getImageData()));
+		return new ImageDataAdapter(context.createImageData(imageData.getImageData())
+				.<ImageData>cast());
 	}
 
 	/**
@@ -731,7 +755,8 @@ public final class Surface extends FocusWidget {
 	 * @param height
 	 */
 	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
-		return new ImageDataAdapter(context.getImageData(x, y, width, height));
+		return new ImageDataAdapter(context.getImageData(x, y, width, height)
+				.<ImageData>cast());
 	}
 	
 	/**
