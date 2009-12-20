@@ -21,6 +21,7 @@ import gwt.g2d.client.graphics.LinearGradient;
 import gwt.g2d.client.graphics.TextBaseline;
 import gwt.g2d.client.math.Vector2;
 
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -39,6 +40,7 @@ public class GradientDemo extends ReferenceDemo {
 
 	@Override
 	public void initialize() {
+		add(new Label("Text rendering is yet not supported under Opera"));
 		super.initialize();
 		// The hue spectrum used by HSV color picker charts.
 		Color[] hue = { KnownColor.RED, 

@@ -28,19 +28,19 @@ import com.google.gwt.user.client.ui.Panel;
 public class ReferenceDemo extends AbstractDemo {
 	private String referenceSource;
 	
-	public ReferenceDemo(String demoName, Panel parentContainer, String referenceSource) {
+	public ReferenceDemo(String demoName, Panel parentContainer, 
+			String referenceSource) {
 		super(demoName, parentContainer);
 		this.referenceSource = referenceSource;
 	}
 	
 	@Override
 	public void initialize() {
-		getParentContainer().clear();
 		Panel panel = new FlowPanel();
 		panel.add(new InlineLabel("Reference: "));
 		panel.add(new Anchor(referenceSource, referenceSource));
-		getParentContainer().add(panel);
-		getParentContainer().add(getPrimarySurface());
+		add(panel);
+		add(getPrimarySurface());
 		getPrimarySurface().clear();
 	}
 	

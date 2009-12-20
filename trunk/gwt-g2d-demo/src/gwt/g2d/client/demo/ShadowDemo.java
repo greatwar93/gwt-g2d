@@ -19,6 +19,7 @@ import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.math.Vector2;
 
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -37,6 +38,7 @@ public class ShadowDemo extends ReferenceDemo {
 
 	@Override
 	public void initialize() {
+		add(new Label("Shadow is not supported under IE or Opera."));
 		super.initialize();
 		getPrimarySurface().setShadowOffset(new Vector2(5, 5))
 				.setShadowBlur(4)

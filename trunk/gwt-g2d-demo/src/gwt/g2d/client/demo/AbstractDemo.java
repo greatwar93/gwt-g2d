@@ -15,9 +15,10 @@
  */
 package gwt.g2d.client.demo;
 
-import com.google.gwt.user.client.ui.Panel;
-
 import gwt.g2d.client.framework.AbstractApp;
+
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Base class for all demo.
@@ -33,6 +34,7 @@ public abstract class AbstractDemo extends AbstractApp {
 		super(WIDTH, HEIGHT);
 		this.demoName = demoName;
 		this.parentContainer = parentContainer;
+		parentContainer.clear();
 	}
 	
 	/**
@@ -45,7 +47,7 @@ public abstract class AbstractDemo extends AbstractApp {
 	/**
 	 * Gets the container where this demo is contained.
 	 */
-	protected Panel getParentContainer() {
-		return parentContainer;
+	protected void add(Widget child) {
+		parentContainer.add(child);
 	}
 }

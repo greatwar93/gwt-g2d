@@ -60,7 +60,7 @@ public class PropertyTest extends AbstractDemo {
 
 	@Override
 	public void initialize() {
-		getParentContainer().add(table);
+		add(table);
 		table.setSize("400px", "auto");
 		table.setHTML(0, 0, "<b>Property</b>");
 		table.setHTML(0, 1, "<b>Expected</b>");
@@ -82,7 +82,7 @@ public class PropertyTest extends AbstractDemo {
 				i++;
 			}
 		}
-		getParentContainer().add(new Label("* A numerical test is considered " 
+		add(new Label("* A numerical test is considered " 
 				+ "passing if it is within " + EPSILON + " of the expected result."));
 	}
 

@@ -15,6 +15,7 @@
  */
 package gwt.g2d.client.demo.tetris;
 
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 
 import gwt.g2d.client.demo.AbstractDemo;
@@ -33,7 +34,9 @@ public class TetrisDemo extends AbstractDemo {
 
 	@Override
 	public void initialize() {
-		tetris = new Tetris(1, getParentContainer());
+		Panel panel = new FlowPanel();
+		add(panel);
+		tetris = new Tetris(1, panel);
 		tetris.initialize();
 	}
 

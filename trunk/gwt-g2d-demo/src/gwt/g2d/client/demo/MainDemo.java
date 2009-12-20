@@ -41,7 +41,9 @@ public class MainDemo implements EntryPoint {
 	public void onModuleLoad() {		
 		final Panel demoPanel = new FlowPanel();
 		demos.add(new AnimationDemo("Animation Demo", demoPanel));
+		demos.add(new CanvasOnCanvasDemo("Canvas on Canvas Demo", demoPanel));
 		demos.add(new ColorDemo("Color Demo", demoPanel));
+		demos.add(new DataUrlDemo("Data URL Demo", demoPanel));
 		demos.add(new GradientDemo("Gradient Demo", demoPanel));
 		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
 		demos.add(new PixelManipulatorDemo("Pixel Manipulator Demo", demoPanel));

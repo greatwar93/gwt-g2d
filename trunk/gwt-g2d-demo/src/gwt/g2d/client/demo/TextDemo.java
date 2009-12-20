@@ -18,6 +18,7 @@ package gwt.g2d.client.demo;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.graphics.TextBaseline;
 
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -36,6 +37,7 @@ public class TextDemo extends ReferenceDemo {
 
 	@Override
 	public void initialize() {
+		add(new Label("Text rendering is not yet supported in Opera."));
 		super.initialize();
 		getPrimarySurface().setFillStyle(KnownColor.BLUE)
 				.setFont("italic 30px sans-serif")
