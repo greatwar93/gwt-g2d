@@ -20,6 +20,7 @@ import gwt.g2d.client.graphics.ImageLoader;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -39,6 +40,7 @@ public class PixelManipulatorDemo extends ReferenceDemo {
 
 	@Override
 	public void initialize() {
+		add(new Label("Pixel manipulation is not available under IE."));
 		super.initialize();
 		ImageLoader.loadImages("images/gwt-logo.png", new ImageLoader.CallBack() {
 			@Override

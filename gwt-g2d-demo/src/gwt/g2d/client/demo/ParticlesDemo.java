@@ -41,7 +41,7 @@ public class ParticlesDemo extends AbstractDemo {
 	
 	@Override
 	public void initialize() {
-		getParentContainer().add(getPrimarySurface());
+		add(getPrimarySurface());
 		particles.clear();
     for (int i = 0; i < NUM_PARTICLES; i++) {
     	particles.add(new Particle(

@@ -20,6 +20,11 @@ import gwt.g2d.client.math.Rectangle;
 
 import com.google.gwt.user.client.ui.Panel;
 
+/**
+ * Demo the use of predefined-color.
+ * 
+ * @author hao1300@gmail.com
+ */
 public class ColorDemo extends AbstractDemo {
 
 	public ColorDemo(String demoName, Panel parentContainer) {
@@ -28,7 +33,7 @@ public class ColorDemo extends AbstractDemo {
 
 	@Override
 	public void initialize() {
-		getParentContainer().add(getPrimarySurface());
+		add(getPrimarySurface());
 		getPrimarySurface().fillBackground(KnownColor.BLACK);
 		Rectangle rectangle = new Rectangle(0, 0, 50, 50);
 		for (KnownColor c : KnownColor.getKnownColors()) {
