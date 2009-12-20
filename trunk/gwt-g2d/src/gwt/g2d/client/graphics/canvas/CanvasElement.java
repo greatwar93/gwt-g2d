@@ -76,4 +76,18 @@ public class CanvasElement extends Element {
 	public native final String toDataURL() /*-{
 		return this.toDataURL();
 	}-*/;
+	
+	/**
+	 * Sets the width of the canvas.
+	 */
+	public native final void setWidth(int width) /*-{
+		this.width = width;
+	}-*/;
+	
+	/**
+	 * Sets the height of the canvas.
+	 */
+	public native final void setHeight(int height) /*-{
+		this.height = height;
+	}-*/;
 }
