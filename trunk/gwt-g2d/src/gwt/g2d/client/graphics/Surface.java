@@ -620,6 +620,99 @@ public final class Surface extends FocusWidget {
 	 * @param y the y-coordinate to draw the image.
 	 * @return self to support chaining.
 	 */
+	public Surface drawImage(CanvasElement image, double x, double y) {
+		context.drawImage(image, x, y);
+		return this;
+	}
+	
+	/**
+	 * Draws the image at the given position.
+	 * 
+	 * @param image the image to draw.
+	 * @param position the position to draw the image.
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(CanvasElement image, Vector2 position) {
+		return drawImage(image, position.getX(), position.getY());
+	}
+	
+	/**
+	 * Draws the image in the specified rectangle.
+	 * 
+	 * @param image the image to draw.
+	 * @param x the x-coordinate to draw the image.
+	 * @param y the y-coordinate to draw the image.
+	 * @param width
+	 * @param height
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(CanvasElement image, double x, double y, double width, 
+			double height) {
+		context.drawImage(image, x, y, width, height);
+		return this;
+	}
+	
+	/**
+	 * Draws the image in the specified rectangle.
+	 * 
+	 * @param image the image to draw.
+	 * @param rectangle the rectangle inside which the image is to be drawn.
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(CanvasElement image, Rectangle rectangle) {
+		return drawImage(image, rectangle.getX(), rectangle.getY(), 
+				rectangle.getWidth(), rectangle.getHeight());
+	}
+	
+	/**
+	 * Draws the portion of the image in the source rectangle into the 
+	 * destination rectangle.
+	 * 
+	 * @param image image the image to draw.
+	 * @param sourceX
+	 * @param sourceY
+	 * @param sourceWidth
+	 * @param sourceHeight
+	 * @param destinationX
+	 * @param destinationY
+	 * @param destinationWidth
+	 * @param destinationHeight
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(CanvasElement image, double sourceX, double sourceY, 
+			double sourceWidth, double sourceHeight, double destinationX, 
+			double destinationY, double destinationWidth, double destinationHeight) {
+		context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight,
+				destinationX, destinationY, destinationWidth, destinationHeight);
+		return this;
+	}
+	
+	/**
+	 * /**
+	 * Draws the portion of the image in the source rectangle into the 
+	 * destination rectangle.
+	 * 
+	 * @param image
+	 * @param sourceRectangle
+	 * @param destinationRectangle
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(CanvasElement image, Rectangle sourceRectangle, 
+			Rectangle destinationRectangle) {
+		return drawImage(image, sourceRectangle.getX(), sourceRectangle.getY(),
+				sourceRectangle.getWidth(), sourceRectangle.getHeight(),
+				destinationRectangle.getX(), destinationRectangle.getY(), 
+				destinationRectangle.getWidth(), destinationRectangle.getHeight());
+	}
+	
+	/**
+	 * Draws the image at the given position.
+	 * 
+	 * @param image the image to draw.
+	 * @param x the x-coordinate to draw the image.
+	 * @param y the y-coordinate to draw the image.
+	 * @return self to support chaining.
+	 */
 	public Surface drawImage(ImageElement image, double x, double y) {
 		context.drawImage(image, x, y);
 		return this;
@@ -737,8 +830,7 @@ public final class Surface extends FocusWidget {
 	 * @return a new ImageData object.
 	 */
 	public ImageDataAdapter createImageData(ImageDataAdapter imageData) {
-		return new ImageDataAdapter(context.createImageData(imageData.getImageData())
-				.<ImageData>cast());
+		return new ImageDataAdapter(context.createImageData(imageData.getImageData()));
 	}
 
 	/**
@@ -755,8 +847,7 @@ public final class Surface extends FocusWidget {
 	 * @param height
 	 */
 	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
-		return new ImageDataAdapter(context.getImageData(x, y, width, height)
-				.<ImageData>cast());
+		return new ImageDataAdapter(context.getImageData(x, y, width, height));
 	}
 	
 	/**

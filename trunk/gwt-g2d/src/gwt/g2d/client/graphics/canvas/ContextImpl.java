@@ -16,6 +16,7 @@
 package gwt.g2d.client.graphics.canvas;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.ImageElement;
 
 /**
@@ -27,11 +28,11 @@ import com.google.gwt.dom.client.ImageElement;
  */
 public final class ContextImpl extends JavaScriptObject implements Context {
 
-	protected ContextImpl() {
-	}
-
 	public static ContextImpl as(JavaScriptObject jsContext) {
 		return jsContext.cast();
+	}
+
+	protected ContextImpl() {
 	}
 
 	@Override
@@ -43,6 +44,12 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	@Override
 	public native void beginPath() /*-{
 		this.beginPath();
+	}-*/;
+
+	@Override
+	public native void bezierCurveTo(double cp1x, double cp1y, double cp2x,
+			double cp2y, double x, double y) /*-{
+		this.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
 	}-*/;
 
 	@Override
@@ -64,53 +71,67 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void closePath() /*-{
 		this.closePath();
 	}-*/;
-
-	@Override
-	public native JavaScriptObject createImageData(int width, int height) /*-{
-		return this.createImageData(width, height);
-	}-*/;
 	
 	@Override
-	public JavaScriptObject createImageData(JavaScriptObject imageData) {
+	public ImageData createImageData(ImageData imageData) {
 		return this.createImageData(imageData);
 	}
 
 	@Override
-	public native JavaScriptObject createLinearGradient(double x0, double y0,
+	public native ImageData createImageData(int width, int height) /*-{
+		return this.createImageData(width, height);
+	}-*/;
+
+	@Override
+	public native CanvasGradient createLinearGradient(double x0, double y0,
 			double x1, double y1) /*-{
 		return this.createLinearGradient(x0, y0, x1, y1);
 	}-*/;
 
 	@Override
-	public native JavaScriptObject createRadialGradient(double x0, double y0,
+	public native CanvasGradient createRadialGradient(double x0, double y0,
 			double r0, double x1, double y1, double r1) /*-{
 		return this.createRadialGradient(x0, y0, r0, x1, y1, r1);
 	}-*/;
 
 	@Override
-	public native void bezierCurveTo(double cp1x, double cp1y, double cp2x,
-			double cp2y, double x, double y) /*-{
-		this.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y);
-	}-*/;
+	public void drawImage(CanvasElement image, double x, double y) {
+		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
+				image.getWidth(), image.getHeight());
+	}
+
+	@Override
+	public void drawImage(CanvasElement image, double x, double y, 
+			double width, double height) {
+		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
+				image.getWidth(), image.getHeight());
+	}
+
+	@Override
+	public void drawImage(CanvasElement image, 
+			double sx, double sy, double sWidth, double sHeight, 
+			double dx, double dy, double dWidth, double  dHeight) {
+		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+	}
 
 	public void drawImage(ImageElement image, double x, double y) {
-		drawImage(image, 0, 0, image.getWidth(), image.getHeight(), x, y, image
-				.getWidth(), image.getHeight());
+		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
+				image.getWidth(), image.getHeight());
 	}
 
 	public void drawImage(ImageElement image, double x, double y, double width,
 			double height) {
-		drawImage(image, 0, 0, image.getWidth(), image.getHeight(), x, y, width,
+		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, width,
 				height);
 	}
 
 	@Override
-	public native void drawImage(ImageElement image, double sx, double sy,
+	public void drawImage(ImageElement image, double sx, double sy,
 			double sWidth, double sHeight, double dx, double dy, double dWidth,
-			double dHeight) /*-{
-		this.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-	}-*/;
-
+			double dHeight) {
+		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+	}
+	
 	@Override
 	public native void fill() /*-{
 		this.fill();
@@ -147,7 +168,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
-	public native JavaScriptObject getImageData(double x, double y, double width,
+	public native ImageData getImageData(double x, double y, double width,
 			double height) /*-{
 		return this.getImageData(x, y, width, height);
 	}-*/;
@@ -223,11 +244,12 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
-	public native void putImageData(JavaScriptObject imageData, double x,
+	public native void putImageData(ImageData imageData, double x,
 			double y, double dirtyX, double dirtyY, double dirtyWidth,
 			double dirtyHeight) /*-{
 		this.putImageData(imageData, x, y);
-		//,dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+		// dirtyX, dirtyY, dirtyWidth, dirtyHeight are not used because no browser
+		// supports them yet.
 	}-*/;
 
 	@Override
@@ -261,7 +283,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
-	public native void setFillStyle(JavaScriptObject fillStyle) /*-{
+	public native void setFillStyle(CanvasGradient fillStyle) /*-{
 		this.fillStyle = fillStyle;
 	}-*/;
 
@@ -326,7 +348,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
-	public native void setStrokeStyle(JavaScriptObject strokeStyle) /*-{
+	public native void setStrokeStyle(CanvasGradient strokeStyle) /*-{
 		this.strokeStyle = strokeStyle;
 	}-*/;
 
@@ -381,5 +403,11 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	@Override
 	public native void translate(double x, double y) /*-{
 		this.translate(x, y);
+	}-*/;
+	
+	private native void drawImageImpl(Element image, double sx, double sy,
+			double sWidth, double sHeight, double dx, double dy, double dWidth,
+			double dHeight) /*-{
+		this.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}-*/;
 }

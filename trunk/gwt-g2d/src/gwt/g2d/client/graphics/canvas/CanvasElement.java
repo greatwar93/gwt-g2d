@@ -15,6 +15,7 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.TagName;
 
@@ -42,10 +43,31 @@ public class CanvasElement extends Element {
 	}
 	
 	/**
+	 * Gets the width of the canvas.
+	 */
+	public native final int getWidth() /*-{
+		return this.width;
+	}-*/;
+	
+	/**
+	 * Gets the height of the canvas.
+	 */
+	public native final int getHeight() /*-{
+		return this.height;
+	}-*/;
+	
+	/**
 	 * Gets the context for rendering onto the canvas.
 	 */
 	public native final Context getContext2D() /*-{
 		return this.getContext("2d");
+	}-*/;
+	
+	/**
+	 * Gets the context for rendering onto the canvas.
+	 */
+	public native final <T extends JavaScriptObject> T getContext(String contextId) /*-{
+		return this.getContext(contextId);
 	}-*/;
 	
 	/**

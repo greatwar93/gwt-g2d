@@ -18,8 +18,6 @@ package gwt.g2d.client.graphics.canvas;
 import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.math.Vector2;
 
-import com.google.gwt.core.client.JavaScriptObject;
-
 /**x
  * Adapter for accessing the image data object.
  * 
@@ -264,7 +262,7 @@ public final class ImageDataAdapter {
 	/**
 	 * Gets the image data as a JavaScriptObject.
 	 */
-	public JavaScriptObject getImageData() {
+	public ImageData getImageData() {
 		return imageData;
 	}
 	
