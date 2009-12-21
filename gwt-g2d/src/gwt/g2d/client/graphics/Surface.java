@@ -23,6 +23,7 @@ import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
+import gwt.g2d.client.media.VideoElement;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
@@ -791,6 +792,99 @@ public final class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface drawImage(ImageElement image, Rectangle sourceRectangle, 
+			Rectangle destinationRectangle) {
+		return drawImage(image, sourceRectangle.getX(), sourceRectangle.getY(),
+				sourceRectangle.getWidth(), sourceRectangle.getHeight(),
+				destinationRectangle.getX(), destinationRectangle.getY(), 
+				destinationRectangle.getWidth(), destinationRectangle.getHeight());
+	}
+	
+	/**
+	 * Draws the image at the given position.
+	 * 
+	 * @param image the image to draw.
+	 * @param x the x-coordinate to draw the image.
+	 * @param y the y-coordinate to draw the image.
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(VideoElement image, double x, double y) {
+		context.drawImage(image, x, y);
+		return this;
+	}
+	
+	/**
+	 * Draws the image at the given position.
+	 * 
+	 * @param image the image to draw.
+	 * @param position the position to draw the image.
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(VideoElement image, Vector2 position) {
+		return drawImage(image, position.getX(), position.getY());
+	}
+	
+	/**
+	 * Draws the image in the specified rectangle.
+	 * 
+	 * @param image the image to draw.
+	 * @param x the x-coordinate to draw the image.
+	 * @param y the y-coordinate to draw the image.
+	 * @param width
+	 * @param height
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(VideoElement image, double x, double y, double width, 
+			double height) {
+		context.drawImage(image, x, y, width, height);
+		return this;
+	}
+	
+	/**
+	 * Draws the image in the specified rectangle.
+	 * 
+	 * @param image the image to draw.
+	 * @param rectangle the rectangle inside which the image is to be drawn.
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(VideoElement image, Rectangle rectangle) {
+		return drawImage(image, rectangle.getX(), rectangle.getY(), 
+				rectangle.getWidth(), rectangle.getHeight());
+	}
+	
+	/**
+	 * Draws the portion of the image in the source rectangle into the 
+	 * destination rectangle.
+	 * 
+	 * @param image image the image to draw.
+	 * @param sourceX
+	 * @param sourceY
+	 * @param sourceWidth
+	 * @param sourceHeight
+	 * @param destinationX
+	 * @param destinationY
+	 * @param destinationWidth
+	 * @param destinationHeight
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(VideoElement image, double sourceX, double sourceY, 
+			double sourceWidth, double sourceHeight, double destinationX, 
+			double destinationY, double destinationWidth, double destinationHeight) {
+		context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight,
+				destinationX, destinationY, destinationWidth, destinationHeight);
+		return this;
+	}
+	
+	/**
+	 * /**
+	 * Draws the portion of the image in the source rectangle into the 
+	 * destination rectangle.
+	 * 
+	 * @param image
+	 * @param sourceRectangle
+	 * @param destinationRectangle
+	 * @return self to support chaining.
+	 */
+	public Surface drawImage(VideoElement image, Rectangle sourceRectangle, 
 			Rectangle destinationRectangle) {
 		return drawImage(image, sourceRectangle.getX(), sourceRectangle.getY(),
 				sourceRectangle.getWidth(), sourceRectangle.getHeight(),

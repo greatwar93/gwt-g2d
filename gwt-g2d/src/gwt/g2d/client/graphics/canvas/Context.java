@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
+import gwt.g2d.client.media.VideoElement;
+
 import com.google.gwt.dom.client.ImageElement;
 
 /**
@@ -122,6 +124,26 @@ public interface Context {
 	 * Draws the given image onto the canvas.
 	 */
 	void drawImage(ImageElement image, 
+			double sourceX, double sourceY, 
+			double sourceWidth, double sourceHeight, 
+			double destinationX, double destinationY, 
+			double destinationWidth, double destinationHeight);
+	
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(VideoElement image, double x, double y);
+
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(VideoElement image, double x, double y, 
+			double width, double height);
+
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(VideoElement image, 
 			double sourceX, double sourceY, 
 			double sourceWidth, double sourceHeight, 
 			double destinationX, double destinationY, 
