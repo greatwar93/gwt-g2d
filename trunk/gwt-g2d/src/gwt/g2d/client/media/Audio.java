@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.media;
 
+
+
 import com.google.gwt.dom.client.Document;
 
 /**

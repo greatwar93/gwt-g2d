@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
+import gwt.g2d.client.media.VideoElement;
+
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.ImageElement;
@@ -127,6 +129,24 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 
 	@Override
 	public void drawImage(ImageElement image, double sx, double sy,
+			double sWidth, double sHeight, double dx, double dy, double dWidth,
+			double dHeight) {
+		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+	}
+	
+	public void drawImage(VideoElement image, double x, double y) {
+		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
+				image.getWidth(), image.getHeight());
+	}
+
+	public void drawImage(VideoElement image, double x, double y, double width,
+			double height) {
+		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, width,
+				height);
+	}
+
+	@Override
+	public void drawImage(VideoElement image, double sx, double sy,
 			double sWidth, double sHeight, double dx, double dy, double dWidth,
 			double dHeight) {
 		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
