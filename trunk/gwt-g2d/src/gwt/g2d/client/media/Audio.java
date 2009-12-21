@@ -28,7 +28,7 @@ public class Audio extends Media {
 	 * Creates a new audio element.
 	 */
 	public Audio() {
-		super(Document.get().createElement("audio").<MediaElement>cast());
+		super(Document.get().createElement("audio").<AudioElement>cast());
 	}
 	
 	/**
@@ -38,10 +38,17 @@ public class Audio extends Media {
 	 */
 	public Audio(String source) {
 		this();
-		getMediaElement().setSrc(source);
+		getAudioElement().setSrc(source);
 	}
 	
 	public Audio(AudioElement element) {
 		super(element);
+	}
+	
+	/**
+	 * Gets the audio element.
+	 */
+	public AudioElement getAudioElement() {
+		return getElement().cast();
 	}
 }
