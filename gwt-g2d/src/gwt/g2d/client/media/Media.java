@@ -70,14 +70,14 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.ComplexPanel;
 
 /**
  * Represents a widget for manipulating a {@link MediaElement}.
  * 
  * @author hao1300@gmail.com
  */
-public abstract class Media extends FlowPanel implements HasMediaEvents {
+public abstract class Media extends ComplexPanel implements HasMediaEvents {
 	private List<Source> sources;
 	private Set<String> registeredEventListeners;
 	
@@ -92,7 +92,7 @@ public abstract class Media extends FlowPanel implements HasMediaEvents {
 	 */
 	public void addSource(Source source) {
 		getSources().add(source);
-		add(source);
+		add(source, getElement());
 	}
 	
 	/** 

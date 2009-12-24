@@ -54,7 +54,7 @@ public final class CanvasPixelArray extends JavaScriptObject {
 	 * next pixel to the right of the top left pixel.
 	 * @return the color value at the given index.
 	 */
-	public native byte getData(int index) /*-{
+	public native int getData(int index) /*-{
 		return this[index];
 	}-*/;
 	
