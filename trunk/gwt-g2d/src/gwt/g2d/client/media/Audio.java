@@ -42,11 +42,7 @@ public class Audio extends Media {
 		this();
 		getAudioElement().setSrc(source);
 	}
-	
-	public Audio(AudioElement element) {
-		super(element);
-	}
-	
+
 	/**
 	 * Gets the audio element.
 	 */

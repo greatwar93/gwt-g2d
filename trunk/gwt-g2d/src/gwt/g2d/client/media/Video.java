@@ -43,10 +43,6 @@ public class Video extends Media {
 		getVideoElement().setSrc(source);
 	}
 	
-	public Video(VideoElement element) {
-		super(element);
-	}
-	
 	/**
 	 * Gets the video element.
 	 */
