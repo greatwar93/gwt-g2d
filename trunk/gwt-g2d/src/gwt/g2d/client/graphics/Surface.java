@@ -43,7 +43,7 @@ import com.google.gwt.user.client.ui.FocusWidget;
  * 
  * @author hao1300@gmail.com
  */
-public final class Surface extends FocusWidget {	
+public class Surface extends FocusWidget {	
 	private static final CanvasInitializer canvasInitializer = 
 			GWT.create(CanvasInitializer.class);
 	private final CanvasElement canvas;

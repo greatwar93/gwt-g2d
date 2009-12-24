@@ -61,136 +61,161 @@ import gwt.g2d.client.media.event.VolumeChangeHandler;
 import gwt.g2d.client.media.event.WaitingEvent;
 import gwt.g2d.client.media.event.WaitingHandler;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.FlowPanel;
 
 /**
- * Represents a widget for manipulating a media element.
- * 
- * This widget is still in experimental state. The event handlers do not
- * yet work.
+ * Represents a widget for manipulating a {@link MediaElement}.
  * 
  * @author hao1300@gmail.com
  */
-public abstract class Media extends FocusWidget implements HasMediaEvents {
-	protected Media() {
-	}
-
+public abstract class Media extends FlowPanel implements HasMediaEvents {
+	private List<Source> sources;
+	private Set<String> registeredEventListeners;
+	
 	protected Media(MediaElement element) {
 		setElement(element);
 	}
 
+	/**
+	 * Adds a media source.
+	 * 
+	 * @param source
+	 */
+	public void addSource(Source source) {
+		getSources().add(source);
+		add(source);
+	}
+	
+	/** 
+	 * Gets all media sources.
+	 */
+	public List<Source> getSources() {
+		if (sources == null) {
+			sources = new ArrayList<Source>();
+		}
+		return sources;
+	}
+	
 	@Override
 	public HandlerRegistration addLoadStartHandler(LoadStartHandler handler) {
-		return addHandler(handler, LoadStartEvent.getType());
+		return addCustomHandler(handler, LoadStartEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addProgressHandler(ProgressHandler handler) {
-		return addHandler(handler, ProgressEvent.getType());
+		return addCustomHandler(handler, ProgressEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addSuspendHandler(SuspendHandler handler) {
-		return addHandler(handler, SuspendEvent.getType());
+		return addCustomHandler(handler, SuspendEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addAbortHandler(AbortHandler handler) {
-		return addHandler(handler, AbortEvent.getType());
+		return addCustomHandler(handler, AbortEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addErrorHandler(ErrorHandler handler) {
-		return addHandler(handler, ErrorEvent.getType());
+		return addCustomHandler(handler, ErrorEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addEmptiedHandler(EmptiedHandler handler) {
-		return addHandler(handler, EmptiedEvent.getType());
+		return addCustomHandler(handler, EmptiedEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addStalledHandler(StalledHandler handler) {
-		return addHandler(handler, StalledEvent.getType());
+		return addCustomHandler(handler, StalledEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addPlayHandler(PlayHandler handler) {
-		return addHandler(handler, PlayEvent.getType());
+		return addCustomHandler(handler, PlayEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addPauseHandler(PauseHandler handler) {
-		return addHandler(handler, PauseEvent.getType());
+		return addCustomHandler(handler, PauseEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addLoadedMetadataHandler(
 			LoadedMetadataHandler handler) {
-		return addHandler(handler, LoadedMetadataEvent.getType());
+		return addCustomHandler(handler, LoadedMetadataEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addLoadedDataHandler(LoadedDataHandler handler) {
-		return addHandler(handler, LoadedDataEvent.getType());
+		return addCustomHandler(handler, LoadedDataEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addWaitingHandler(WaitingHandler handler) {
-		return addHandler(handler, WaitingEvent.getType());
+		return addCustomHandler(handler, WaitingEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addPlayingHandler(PlayingHandler handler) {
-		return addHandler(handler, PlayingEvent.getType());
+		return addCustomHandler(handler, PlayingEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addCanPlayHandler(CanPlayHandler handler) {
-		return addHandler(handler, CanPlayEvent.getType());
+		return addCustomHandler(handler, CanPlayEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addCanPlaythroughHandler(
 			CanPlaythroughHandler handler) {
-		return addHandler(handler, CanPlaythroughEvent.getType());
+		return addCustomHandler(handler, CanPlaythroughEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addSeekingHandler(SeekingHandler handler) {
-		return addHandler(handler, SeekingEvent.getType());
+		return addCustomHandler(handler, SeekingEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addSeekedHandler(SeekedHandler handler) {
-		return addHandler(handler, SeekedEvent.getType());
+		return addCustomHandler(handler, SeekedEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addTimeUpdateHandler(TimeUpdateHandler handler) {
-		return addHandler(handler, TimeUpdateEvent.getType());
+		return addCustomHandler(handler, TimeUpdateEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addEndedHandler(EndedHandler handler) {
-		return addHandler(handler, EndedEvent.getType());
+		return addCustomHandler(handler, EndedEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addRateChangeHandler(RateChangeHandler handler) {
-		return addHandler(handler, RateChangeEvent.getType());
+		return addCustomHandler(handler, RateChangeEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addDurationChangeHandler(
 			DurationChangeHandler handler) {
-		return addHandler(handler, DurationChangeEvent.getType());
+		return addCustomHandler(handler, DurationChangeEvent.getType());
 	}
 
 	@Override
 	public HandlerRegistration addVolumeChangeHandler(VolumeChangeHandler handler) {
-		return addHandler(handler, VolumeChangeEvent.getType());
+		return addCustomHandler(handler, VolumeChangeEvent.getType());
 	}
 
 	/**
@@ -495,4 +520,40 @@ public abstract class Media extends FocusWidget implements HasMediaEvents {
 	protected MediaElement getMediaElement() {
 		return getElement().cast();
 	}
+
+	/**
+	 * Adds a custom event handler.
+	 * 
+	 * @param <H>
+	 * @param handler
+	 * @param type
+	 * @return
+	 */
+	public <H extends EventHandler> HandlerRegistration addCustomHandler(
+			H handler, DomEvent.Type<H> type) {
+		if (registeredEventListeners == null) {
+			registeredEventListeners = new HashSet<String>();
+		} else if (registeredEventListeners.contains(type.getName())) {
+			return addHandler(handler, type);
+		}
+		registerHandler(getElement(), type.getName(), handler);
+		return addHandler(handler, type);
+	}	
+	
+	/**
+	 * Registers a customer event handler.
+	 * 
+	 * @param <H>
+	 * @param elem
+	 * @param eventName
+	 * @param handler
+	 */
+	private native final <H extends EventHandler> void registerHandler(
+			Element elem, String eventName, H handler) /*-{
+		var widget = this; 
+		elem.addEventListener(eventName, function(e) {
+				@com.google.gwt.event.dom.client.DomEvent::fireNativeEvent(Lcom/google/gwt/dom/client/NativeEvent;Lcom/google/gwt/event/shared/HasHandlers;)
+				(e, widget);
+		}, false); 
+	}-*/;
 }
