@@ -41,7 +41,6 @@ public class MainDemo implements EntryPoint {
 	public void onModuleLoad() {		
 		final Panel demoPanel = new FlowPanel();
 		demos.add(new AnimationDemo("Animation Demo", demoPanel));
-		demos.add(new AudioDemo("AudioDemo Demo", demoPanel));
 		demos.add(new CanvasOnCanvasDemo("Canvas on Canvas Demo", demoPanel));
 		demos.add(new ColorDemo("Color Demo", demoPanel));
 		demos.add(new DataUrlDemo("Data URL Demo", demoPanel));
@@ -51,6 +50,8 @@ public class MainDemo implements EntryPoint {
 		demos.add(new TetrisDemo("Tetris", demoPanel));
 		demos.add(new TextDemo("Text Demo", demoPanel));
 		demos.add(new ShadowDemo("Shadow Demo", demoPanel));
+		demos.add(new VideoAudioDemo("Video and Audio Demo", demoPanel));
+		demos.add(new VideoCanvasDemo("Video on Canvas Demo", demoPanel));
 		demos.add(new PropertyTest("Property Tests", demoPanel));
 				
 		final ListBox listBox = new ListBox();
