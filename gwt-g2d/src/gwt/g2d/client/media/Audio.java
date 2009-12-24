@@ -20,7 +20,7 @@ package gwt.g2d.client.media;
 import com.google.gwt.dom.client.Document;
 
 /**
- * Represents a widget for manipulating an audio element
+ * Represents a widget for manipulating an {@link AudioElement}
  * 
  * @author hao1300@gmail.com
  */
