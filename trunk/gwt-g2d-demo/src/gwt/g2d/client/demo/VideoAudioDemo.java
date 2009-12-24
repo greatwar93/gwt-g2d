@@ -16,8 +16,10 @@
 package gwt.g2d.client.demo;
 
 import gwt.g2d.client.media.Audio;
+import gwt.g2d.client.media.Source;
 import gwt.g2d.client.media.Video;
 
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -35,26 +37,20 @@ public class VideoAudioDemo extends AbstractDemo {
 	@Override
 	public void initialize() {
 		add(new Label("This demo will not work at all under IE or Opera."));
-		add(new Label("Video obtained from: <a href=\"" 
+		add(new HTML("Video obtained from: <a href=\"" 
 				+ "http://tinyvid.tv/show/oz8r94tx5iws\">"
 				+ "http://tinyvid.tv/show/oz8r94tx5iws</a>"));
 		Video video = new Video("demo/media/samplevideo.ogg");
 		video.setControls(true);
 		add(video);
 		
-		add(new Label("Music obtained from: <a href=\"" 
+		add(new HTML("Music obtained from: <a href=\"" 
 				+ "http://www.pacdv.com/sounds/free-music-01.html\">"
 				+ "http://www.pacdv.com/sounds/free-music-01.html</a>"));
+		
 		Audio audio = new Audio();
-		switch (audio.canPlayType("audio/mpeg")) {
-			case PROBABLY:
-			case MAYBE:
-				audio.setSrc("demo/media/daydreaming.mp3");
-				break;
-			default:
-				audio.setSrc("demo/media/daydreaming.ogg");
-				break;
-		}
+		audio.addSource(new Source("demo/media/daydreaming.mp3"));
+		audio.addSource(new Source("demo/media/daydreaming.ogg"));
 		audio.setControls(true);
 		add(audio);
 	}
