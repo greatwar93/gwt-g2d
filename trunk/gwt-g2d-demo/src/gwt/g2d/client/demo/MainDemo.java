@@ -62,11 +62,13 @@ public class MainDemo implements EntryPoint {
 		listBox.addChangeHandler(new ChangeHandler() {
 			@Override
 			public void onChange(ChangeEvent event) {
-				demos.get(selectedIndex).exit();
+				demos.get(selectedIndex).cancel();
 				
 				demoPanel.clear();
 				selectedIndex = listBox.getSelectedIndex();
-				demos.get(selectedIndex).run(60);
+				AbstractDemo selectedDemo = demos.get(selectedIndex);
+				selectedDemo.initialize();
+				selectedDemo.start();
 			}
 		});
 		
@@ -79,6 +81,7 @@ public class MainDemo implements EntryPoint {
 		RootPanel.get().add(panel);
 		
 		AbstractDemo selectedDemo = demos.get(listBox.getSelectedIndex()); 
-		selectedDemo.run(60);
+		selectedDemo.initialize();
+		selectedDemo.start();
 	}
 }
