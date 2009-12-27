@@ -91,6 +91,24 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
+	public native CanvasPattern createPattern(CanvasElement image, 
+			String repetition) /*-{
+		return this.createPattern(image, repetition);
+	}-*/;
+
+	@Override
+	public native CanvasPattern createPattern(ImageElement image, 
+			String repetition) /*-{
+		return this.createPattern(image, repetition);
+	}-*/;
+
+	@Override
+	public native CanvasPattern createPattern(VideoElement image, 
+			String repetition) /*-{
+		return this.createPattern(image, repetition);
+	}-*/;
+
+	@Override
 	public native CanvasGradient createRadialGradient(double x0, double y0,
 			double r0, double x1, double y1, double r1) /*-{
 		return this.createRadialGradient(x0, y0, r0, x1, y1, r1);
@@ -98,15 +116,13 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 
 	@Override
 	public void drawImage(CanvasElement image, double x, double y) {
-		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
-				image.getWidth(), image.getHeight());
+		drawImageImpl(image, x, y);
 	}
 
 	@Override
 	public void drawImage(CanvasElement image, double x, double y, 
 			double width, double height) {
-		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
-				image.getWidth(), image.getHeight());
+		drawImageImpl(image, x, y, width, height);
 	}
 
 	@Override
@@ -115,16 +131,14 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 			double dx, double dy, double dWidth, double  dHeight) {
 		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}
-
+	
 	public void drawImage(ImageElement image, double x, double y) {
-		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
-				image.getWidth(), image.getHeight());
+		drawImageImpl(image, x, y);
 	}
 
 	public void drawImage(ImageElement image, double x, double y, double width,
 			double height) {
-		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, width,
-				height);
+		drawImageImpl(image, x, y, width, height);
 	}
 
 	@Override
@@ -135,14 +149,12 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}
 	
 	public void drawImage(VideoElement image, double x, double y) {
-		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, 
-				image.getWidth(), image.getHeight());
+		drawImageImpl(image, x, y);
 	}
 
 	public void drawImage(VideoElement image, double x, double y, double width,
 			double height) {
-		drawImageImpl(image, 0, 0, image.getWidth(), image.getHeight(), x, y, width,
-				height);
+		drawImageImpl(image, x, y, width, height);
 	}
 
 	@Override
@@ -151,7 +163,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 			double dHeight) {
 		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}
-	
+
 	@Override
 	public native void fill() /*-{
 		this.fill();
@@ -306,6 +318,11 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void setFillStyle(CanvasGradient fillStyle) /*-{
 		this.fillStyle = fillStyle;
 	}-*/;
+	
+	@Override
+	public native void setFillStyle(CanvasPattern fillStyle) /*-{
+		this.fillStyle = fillStyle;
+	}-*/;
 
 	@Override
 	public native void setFillStyle(String fillStyle) /*-{
@@ -371,6 +388,11 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void setStrokeStyle(CanvasGradient strokeStyle) /*-{
 		this.strokeStyle = strokeStyle;
 	}-*/;
+	
+	@Override
+	public native void setStrokeStyle(CanvasPattern strokeStyle) /*-{
+		this.strokeStyle = strokeStyle;
+	}-*/;
 
 	@Override
 	public native void setStrokeStyle(String strokeStyle) /*-{
@@ -408,7 +430,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void strokeText(String text, double x, double y) /*-{
 		this.strokeText(text, x, y);
 	}-*/;
-
+	
 	@Override
 	public native void strokeText(String text, double x, double y, double maxWidth) /*-{
 		this.strokeText(text, x, y, maxWidth);
@@ -423,6 +445,15 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	@Override
 	public native void translate(double x, double y) /*-{
 		this.translate(x, y);
+	}-*/;
+
+	private native void drawImageImpl(Element image, double dx, double dy) /*-{
+		this.drawImage(image, dx, dy);
+	}-*/;
+	
+	private native void drawImageImpl(Element image, double dx, double dy, 
+			double dWidth, double dHeight) /*-{
+		this.drawImage(image, dx, dy, dWidth, dHeight);
 	}-*/;
 	
 	private native void drawImageImpl(Element image, double sx, double sy,

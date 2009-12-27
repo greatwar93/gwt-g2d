@@ -17,6 +17,7 @@ package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.graphics.canvas.CanvasElement;
 import gwt.g2d.client.graphics.canvas.CanvasInitializer;
+import gwt.g2d.client.graphics.canvas.CanvasPattern;
 import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.canvas.ImageData;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
@@ -365,6 +366,17 @@ public class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Sets the fill style.
+	 * 
+	 * @param pattern the pattern for the fill style.
+	 * @return self to support chaining.
+	 */
+	public Surface setFillStyle(CanvasPattern pattern) {
+		context.setFillStyle(pattern);
+		return this;
+	}
+	
+	/**
 	 * Sets the stroke style.
 	 */
 	public Surface setStrokeStyle(Color color) {
@@ -377,6 +389,14 @@ public class Surface extends FocusWidget {
 	 */
 	public Surface setStrokeStyle(Gradient gradient) {
 		context.setStrokeStyle(gradient.getGradientAdapter(context));
+		return this;
+	}
+	
+	/**
+	 * Sets the stroke style.
+	 */
+	public Surface setStrokeStyle(CanvasPattern pattern) {
+		context.setStrokeStyle(pattern);
 		return this;
 	}
 	
@@ -906,6 +926,45 @@ public class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Creates a CanvasPattern object that uses the given image and repeats in 
+	 * the direction(s) given by the repetition argument.
+	 * 
+	 * @param image
+	 * @param repetition
+	 * @return a new CanvasPattern object.
+	 */
+	public CanvasPattern createPattern(CanvasElement image, 
+			PatternRepetition repetition) {
+		return context.createPattern(image, repetition.toString());
+	}
+	
+	/**
+	 * Creates a CanvasPattern object that uses the given image and repeats in 
+	 * the direction(s) given by the repetition argument.
+	 * 
+	 * @param image
+	 * @param repetition
+	 * @return a new CanvasPattern object.
+	 */
+	public CanvasPattern createPattern(ImageElement image, 
+			PatternRepetition repetition) {
+		return context.createPattern(image, repetition.toString());
+	}
+	
+	/**
+	 * Creates a CanvasPattern object that uses the given image and repeats in 
+	 * the direction(s) given by the repetition argument.
+	 * 
+	 * @param image
+	 * @param repetition
+	 * @return a new CanvasPattern object.
+	 */
+	public CanvasPattern createPattern(VideoElement image, 
+			PatternRepetition repetition) {
+		return context.createPattern(image, repetition.toString());
+	}
+	
+	/**
 	 * Instantiate new blank ImageData objects whose dimension is equal to
 	 * the dimension given, where (x, y) represents (width, height).
 	 * 
@@ -940,7 +999,8 @@ public class Surface extends FocusWidget {
 	 * @param width
 	 * @param height
 	 */
-	public ImageDataAdapter getImageData(double x, double y, double width, double height) {
+	public ImageDataAdapter getImageData(double x, double y, double width, 
+			double height) {
 		return new ImageDataAdapter(context.getImageData(x, y, width, height));
 	}
 	
@@ -992,8 +1052,9 @@ public class Surface extends FocusWidget {
 	 */
 	public void putImageData(ImageDataAdapter imageData, Vector2 position, 
 			Rectangle dirtyRect) {
-		context.putImageData(imageData.getImageData(), position.getX(), position.getY(),
-				dirtyRect.getX(), dirtyRect.getY(), dirtyRect.getWidth(), dirtyRect.getHeight());
+		context.putImageData(imageData.getImageData(), position.getX(), 
+				position.getY(), dirtyRect.getX(), dirtyRect.getY(), 
+				dirtyRect.getWidth(), dirtyRect.getHeight());
 	}
 	
 	/**
