@@ -15,7 +15,8 @@
  */
 package gwt.g2d.client.demo;
 
-import gwt.g2d.client.framework.AbstractApp;
+import gwt.g2d.client.graphics.Surface;
+import gwt.g2d.client.util.FpsTimer;
 
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -25,13 +26,15 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author hao1300@gmail.com
  */
-public abstract class AbstractDemo extends AbstractApp {
+public abstract class AbstractDemo extends FpsTimer {
 	protected static final int WIDTH = 600, HEIGHT = 600;
+	private final Surface surface;
 	private final String demoName;
 	private final Panel parentContainer;
 	
 	public AbstractDemo(String demoName, Panel parentContainer) {
-		super(WIDTH, HEIGHT);
+		super(60);
+		surface = new Surface(WIDTH, HEIGHT);
 		this.demoName = demoName;
 		this.parentContainer = parentContainer;
 		parentContainer.clear();
@@ -50,4 +53,16 @@ public abstract class AbstractDemo extends AbstractApp {
 	protected void add(Widget child) {
 		parentContainer.add(child);
 	}
+
+	/**
+	 * Gets the surface for the demo.
+	 */
+	public Surface getPrimarySurface() {
+		return surface;
+	}
+	
+	/**
+	 * Initializes the demo.
+	 */
+	public abstract void initialize();
 }
