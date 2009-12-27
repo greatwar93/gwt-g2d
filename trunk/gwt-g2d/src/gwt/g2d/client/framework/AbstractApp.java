@@ -17,14 +17,19 @@ package gwt.g2d.client.framework;
 
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.math.Vector2;
+import gwt.g2d.client.util.FpsTimer;
 
 import com.google.gwt.user.client.Timer;
 
 /**
  * Abstract class for running and rendering an application.
  * 
+ * This class is deprecated and will be removed in future release. Please
+ * consider using {@link FpsTimer} instead.
+ * 
  * @author hao1300@gmail.com
  */
+@Deprecated
 public abstract class AbstractApp {	
 	private Surface primarySurface;
 	private Timer timer;

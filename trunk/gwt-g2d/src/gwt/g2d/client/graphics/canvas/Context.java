@@ -80,6 +80,15 @@ public interface Context {
 	
 	/**
 	 * Instantiate new blank ImageData objects whose dimension is equal to
+	 * the given imageData.
+	 * 
+	 * @param imageData
+	 * @return a new ImageData object.
+	 */
+	ImageData createImageData(ImageData imageData);
+	
+	/**
+	 * Instantiate new blank ImageData objects whose dimension is equal to
 	 * width x height.
 	 * 
 	 * @param width
@@ -89,25 +98,66 @@ public interface Context {
 	ImageData createImageData(int width, int height);
 	
 	/**
-	 * Instantiate new blank ImageData objects whose dimension is equal to
-	 * the given imageData.
-	 * 
-	 * @param imageData
-	 * @return a new ImageData object.
-	 */
-	ImageData createImageData(ImageData imageData);
-	
-	/**
 	 * Gets the adapter for a linear gradient between two points.
 	 */
 	CanvasGradient createLinearGradient(double x0, double y0, 
 			double x1, double y1);
 	
 	/**
+	 * Creates a CanvasPattern object that uses the given image and repeats in 
+	 * the direction(s) given by the repetition argument.
+	 * 
+	 * @param image
+	 * @param repetition
+	 * @return a new CanvasPattern object.
+	 */
+	CanvasPattern createPattern(CanvasElement image, String repetition);
+	
+	/**
+	 * Creates a CanvasPattern object that uses the given image and repeats in 
+	 * the direction(s) given by the repetition argument.
+	 * 
+	 * @param image
+	 * @param repetition
+	 * @return a new CanvasPattern object.
+	 */
+	CanvasPattern createPattern(ImageElement image, String repetition);
+	
+	/**
+	 * Creates a CanvasPattern object that uses the given image and repeats in 
+	 * the direction(s) given by the repetition argument.
+	 * 
+	 * @param image
+	 * @param repetition
+	 * @return a new CanvasPattern object.
+	 */
+	CanvasPattern createPattern(VideoElement image, String repetition);
+	
+	/**
 	 * Gets the adapter for a radial gradient.
 	 */
 	CanvasGradient createRadialGradient(double x0, double y0, 
 			double radius0, double x1, double y1, double radius1);
+	
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(CanvasElement image, double x, double y);
+
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(CanvasElement image, double x, double y, 
+			double width, double height);
+
+	/**
+	 * Draws the given image onto the canvas.
+	 */
+	void drawImage(CanvasElement image, 
+			double sourceX, double sourceY, 
+			double sourceWidth, double sourceHeight, 
+			double destinationX, double destinationY, 
+			double destinationWidth, double destinationHeight);
 	
 	/**
 	 * Draws the given image onto the canvas.
@@ -144,26 +194,6 @@ public interface Context {
 	 * Draws the given image onto the canvas.
 	 */
 	void drawImage(VideoElement image, 
-			double sourceX, double sourceY, 
-			double sourceWidth, double sourceHeight, 
-			double destinationX, double destinationY, 
-			double destinationWidth, double destinationHeight);
-	
-	/**
-	 * Draws the given image onto the canvas.
-	 */
-	void drawImage(CanvasElement image, double x, double y);
-
-	/**
-	 * Draws the given image onto the canvas.
-	 */
-	void drawImage(CanvasElement image, double x, double y, 
-			double width, double height);
-
-	/**
-	 * Draws the given image onto the canvas.
-	 */
-	void drawImage(CanvasElement image, 
 			double sourceX, double sourceY, 
 			double sourceWidth, double sourceHeight, 
 			double destinationX, double destinationY, 
@@ -353,6 +383,11 @@ public interface Context {
 	void setFillStyle(CanvasGradient gradient);
 	
 	/**
+	 * Sets the current style used for filling shapes.
+	 */
+	void setFillStyle(CanvasPattern pattern);
+	
+	/**
 	 * Sets the current style used for filling shapes
 	 */
 	void setFillStyle(String color);
@@ -427,6 +462,11 @@ public interface Context {
 	 * Sets the current style used for stroking shapes.
 	 */
 	void setStrokeStyle(CanvasGradient gradient);
+	
+	/**
+	 * Sets the current style used for stroking shapes.
+	 */
+	void setStrokeStyle(CanvasPattern pattern);
 	
 	/**
 	 * Sets the current style used for stroking shapes.

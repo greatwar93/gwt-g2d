@@ -71,6 +71,16 @@ public class CanvasElement extends Element {
 	}-*/;
 	
 	/**
+	 * Gets the context for rendering onto the canvas.
+	 * 
+	 * @param extra defines some extra property for initializing the context.
+	 */
+	public native final <T extends JavaScriptObject> T getContext(String contextId,
+			Object extra) /*-{
+		return this.getContext(contextId, extra);
+	}-*/;
+	
+	/**
 	 * Return a data: URL containing a representation of the image as a PNG file.
 	 */
 	public native final String toDataURL() /*-{
