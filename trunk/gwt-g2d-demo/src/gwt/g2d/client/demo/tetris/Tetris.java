@@ -15,7 +15,6 @@
  */
 package gwt.g2d.client.demo.tetris;
 
-import gwt.g2d.client.framework.AbstractApp;
 import gwt.g2d.client.graphics.KnownColor;
 import gwt.g2d.client.graphics.LinearGradient;
 import gwt.g2d.client.graphics.Surface;
@@ -42,7 +41,7 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author hao1300@gmail.com
  */
-public class Tetris extends AbstractApp {
+public class Tetris {
 	private static final int DEFAULT_NUM_ROWS = 20, DEFAULT_NUM_COLS = 10;
 	private static final int BLOCK_PIXEL_SIZE = 24;
 	private static final int DEFAULT_START_ROW = 0, 
@@ -56,6 +55,7 @@ public class Tetris extends AbstractApp {
 	private final Label rowsClearedLabel = new Label();
 	private final Panel parentContainer;
 	
+	private Surface surface;
 	private int currRow, currCol;
 	private Piece currPiece, nextPiece;
 	private TetrisMatrix matrix;
@@ -66,7 +66,7 @@ public class Tetris extends AbstractApp {
 	private boolean needRedraw = true, needRedrawNextPiece = true;
 	
 	public Tetris(int startingLevel, Panel parentContainer) {
-		super(DEFAULT_NUM_COLS * BLOCK_PIXEL_SIZE, 
+		surface = new Surface(DEFAULT_NUM_COLS * BLOCK_PIXEL_SIZE, 
 				DEFAULT_NUM_ROWS * BLOCK_PIXEL_SIZE);
 		this.parentContainer = parentContainer;
 		matrix = new TetrisMatrix(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
@@ -76,10 +76,7 @@ public class Tetris extends AbstractApp {
 		nextPiece = new Piece();
 	}
 	
-	@Override
-	public void initialize() {
-		Surface surface = getPrimarySurface();
-		
+	public void initialize() {		
 		DockPanel panel = new DockPanel();
 		parentContainer.add(panel);
 		panel.add(surface, DockPanel.LINE_START);
@@ -91,7 +88,7 @@ public class Tetris extends AbstractApp {
 				matrix = new TetrisMatrix(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
 				setLevel(getLevelFromRowsCleared());
 				setTotalRowsCleared(0);
-				getPrimarySurface().setFocus(true);
+				surface.setFocus(true);
 			}
 		});
 		Button previousLevelButton = new Button("Previous level", new ClickHandler() {
@@ -128,7 +125,6 @@ public class Tetris extends AbstractApp {
 		initializeKeyHandlers();
 	}
 
-	@Override
 	public void update() {
 		if (currPiece == null) {
 			currPiece = nextPiece;
@@ -172,7 +168,6 @@ public class Tetris extends AbstractApp {
 		if (!needRedraw) {
 			return;
 		}
-		Surface surface = getPrimarySurface();
 		surface.clear().fillBackground(KnownColor.BLACK);
 		
 		// Draw the blocks.
@@ -244,7 +239,7 @@ public class Tetris extends AbstractApp {
 	 * Initializes the keyboard handlers for the game.
 	 */
 	private void initializeKeyHandlers() {
-		getPrimarySurface().addKeyPressHandler(new KeyPressHandler() {
+		surface.addKeyPressHandler(new KeyPressHandler() {
 			@Override
 			public void onKeyPress(KeyPressEvent event) {
 				if ((currPiece == null) || (event.getCharCode() != 32)) {
@@ -262,7 +257,7 @@ public class Tetris extends AbstractApp {
 			}
 		});
 		
-		getPrimarySurface().addKeyDownHandler(new KeyDownHandler() {
+		surface.addKeyDownHandler(new KeyDownHandler() {
 			@Override
 			public void onKeyDown(KeyDownEvent event) {
 				if (currPiece == null) {

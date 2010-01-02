@@ -40,8 +40,9 @@ public class VideoAudioDemo extends AbstractDemo {
 		add(new HTML("Video obtained from: <a href=\"" 
 				+ "http://tinyvid.tv/show/oz8r94tx5iws\">"
 				+ "http://tinyvid.tv/show/oz8r94tx5iws</a>"));
-		Video video = new Video("demo/media/samplevideo.ogg");
+		Video video = new Video("http://tinyvid.tv/file/oz8r94tx5iws.ogg");
 		video.setControls(true);
+		video.setAutobuffer(true);
 		add(video);
 		
 		add(new HTML("Music obtained from: <a href=\"" 
@@ -49,9 +50,14 @@ public class VideoAudioDemo extends AbstractDemo {
 				+ "http://www.pacdv.com/sounds/free-music-01.html</a>"));
 		
 		Audio audio = new Audio();
-		audio.addSource(new Source("demo/media/daydreaming.mp3"));
-		audio.addSource(new Source("demo/media/daydreaming.ogg"));
+		Source source = new Source("media/daydreaming.ogg");
+		source.setType("audio/ogg");
+		audio.addSource(source);
+		source = new Source("media/daydreaming.mp3");
+		source.setType("audio/mpeg");
+		audio.addSource(source);
 		audio.setControls(true);
+		audio.setAutobuffer(true);
 		add(audio);
 	}
 

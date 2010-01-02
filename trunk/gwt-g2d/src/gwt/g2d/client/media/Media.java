@@ -527,7 +527,6 @@ public abstract class Media extends ComplexPanel implements HasMediaEvents {
 	 * @param <H>
 	 * @param handler
 	 * @param type
-	 * @return
 	 */
 	public <H extends EventHandler> HandlerRegistration addCustomHandler(
 			H handler, DomEvent.Type<H> type) {
