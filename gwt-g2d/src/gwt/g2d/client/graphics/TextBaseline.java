@@ -45,6 +45,7 @@ public enum TextBaseline {
 	/**
 	 * Let the anchor point's vertical position be the alphabetic baseline of the
 	 * first available font of the inline box.
+	 * This is the default TextBaseline.
 	 */
 	ALPHABETIC("alphabetic"),
 	/**

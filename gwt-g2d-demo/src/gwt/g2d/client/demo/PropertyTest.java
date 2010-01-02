@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class PropertyTest extends AbstractDemo {
 	private static final double EPSILON = .0005;
-	private static final int NUM_RANDOM_TESTS = 10;
+	private static final int NUM_RANDOM_TESTS = 3;
 	
 	/**
 	 * Creates a new surface for testing.
@@ -75,7 +75,8 @@ public class PropertyTest extends AbstractDemo {
 			int i = currRow;
 			for (TestResult result : testResults.getValue()) {
 				table.setHTML(i, 1, result.getExpected().toString());
-				table.setHTML(i, 2, result.getActual().toString());
+				table.setHTML(i, 2, result.getActual() == null ? "undefined" :
+					result.getActual().toString());
 				table.setHTML(i, 3, result.isPassed() 
 						? "<span class=\"pass\">PASS</span>"
 					  : "<span class=\"fail\">FAIL</span>");
@@ -105,6 +106,7 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testFont() {
 		Surface surface = createSurface();
+		testResult("Font", "10px sans-serif", surface.getFont());
 		testResult("Font", "20pt Arial", 
 				surface.setFont("20pt Arial").getFont());
 		testResult("Font", "italic 400 12px/2 Unknown Font, sans-serif", 
@@ -113,6 +115,7 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testGlobalAlpha() {
 		Surface surface = createSurface();
+		testResult("Global Alpha", 1.0, surface.getGlobalAlpha());
 		for (int i = 0; i < NUM_RANDOM_TESTS; i++) {
 			double randNumber = Random.nextDouble();
 			testResult("Global Alpha", randNumber, 
@@ -122,6 +125,8 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testGlobalComposition() {
 		Surface surface = createSurface();
+		testResult("Global Composition", Composition.SOURCE_OVER, 
+				surface.getGlobalCompositeOperation());
 		for (Composition v : Composition.values()) {
 			testResult("Global Composition", v, surface
 					.setGlobalCompositeOperation(v).getGlobalCompositeOperation());
@@ -130,6 +135,7 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testLineCap() {
 		Surface surface = createSurface();
+		testResult("Line Cap", LineCap.BUTT, surface.getLineCap());
 		for (LineCap v : LineCap.values()) {
 			testResult("Line Cap", v, surface.setLineCap(v).getLineCap());
 		}
@@ -137,6 +143,7 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testLineJoin() {
 		Surface surface = createSurface();
+		testResult("Line Join", LineJoin.MITER, surface.getLineJoin());
 		for (LineJoin v : LineJoin.values()) {
 			testResult("Line Join", v, surface.setLineJoin(v).getLineJoin());
 		}
@@ -144,8 +151,9 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testLineWidth() {
 		Surface surface = createSurface();
+		testResult("Line Width", 1.0, surface.getLineWidth());
 		for (int i = 0; i < NUM_RANDOM_TESTS; i++) {
-			double randNumber = Random.nextDouble();
+			double randNumber = Random.nextDouble() * 50;
 			testResult("Line Width", randNumber, 
 					surface.setLineWidth(randNumber).getLineWidth());
 		}
@@ -153,8 +161,9 @@ public class PropertyTest extends AbstractDemo {
 
 	private void testMiterLimit() {
 		Surface surface = createSurface();
+		testResult("Miter Limit", 10.0, surface.getMiterLimit());
 		for (int i = 0; i < NUM_RANDOM_TESTS; i++) {
-			double randNumber = Random.nextDouble();
+			double randNumber = Random.nextDouble() * 50;
 			testResult("Miter Limit", randNumber, 
 					surface.setMiterLimit(randNumber).getMiterLimit());
 		}
@@ -162,8 +171,9 @@ public class PropertyTest extends AbstractDemo {
 	
 	private void testShadowBlur() {
 		Surface surface = createSurface();
+		testResult("Shadow Blur", 0.0, surface.getShadowBlur());
 		for (int i = 0; i < NUM_RANDOM_TESTS; i++) {
-			double randNumber = Random.nextDouble();
+			double randNumber = Random.nextDouble() * 50;
 			testResult("Shadow Blur", randNumber, 
 					surface.setShadowBlur(randNumber).getShadowBlur());
 		}
@@ -171,11 +181,13 @@ public class PropertyTest extends AbstractDemo {
 	
 	private void testShadowOffset() {
 		Surface surface = createSurface();
+		testResult("Shadow Offser X", 0.0, surface.getShadowOffsetX());
+		testResult("Shadow Offser Y", 0.0, surface.getShadowOffsetY());
 		for (int i = 0; i < NUM_RANDOM_TESTS; i++) {
-			double randNumber = Random.nextDouble();
+			double randNumber = Random.nextDouble() * 50;
 			testResult("Shadow Offser X", randNumber, 
 					surface.setShadowOffsetX(randNumber).getShadowOffsetX());
-			randNumber = Random.nextDouble();
+			randNumber = Random.nextDouble() * 50;
 			testResult("Shadow Offser Y", randNumber, 
 					surface.setShadowOffsetY(randNumber).getShadowOffsetY());
 		}
@@ -183,6 +195,7 @@ public class PropertyTest extends AbstractDemo {
 	
 	private void testTextAlign() {
 		Surface surface = createSurface();
+		testResult("Text Align", TextAlign.START, surface.getTextAlign());
 		for (TextAlign v : TextAlign.values()) {
 			testResult("Text Align", v, surface.setTextAlign(v).getTextAlign());
 		}
@@ -190,6 +203,7 @@ public class PropertyTest extends AbstractDemo {
 	
 	private void testTextBaseline() {
 		Surface surface = createSurface();
+		testResult("Text Baseline", TextBaseline.ALPHABETIC, surface.getTextBaseline());
 		for (TextBaseline v : TextBaseline.values()) {
 			testResult("Text Baseline", v, surface.setTextBaseline(v).getTextBaseline());
 		}

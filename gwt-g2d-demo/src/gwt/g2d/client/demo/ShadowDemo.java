@@ -38,7 +38,7 @@ public class ShadowDemo extends ReferenceDemo {
 
 	@Override
 	public void initialize() {
-		add(new Label("Shadow is not supported under IE or Opera."));
+		add(new Label("Shadow is not supported under IE or Opera (Will be included in Opera 10.5)."));
 		super.initialize();
 		getPrimarySurface().setShadowOffset(new Vector2(5, 5))
 				.setShadowBlur(4)

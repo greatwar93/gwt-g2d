@@ -41,7 +41,7 @@ public class VideoCanvasDemo extends ReferenceDemo {
 	@Override
 	public void initialize() {
 		add(new Label("This demo will not work at all under IE or Opera."));
-		video = new Video("demo/media/video.ogg");
+		video = new Video("media/video.ogg");
 		video.setControls(true);
 		add(video);
 		video.addPlayHandler(new PlayHandler() {
@@ -53,6 +53,7 @@ public class VideoCanvasDemo extends ReferenceDemo {
 				getPrimarySurface().setHeight(video.getVideoHeight());
 			}
 		});
+		video.setAutobuffer(true);
 		super.initialize();
 	}
 

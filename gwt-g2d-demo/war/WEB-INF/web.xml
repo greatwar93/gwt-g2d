@@ -4,12 +4,15 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-
-	<!-- <servlet-mapping>  
-    <servlet-name>doc</servlet-name> 
-  	<url-pattern>/doc/*</url-pattern> 
-  </servlet-mapping> -->
-          
+	
+	<static-files>
+    <include path="/doc/*" />
+  </static-files>
+  
+  <resource-files>
+    <include path="/media/*" />
+  </resource-files>
+    
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
