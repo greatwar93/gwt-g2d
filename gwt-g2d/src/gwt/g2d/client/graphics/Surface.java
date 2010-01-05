@@ -22,6 +22,7 @@ import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.canvas.ImageData;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
 import gwt.g2d.client.graphics.shapes.Shape;
+import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
 import gwt.g2d.client.media.VideoElement;
@@ -228,12 +229,25 @@ public class Surface extends FocusWidget {
 	
 	/**
 	 * Rotates anti-clockwise by the given angle about the origin.
+	 * Use {@link #rotateCcw(double)} as this method name is too long and
+	 * ccw is more widely used than anticlockwise.
 	 * 
 	 * @param angle
 	 * @return self to support chaining.
 	 */
+	@Deprecated
 	public Surface rotateAnticlockwise(double angle) {
-		return rotate(Math.PI - angle);
+		return rotate(-angle);
+	}
+	
+	/**
+	 * Rotates counter-clockwise by the given angle about the origin.
+	 * 
+	 * @param angle
+	 * @return self to support chaining.
+	 */
+	public Surface rotateCcw(double angle) {
+		return rotate(-angle);
 	}
 	
 	/**
@@ -283,6 +297,18 @@ public class Surface extends FocusWidget {
 	}
 	
 	/**
+	 * Multiply the current transformation by the given transformation matrix.
+   * 
+	 * @param matrix
+	 * @return self to support chaining.
+	 */
+	public Surface transform(Matrix matrix) {
+		context.transform(matrix.getM11(), matrix.getM12(), matrix.getM21(), 
+				matrix.getM22(), matrix.getDx(), matrix.getDy());
+		return this;
+	}
+	
+	/**
 	 * Sets the current transformation to be the given transformation matrix.
 	 * 
 	 * The matrix has the following structure:
@@ -303,6 +329,18 @@ public class Surface extends FocusWidget {
 	public Surface setTransform(double m11, double m12, double m21, double m22,
       double dx, double dy) {
 		context.setTransform(m11, m12, m21, m22, dx, dy);
+		return this;
+	}
+	
+	/**
+	 * Sets the current transformation to be the given transformation matrix.
+   * 
+	 * @param matrix
+	 * @return self to support chaining.
+	 */
+	public Surface setTransform(Matrix matrix) {
+		context.setTransform(matrix.getM11(), matrix.getM12(), matrix.getM21(), 
+				matrix.getM22(), matrix.getDx(), matrix.getDy());
 		return this;
 	}
 	

@@ -26,9 +26,15 @@ import gwt.g2d.client.graphics.visitor.LineToVisitor;
 import gwt.g2d.client.graphics.visitor.MoveToVisitor;
 import gwt.g2d.client.graphics.visitor.QuadraticCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.QuadraticCurveVisitor;
+import gwt.g2d.client.graphics.visitor.RotateVisitor;
+import gwt.g2d.client.graphics.visitor.ScaleVisitor;
+import gwt.g2d.client.graphics.visitor.SetTransformVisitor;
 import gwt.g2d.client.graphics.visitor.ShapeVisitor;
+import gwt.g2d.client.graphics.visitor.TransformVisitor;
+import gwt.g2d.client.graphics.visitor.TranslateVisitor;
 import gwt.g2d.client.math.Arc;
 import gwt.g2d.client.math.Circle;
+import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Vector2;
 
 import java.util.ArrayList;
@@ -218,6 +224,89 @@ public class ShapeBuilder {
 	public final ShapeBuilder drawQuadraticCurve(Vector2 startPoint, Vector2 controlPoint, 
 			Vector2 endPoint) {
 		return append(new QuadraticCurveVisitor(startPoint, controlPoint, endPoint));
+	}
+	
+	/**
+	 * @see ScaleVisitor#ScaleVisitor(double, double)
+	 */
+	public final ShapeBuilder scale(double x, double y) {
+		return append(new ScaleVisitor(x, y));
+	}
+	
+	/**
+	 * @see ScaleVisitor#ScaleVisitor(Vector2)
+	 */
+	public final ShapeBuilder scale(Vector2 scales) {
+		return append(new ScaleVisitor(scales));
+	}
+	
+	/**
+	 * @see ScaleVisitor#ScaleVisitor(double)
+	 */
+	public final ShapeBuilder scale(double scale) {
+		return append(new ScaleVisitor(scale));
+	}
+	
+	/**
+	 * Clockwise rotation.
+	 * @see RotateVisitor#RotateVisitor(double)
+	 */
+	public final ShapeBuilder rotate(double angle) {
+		return append(new RotateVisitor(angle));
+	}
+	
+	/**
+	 * Counter-clockwise rotation.
+	 * @see RotateVisitor#RotateVisitor(double)
+	 */
+	public final ShapeBuilder rotateCcw(double angle) {
+		return append(new RotateVisitor(-angle));
+	}
+	
+	/**
+	 * @see TranslateVisitor#TranslateVisitor(double, double)
+	 */
+	public final ShapeBuilder translate(double x, double y) {
+		return append(new TranslateVisitor(x, y));
+	}
+	
+	/**
+	 * @see TranslateVisitor#TranslateVisitor(Vector2)
+	 */
+	public final ShapeBuilder translate(Vector2 translation) {
+		return append(new TranslateVisitor(translation));
+	}
+	
+	/**
+	 * @see TransformVisitor#TransformVisitor(double, double, double, double, 
+	 * 			double, double)
+	 */
+	public final ShapeBuilder transform(double m11, double m12, double m21, double m22,
+      double dx, double dy) {
+		return append(new TransformVisitor(m11, m12, m21, m22, dx, dy));
+	}
+	
+	/**
+	 * @see TransformVisitor#TransformVisitor(Matrix)
+	 */
+	public final ShapeBuilder transform(Matrix matrix) {
+		return append(new TransformVisitor(matrix));
+	}
+	
+	/**
+	 * @see SetTransformVisitor#SetTransformVisitor(double, double, double, 
+	 * 			double, double, double)
+	 */
+	public final ShapeBuilder setTransform(double m11, double m12, double m21, 
+			double m22, double dx, double dy) {
+		return append(new SetTransformVisitor(m11, m12, m21, m22, dx, dy));
+	}
+	
+	/**
+	 * @see SetTransformVisitor#SetTransformVisitor(Matrix)
+	 */
+	public final ShapeBuilder setTransform(Matrix matrix) {
+		return append(new SetTransformVisitor(matrix));
 	}
 	
 	/**

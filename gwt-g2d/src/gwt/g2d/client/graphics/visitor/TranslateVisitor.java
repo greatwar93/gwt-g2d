@@ -19,31 +19,27 @@ import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.math.Vector2;
 
 /**
- * Creates a new subpath with the given point.
- * The new position will be set to the given position.
+ * Translates by an offset.
  * 
  * @author hao1300@gmail.com
  */
-public class MoveToVisitor implements ShapeVisitor {
+public class TranslateVisitor implements ShapeVisitor {
 	private double x, y;
 	
 	/**
-	 * Creates a new subpath at the given position.
+	 * Translates the canvas' origin by (x, y).
 	 */
-	public MoveToVisitor(Vector2 position) {
-		this(position.getX(), position.getY());
-	}
-
-	/**
-	 * Creates a new subpath at (x, y).
-	 */
-	public MoveToVisitor(double x, double y) {
+	public TranslateVisitor(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 	
+	public TranslateVisitor(Vector2 offset) {
+		this(offset.getX(), offset.getY());
+	}
+	
 	@Override
 	public void visit(Surface surface) {
-		surface.getContext().moveTo(x, y);
+		surface.getContext().translate(x, y);
 	}
 }

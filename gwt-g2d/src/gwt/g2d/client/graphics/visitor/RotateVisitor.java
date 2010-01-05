@@ -16,34 +16,24 @@
 package gwt.g2d.client.graphics.visitor;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.math.Vector2;
 
 /**
- * Creates a new subpath with the given point.
- * The new position will be set to the given position.
+ * Rotates clockwise by an angle in radian.
  * 
  * @author hao1300@gmail.com
  */
-public class MoveToVisitor implements ShapeVisitor {
-	private double x, y;
+public class RotateVisitor implements ShapeVisitor {
+	private double angle;
 	
 	/**
-	 * Creates a new subpath at the given position.
+	 * Rotates clockwise by the given angle in radian.
 	 */
-	public MoveToVisitor(Vector2 position) {
-		this(position.getX(), position.getY());
-	}
-
-	/**
-	 * Creates a new subpath at (x, y).
-	 */
-	public MoveToVisitor(double x, double y) {
-		this.x = x;
-		this.y = y;
+	public RotateVisitor(double angle) {
+		this.angle = angle;
 	}
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getContext().moveTo(x, y);
+		surface.getContext().rotate(angle);
 	}
 }
