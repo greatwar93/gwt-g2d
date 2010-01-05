@@ -15,6 +15,9 @@
  */
 package gwt.g2d.client.graphics.canvas;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Document;
+import com.google.gwt.dom.client.ScriptElement;
 import com.google.gwt.dom.client.Style.Unit;
 
 /**
@@ -23,9 +26,17 @@ import com.google.gwt.dom.client.Style.Unit;
  * @author hao1300@gmail.com
  */
 public class CanvasInitializerIE extends CanvasInitializer {
+	private static boolean isScriptLoaded;
 	
 	@Override
 	public void init(CanvasElement element, int width, int height) {
+		if (!isScriptLoaded) {
+			ScriptElement scriptElem = Document.get().createScriptElement();
+			scriptElem.setType("text/javascript");
+			scriptElem.setSrc(GWT.getModuleBaseURL() + "excanvas.js");
+			Document.get().appendChild(scriptElem);
+			isScriptLoaded = true;
+		}
 		initExcanvas(element);
 		setWidth(element, width);
 		setHeight(element, height);

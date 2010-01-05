@@ -143,7 +143,8 @@ public class Vector2 implements Serializable {
 	 * @return a random vector whose x value is in [minX, maxX), and y value is
 	 * 				 in [minY, maxY)
 	 */
-	public static final Vector2 random(double minX, double minY, double maxX, double maxY) {
+	public static final Vector2 random(double minX, double minY, double maxX, 
+			double maxY) {
 		return new Vector2(Math.random() * (maxX - minX) + minX,
 				Math.random() * (maxY - minY) + minY);
 	}
@@ -180,7 +181,8 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return a new interpolated vector.
 	 */
-	public static final Vector2 smoothStep(Vector2 value1, Vector2 value2, double amount) {
+	public static final Vector2 smoothStep(Vector2 value1, Vector2 value2, 
+			double amount) {
     return new Vector2().mutableSmoothStep(value1, value2, amount);
   }
 	
@@ -249,8 +251,9 @@ public class Vector2 implements Serializable {
 	
 	/**
 	 * Adds rhs to this.
-	 * Unlike add(), the returned vector is this, so no new vector is allocated.
-	 * 
+	 * Unlike {@link #add(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
+	 *  
 	 * @param rhs the vector to add.
 	 * @return self to support chaining.
 	 */
@@ -272,8 +275,8 @@ public class Vector2 implements Serializable {
 	
 	/**
 	 * Subtract rhs from this.
-	 * Unlike subtract(), the returned vector is this, so no new vector is 
-	 * allocated.
+	 * Unlike {@link #subtract(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
 	 * 
 	 * @param rhs the vector to subtract from this.
 	 * @return self to support chaining.
@@ -296,8 +299,8 @@ public class Vector2 implements Serializable {
 	
 	/**
 	 * Multiply this by rhs.
-	 * Unlike multiply(), the returned vector is this, so no new vector is 
-	 * allocated.
+	 * Unlike {@link #multiply(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
 	 * 
 	 * @param rhs the vector to multiply.
 	 * @return self to support chaining.
@@ -320,8 +323,8 @@ public class Vector2 implements Serializable {
 	
 	/**
 	 * Divide this by rhs.
-	 * Unlike divide(), the returned vector is this, so no new vector is 
-	 * allocated.
+	 * Unlike {@link #divide(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
 	 * 
 	 * @param rhs the vector by which this is to be divided.
 	 * @return self to support chaining.
@@ -535,8 +538,8 @@ public class Vector2 implements Serializable {
 	 * @param amount the amount to interpolate [0.0, 1.0].
 	 * @return self to support chaining.
 	 */
-	public final Vector2 mutableCatmullRom(Vector2 value1, Vector2 value2, Vector2 value3, 
-			Vector2 value4, double amount) {
+	public final Vector2 mutableCatmullRom(Vector2 value1, Vector2 value2, 
+			Vector2 value3, Vector2 value4, double amount) {
     setX(MathHelper.catmullRom(value1.getX(), value2.getX(), value3.getX(), 
     		value4.getX(), amount));
     setY(MathHelper.catmullRom(value1.getY(), value2.getY(), value3.getY(), 
