@@ -102,6 +102,51 @@ public class PropertyTest extends AbstractDemo {
 		testTextBaseline();
 		testShadowOffset();
 		testShadowBlur();
+		testSaveRestore();		
+	}
+	
+	private void testSaveRestore() {
+		Surface surface = createSurface();
+		surface.setGlobalAlpha(.5)
+				.setGlobalCompositeOperation(Composition.SOURCE_OVER)
+				.setLineCap(LineCap.BUTT)
+				.setLineJoin(LineJoin.ROUND)
+				.setLineWidth(5.0)
+				.setMiterLimit(5.0)
+				.setFont("20px sans-serif")
+				.setTextAlign(TextAlign.CENTER)
+				.setTextBaseline(TextBaseline.TOP)
+				.setShadowOffsetX(1.0)
+				.setShadowOffsetY(1.0)
+				.setShadowBlur(1.0);		
+		surface.save();
+		surface.setGlobalAlpha(1.0)
+				.setGlobalCompositeOperation(Composition.SOURCE_IN)
+				.setLineCap(LineCap.ROUND)
+				.setLineJoin(LineJoin.MITER)
+				.setLineWidth(1.0)
+				.setMiterLimit(1.0)
+				.setFont("10px sans-serif")
+				.setTextAlign(TextAlign.END)
+				.setTextBaseline(TextBaseline.BOTTOM)
+				.setShadowOffsetX(5.0)
+				.setShadowOffsetY(5.0)
+				.setShadowBlur(5.0);
+		
+		surface.restore();
+		testResult("Restore Global Alpha", .5, surface.getGlobalAlpha());
+		testResult("Restore Global Composition", Composition.SOURCE_OVER, 
+				surface.getGlobalCompositeOperation());
+		testResult("Restore Line Cap", LineCap.BUTT, surface.getLineCap());
+		testResult("Restore Line Join", LineJoin.ROUND, surface.getLineJoin());
+		testResult("Restore Line Width", 5.0, surface.getLineWidth());
+		testResult("Restore Miter Limit", 5.0, surface.getMiterLimit());
+		testResult("Restore Font", "20px sans-serif", surface.getFont());
+		testResult("Restore Text Align", TextAlign.CENTER, surface.getTextAlign());
+		testResult("Restore Text Baseline", TextBaseline.TOP, surface.getTextBaseline());
+		testResult("Restore Shadow Offset X", 1.0, surface.getShadowOffsetX());
+		testResult("Restore Shadow Offset Y", 1.0, surface.getShadowOffsetY());
+		testResult("Restore Shadow Blur", 1.0, surface.getShadowBlur());		
 	}
 
 	private void testFont() {

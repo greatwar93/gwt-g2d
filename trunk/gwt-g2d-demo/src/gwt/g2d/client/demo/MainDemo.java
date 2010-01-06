@@ -43,9 +43,11 @@ public class MainDemo implements EntryPoint {
 		demos.add(new AnimationDemo("Animation Demo", demoPanel));
 		demos.add(new CanvasOnCanvasDemo("Canvas on Canvas Demo", demoPanel));
 		demos.add(new ColorDemo("Color Demo", demoPanel));
+		demos.add(new ClippingDemo("Clipping Demo", demoPanel));
 		demos.add(new DataUrlDemo("Data URL Demo", demoPanel));
 		demos.add(new GradientDemo("Gradient Demo", demoPanel));
 		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
+		demos.add(new PatternDemo("Pattern Demo", demoPanel));
 		demos.add(new PixelManipulatorDemo("Pixel Manipulator Demo", demoPanel));
 		demos.add(new TetrisDemo("Tetris", demoPanel));
 		demos.add(new TextDemo("Text Demo", demoPanel));
