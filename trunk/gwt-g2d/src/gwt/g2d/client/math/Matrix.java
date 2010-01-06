@@ -122,12 +122,7 @@ public class Matrix {
 	 * @param y
 	 */
 	public final void setRotateCcw(double angle) {
-		m11 = Math.cos(angle);
-		m12 = Math.sin(angle);
-		m21 = -m12;
-		m22 = m11;
-		dx = 0;
-		dy = 0;
+		setRotate(-angle);
 	}
 	
 	/**
