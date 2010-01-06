@@ -303,9 +303,8 @@ public class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface transform(Matrix matrix) {
-		context.transform(matrix.getM11(), matrix.getM12(), matrix.getM21(), 
+		return transform(matrix.getM11(), matrix.getM12(), matrix.getM21(), 
 				matrix.getM22(), matrix.getDx(), matrix.getDy());
-		return this;
 	}
 	
 	/**
@@ -339,9 +338,8 @@ public class Surface extends FocusWidget {
 	 * @return self to support chaining.
 	 */
 	public Surface setTransform(Matrix matrix) {
-		context.setTransform(matrix.getM11(), matrix.getM12(), matrix.getM21(), 
+		return setTransform(matrix.getM11(), matrix.getM12(), matrix.getM21(), 
 				matrix.getM22(), matrix.getDx(), matrix.getDy());
-		return this;
 	}
 	
 	/**
