@@ -1,3 +1,5 @@
+#summary Getting started
+
 The primary way to interact with gwt-g2d's canvas is through the Surface class. Surface is a widget, so like any other widget, it can be added to any panel. 
 
 {{{
