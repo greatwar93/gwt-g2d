@@ -23,8 +23,11 @@ import gwt.g2d.client.math.Vector2;
  * cubic Bezier curve with the given control points.
  * The new position will be set to the given end point.
  * 
+ * Use {@link BezierCurveToVisitor} instead.
+ * 
  * @author hao1300@gmail.com
  */
+@Deprecated
 public class CubicCurveToVisitor implements ShapeVisitor {
 	private double controlPoint1X, controlPoint1Y, controlPoint2X, controlPoint2Y, 
 			endPointX, endPointY;
