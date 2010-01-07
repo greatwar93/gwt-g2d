@@ -18,9 +18,9 @@ package gwt.g2d.client.graphics.shapes;
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.visitor.ArcVisitor;
+import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
+import gwt.g2d.client.graphics.visitor.BezierCurveVisitor;
 import gwt.g2d.client.graphics.visitor.CircleVisitor;
-import gwt.g2d.client.graphics.visitor.CubicCurveToVisitor;
-import gwt.g2d.client.graphics.visitor.CubicCurveVisitor;
 import gwt.g2d.client.graphics.visitor.LineSegmentVisitor;
 import gwt.g2d.client.graphics.visitor.LineToVisitor;
 import gwt.g2d.client.graphics.visitor.MoveToVisitor;
@@ -148,45 +148,46 @@ public class ShapeBuilder {
 	}
 	
 	/**
-	 * @see CubicCurveToVisitor#CubicCurveToVisitor(double, double, double, 
+	 * @see BezierCurveToVisitor#BezierCurveToVisitor(double, double, double, 
 	 * double, double, double)
 	 */
-	public final ShapeBuilder drawCubicCurveTo(double controlPoint1X, double controlPoint1Y, 
-			double controlPoint2X, double controlPoint2Y, double endPointX, double endPointY) {
-		return append(new CubicCurveToVisitor(controlPoint1X, controlPoint1Y, 
+	public final ShapeBuilder drawBezierCurveTo(double controlPoint1X, 
+			double controlPoint1Y, double controlPoint2X, double controlPoint2Y, 
+			double endPointX, double endPointY) {
+		return append(new BezierCurveToVisitor(controlPoint1X, controlPoint1Y, 
 				controlPoint2X, controlPoint2Y, 
 				endPointX, endPointY));
 	}
 	
 	/**
-	 * @see CubicCurveToVisitor#CubicCurveToVisitor(Vector2, Vector2, Vector2)
+	 * @see BezierCurveToVisitor#BezierCurveToVisitor(Vector2, Vector2, Vector2)
 	 */
-	public final ShapeBuilder drawCubicCurveTo(Vector2 controlPoint1, Vector2 controlPoint2, 
+	public final ShapeBuilder drawBezierCurveTo(Vector2 controlPoint1, Vector2 controlPoint2, 
 			Vector2 endPoint) {
-		return append(new CubicCurveToVisitor(controlPoint1, controlPoint2, endPoint));
+		return append(new BezierCurveToVisitor(controlPoint1, controlPoint2, endPoint));
 	}
 	
 	/**
-	 * @see CubicCurveVisitor#CubicCurveVisitor(Vector2, Vector2, Vector2, 
+	 * @see BezierCurveVisitor#BezierCurveVisitor(Vector2, Vector2, Vector2, 
 	 * Vector2)
 	 */
-	public final ShapeBuilder drawCubicCurve(double startPointX, double startPointY,
+	public final ShapeBuilder drawBezierCurve(double startPointX, double startPointY,
 			double controlPoint1X, double controlPoint1Y, 
 			double controlPoint2X, double controlPoint2Y, 
 			double endPointX, double endPointY) {
-		return append(new CubicCurveVisitor(startPointX, startPointY, 
+		return append(new BezierCurveVisitor(startPointX, startPointY, 
 				controlPoint1X, controlPoint1Y, 
 				controlPoint2X, controlPoint2Y, 
 				endPointX, endPointY));
 	}
 	
 	/**
-	 * @see CubicCurveVisitor#CubicCurveVisitor(double, double, double, double, 
+	 * @see BezierCurveVisitor#BezierCurveVisitor(double, double, double, double, 
 	 * double, double, double, double)
 	 */
-	public final ShapeBuilder drawCubicCurve(Vector2 startPoint, Vector2 controlPoint1, 
+	public final ShapeBuilder drawBezierCurve(Vector2 startPoint, Vector2 controlPoint1, 
 			Vector2 controlPoint2, Vector2 endpoint) {
-		return append(new CubicCurveVisitor(startPoint, controlPoint1, 
+		return append(new BezierCurveVisitor(startPoint, controlPoint1, 
 				controlPoint2, endpoint));
 	}
 	
