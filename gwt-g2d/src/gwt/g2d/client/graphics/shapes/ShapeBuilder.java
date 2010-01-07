@@ -46,7 +46,7 @@ import java.util.List;
  * @author hao1300@gmail.com
  */
 public class ShapeBuilder {
-	private List<ShapeVisitor> shapes = new ArrayList<ShapeVisitor>();
+	private final List<ShapeVisitor> shapes = new ArrayList<ShapeVisitor>();
 	
 	/**
 	 * Appends the given shape visitor to the builder.
@@ -189,6 +189,56 @@ public class ShapeBuilder {
 			Vector2 controlPoint2, Vector2 endpoint) {
 		return append(new BezierCurveVisitor(startPoint, controlPoint1, 
 				controlPoint2, endpoint));
+	}
+	
+	/**
+	 * Use {@link #drawBezierCurveTo(double, double, double, double, double, 
+	 * double)} instead.
+	 */
+	@Deprecated
+	public final ShapeBuilder drawCubeCurveTo(double controlPoint1X, 
+			double controlPoint1Y, double controlPoint2X, double controlPoint2Y, 
+			double endPointX, double endPointY) {
+		return append(new gwt.g2d.client.graphics.visitor.CubicCurveToVisitor(
+				controlPoint1X, controlPoint1Y, 
+				controlPoint2X, controlPoint2Y, 
+				endPointX, endPointY));
+	}
+	
+	/**
+	 * Use {@link #drawBezierCurveTo(Vector2, Vector2, Vector2)} instead.
+	 */
+	@Deprecated
+	public final ShapeBuilder drawCubeCurveTo(Vector2 controlPoint1, 
+			Vector2 controlPoint2, Vector2 endPoint) {
+		return append(new gwt.g2d.client.graphics.visitor.CubicCurveToVisitor(
+				controlPoint1, controlPoint2, endPoint));
+	}
+	
+	/**
+	 * Use {@link #drawBezierCurve(double, double, double, double, double, 
+	 * double, double, double)} instead.
+	 */
+	@Deprecated
+	public final ShapeBuilder drawCubicCurve(double startPointX, double startPointY,
+			double controlPoint1X, double controlPoint1Y, 
+			double controlPoint2X, double controlPoint2Y, 
+			double endPointX, double endPointY) {
+		return append(new gwt.g2d.client.graphics.visitor.CubicCurveVisitor(
+				startPointX, startPointY, 
+				controlPoint1X, controlPoint1Y, 
+				controlPoint2X, controlPoint2Y, 
+				endPointX, endPointY));
+	}
+	
+	/**
+	 * Use {@link #drawBezierCurve(Vector2, Vector2, Vector2, Vector2)} instead.
+	 */
+	@Deprecated
+	public final ShapeBuilder drawCubicCurve(Vector2 startPoint, 
+			Vector2 controlPoint1, Vector2 controlPoint2, Vector2 endpoint) {
+		return append(new gwt.g2d.client.graphics.visitor.CubicCurveVisitor(
+				startPoint, controlPoint1, controlPoint2, endpoint));
 	}
 	
 	/**
