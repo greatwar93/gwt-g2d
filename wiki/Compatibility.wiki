@@ -1,3 +1,5 @@
+#summary Some known browser compatibility issues.
+
 Canvas does not work perfectly on all browsers. Here are some support status across some of the major browsers (This list is not comprehensive and will be updated in the future):
 
   * Chrome: All working
