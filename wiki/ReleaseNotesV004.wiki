@@ -1,5 +1,5 @@
+#summary Changes from 0.03 to 0.04
 #labels Phase-Design
-Release notes for 0.04
 
 Initially, gwt-g2d was planning on using either gwt-canvas or gwt-incubator as the underlying canvas implementation. However, neither library has been active lately, and their features in canvas are quite lacking.
 
