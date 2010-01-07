@@ -18,7 +18,7 @@ package gwt.g2d.client.graphics.canvas;
 import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.math.Vector2;
 
-/**x
+/**
  * Adapter for accessing the image data object.
  * 
  * @author hao1300@gmail.com

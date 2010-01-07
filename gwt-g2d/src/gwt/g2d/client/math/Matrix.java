@@ -100,8 +100,7 @@ public class Matrix {
 	 * transform this matrix by a rotation transformation, considers using
 	 * {@link #rotate(double)} instead.
 	 * 
-	 * @param x
-	 * @param y
+	 * @param angle
 	 */
 	public final void setRotate(double angle) {
 		m11 = Math.cos(angle);
@@ -118,8 +117,7 @@ public class Matrix {
 	 * transform this matrix by a rotation transformation, considers using
 	 * {@link #rotate(double)} instead.
 	 * 
-	 * @param x
-	 * @param y
+	 * @param angle
 	 */
 	public final void setRotateCcw(double angle) {
 		setRotate(-angle);
@@ -227,7 +225,7 @@ public class Matrix {
 	
 	/**
 	 * Rotates this matrix anti-clockwise by angle.
-	 * Unlike {@link #rotateAnticlockwise(double)}, the returned Matrix is this, 
+	 * Unlike {@link #rotateCcw(double)}, the returned Matrix is this, 
 	 * so no new Matrix is allocated.
 	 * 
 	 * @param angle
