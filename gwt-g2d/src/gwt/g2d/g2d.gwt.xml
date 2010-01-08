@@ -12,6 +12,6 @@
     </any>
   </replace-with>
 
-  <!--<script src='excanvas.js'/>-->
+  <script src='excanvas.js'/>
   <source path='client'/>
 </module>
