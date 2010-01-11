@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * Helper class for measure the size of a text in pixels.
  * 
  * @author hao1300@gmail.com
+ * @author Bulatju (contributor)
  */
 public class TextMeasurer {
 	
@@ -47,8 +48,8 @@ public class TextMeasurer {
 	  RootPanel.get().add(html);
 	  html.setHTML("<div style='font:" + surface.getFont()
 	  		+ ";margin:0px;border:0px;padding:0px;'>" + text + "</div>");
-		double h = html.getOffsetHeight();
+		double height = html.getOffsetHeight();
 		RootPanel.get().remove(html);
-		return h;
+		return height;
 	}
 }
