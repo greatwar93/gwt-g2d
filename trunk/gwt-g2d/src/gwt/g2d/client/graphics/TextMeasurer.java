@@ -15,8 +15,13 @@
  */
 package gwt.g2d.client.graphics;
 
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.RootPanel;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gwt.dom.client.Element;
+import com.google.gwt.dom.client.Style;
+import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.UIObject;
 
 /**
  * Helper class for measure the size of a text in pixels.
@@ -24,7 +29,13 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author hao1300@gmail.com
  * @author Bulatju (contributor)
  */
-public class TextMeasurer {
+public abstract class TextMeasurer {
+	/** Measures the text's advance size using the font's property. */
+	public static final TextMeasurer DEFAULT_TEXT_MEASURER = 
+			new FontBoundedTextMeasurer();
+	
+	protected TextMeasurer() {
+	}
 	
 	/**
 	 * Returns the advance width with the metrics of the text.
@@ -32,9 +43,7 @@ public class TextMeasurer {
 	 * @param surface the surface where the text are to be rendered.
 	 * @param text the text to be rendered.
 	 */
-	public double measureTextWidth(Surface surface, String text) {
-		return surface.measureText(text);
-	}
+	public abstract double measureTextWidth(Surface surface, String text); 
 	
 	/**
 	 * Returns the advance height of the text in pixel when it is rendered
@@ -43,13 +52,46 @@ public class TextMeasurer {
 	 * @param surface the surface where the text are to be rendered.
 	 * @param text the text to be rendered.
 	 */
-	public double measureTextHeight(Surface surface, String text) {
-	  HTML html = new HTML();
-	  RootPanel.get().add(html);
-	  html.setHTML("<div style='font:" + surface.getFont()
-	  		+ ";margin:0px;border:0px;padding:0px;'>" + text + "</div>");
-		double height = html.getOffsetHeight();
-		RootPanel.get().remove(html);
-		return height;
+	public abstract double measureTextHeight(Surface surface, String text);
+	
+	/**
+	 * Measures the text's advance size using the property of its font.
+	 */
+	private static class FontBoundedTextMeasurer extends TextMeasurer {
+		// Hidden html tag used for measuring the of the text.
+		private Map<Surface, Element> hiddenHtml;
+		
+		@Override
+		public double measureTextWidth(Surface surface, String text) {
+			return surface.measureText(text);
+		}
+		
+		@Override
+		public double measureTextHeight(Surface surface, String text) {
+			if (hiddenHtml == null) {
+				hiddenHtml = new HashMap<Surface, Element>();
+			}
+			// Caches the element for measuring height so we don't need to 
+			// reattach it every time.
+			Element elem = hiddenHtml.get(surface);
+			if (elem == null) {
+				elem = DOM.createDiv();
+				elem.setInnerText("o");
+				Style style = elem.getStyle();
+				style.setProperty("margin", "0px");
+				style.setProperty("border", "0px");
+				style.setProperty("padding", "0px");
+				surface.getElement().appendChild(elem);
+				hiddenHtml.put(surface, elem);
+			}
+			UIObject.setVisible(elem, true);
+			// All characters in the same font have the same height property, so we 
+			// only need to use an arbitrary character to figure out the height, 
+			// avoiding performance hit caused by long text.
+			elem.getStyle().setProperty("font", surface.getFont());
+			double height = elem.getOffsetHeight();
+			UIObject.setVisible(elem, false);
+			return height;
+		}
 	}
 }
