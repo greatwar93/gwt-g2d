@@ -260,10 +260,25 @@ public class ShapeBuilder {
 	}
 	
 	/**
+	 * This method is incorrectly named. Use 
+	 * {@link #drawQuadraticCurve(double, double, double, double, double, double)}
+	 * instead.
+	 * 
 	 * @see QuadraticCurveVisitor#QuadraticCurveVisitor(double, double, double, 
 	 * double, double, double)
 	 */
+	@Deprecated
 	public final ShapeBuilder drawQuadraticCurveTo(double startPointX, double startPointY,
+			double controlPointX, double controlPointY, double endPointX, double endPointY) {
+		return append(new QuadraticCurveVisitor(startPointX, startPointY, 
+				controlPointX, controlPointY, endPointX, endPointY));
+	}
+	
+	/**
+	 * @see QuadraticCurveVisitor#QuadraticCurveVisitor(double, double, double, 
+	 * double, double, double)
+	 */
+	public final ShapeBuilder drawQuadraticCurve(double startPointX, double startPointY,
 			double controlPointX, double controlPointY, double endPointX, double endPointY) {
 		return append(new QuadraticCurveVisitor(startPointX, startPointY, 
 				controlPointX, controlPointY, endPointX, endPointY));
