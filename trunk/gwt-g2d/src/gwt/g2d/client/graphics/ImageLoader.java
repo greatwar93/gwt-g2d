@@ -16,6 +16,9 @@
 package gwt.g2d.client.graphics;
 
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.resources.client.ClientBundle;
+
+import gwt.g2d.resources.client.ExternalImageResource;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,9 +30,13 @@ import java.util.Set;
  * Provides a mechanism for deferred execution of a callback 
  * method once all specified Images are loaded.
  * <p>
+ * This class is deprecated. Considers using {@link ClientBundle} with
+ * {@link ExternalImageResource} instead.
+ * <p>
  * (This is a slightly modified by hao1300@gmail.com from the GWT-incubator's 
  * ImageLoader to provide a more flexible loading scheme.)
  */
+@Deprecated
 public class ImageLoader {
 
   /**
