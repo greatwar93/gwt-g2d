@@ -17,6 +17,7 @@ package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.shapes.ShapeBuilder;
+import gwt.g2d.client.graphics.visitor.ArcToVisitor;
 import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveVisitor;
@@ -96,6 +97,20 @@ public class DirectShapeRenderer {
 	}
 	
 	/**
+	 * Returns true if the given point is in the current path.
+	 */
+	public final boolean isPointInPath(double x, double y) {
+		return context.isPointInPath(x, y);
+	}
+	
+	/**
+	 * Returns true if the given point is in the current path.
+	 */
+	public final boolean isPointInPath(Vector2 point) {
+		return context.isPointInPath(point.getX(), point.getY());
+	}
+	
+	/**
 	 * @see MoveToVisitor#MoveToVisitor(double, double)
 	 */
 	public final DirectShapeRenderer moveTo(double x, double y) {
@@ -165,6 +180,24 @@ public class DirectShapeRenderer {
 	public final DirectShapeRenderer drawArc(Arc arc) {
 		return drawArc(arc.getCenter(), arc.getRadius(), arc.getStartAngle(), 
 				arc.getEndAngle(), arc.isAnticlockwise());
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(double, double, double, double, double)
+	 */
+	public final DirectShapeRenderer drawArcTo(double x1, double y1, double x2, 
+			double y2, double radius) {
+		context.arcTo(x1, y1, x2, y2, radius);
+		return this;
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(Vector2, Vector2, double)
+	 */
+	public final DirectShapeRenderer drawArcTo(Vector2 point1, Vector2 point2, 
+			double radius) {
+		return drawArcTo(point1.getX(), point1.getY(), point2.getX(), point2.getY(), 
+				radius);
 	}
 	
 	/**

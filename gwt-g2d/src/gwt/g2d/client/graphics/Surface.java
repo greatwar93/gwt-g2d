@@ -31,6 +31,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.user.client.ui.FocusWidget;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * The surface that an application uses to render to the screen.
@@ -669,6 +670,32 @@ public class Surface extends FocusWidget {
 	public Surface clear() {
 		context.clear();
 		return this;
+	}
+	
+	/**
+	 * This is equivalent to calling drawFocusRing(widget, x, y, false).
+	 * @see #drawFocusRing(Widget, double, double)
+	 */
+	public boolean drawFocusRing(Widget widget, double x, double y) {
+		return context.drawFocusRing(widget.getElement(), x, y);
+	}
+	
+	/**
+	 * Use this method to indicate which focusable part of the canvas is 
+	 * currently focused, passing it the widget for which a ring is being drawn. 
+	 * This method only draws the focus ring if the widget is focused, so that 
+	 * it can simply be called whenever drawing the widget, without checking 
+	 * whether the widget is focused or not first. The position of the center 
+	 * of the control, or of the editing caret if the control has one, should be 
+	 * given in the x and y arguments.
+	 * 
+ 	 * @param canDrawCustom if true, then the focus ring is only drawn if the 
+ 	 * 				user has configured his system to draw focus rings in a particular 
+	 * 				manner. (For example, high contrast focus rings.)
+	 */
+	public boolean drawFocusRing(Widget widget, double x, double y, 
+			boolean canDrawCustom) {
+		return context.drawFocusRing(widget.getElement(), x, y, canDrawCustom);
 	}
 	
 	/**

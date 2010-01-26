@@ -173,6 +173,7 @@ public class ImageLoader {
   /**
    * Returns a handle to an img object. Ties back to the ImageLoader instance
    */
+  @SuppressWarnings("deprecation")
   private native ImageElement prepareImage(String url) /*-{
     // if( callback specified )
     // do nothing
