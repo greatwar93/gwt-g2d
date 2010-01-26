@@ -25,7 +25,7 @@ import com.google.gwt.dom.client.ImageElement;
  * Default implementation of the 2D context.
  * 
  * This is inspired by Oliver Zoran's gwt-canvas.
- *  
+ * 
  * @author hao1300@gmail.com
  */
 public final class ContextImpl extends JavaScriptObject implements Context {
@@ -41,6 +41,12 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void arc(double x, double y, double radius, double startAngle,
 			double endAngle, boolean antiClockwise) /*-{
 		this.arc(x, y, radius, startAngle, endAngle, antiClockwise);
+	}-*/;
+
+	@Override
+	public native void arcTo(double x1, double y1, double x2, double y2,
+			double radius) /*-{
+		this.arcTo(x1, y1, x2, y2, radius);
 	}-*/;
 
 	@Override
@@ -73,7 +79,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void closePath() /*-{
 		this.closePath();
 	}-*/;
-	
+
 	@Override
 	public ImageData createImageData(ImageData imageData) {
 		return this.createImageData(imageData);
@@ -91,19 +97,19 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
-	public native CanvasPattern createPattern(CanvasElement image, 
+	public native CanvasPattern createPattern(CanvasElement image,
 			String repetition) /*-{
 		return this.createPattern(image, repetition);
 	}-*/;
 
 	@Override
-	public native CanvasPattern createPattern(ImageElement image, 
+	public native CanvasPattern createPattern(ImageElement image,
 			String repetition) /*-{
 		return this.createPattern(image, repetition);
 	}-*/;
 
 	@Override
-	public native CanvasPattern createPattern(VideoElement image, 
+	public native CanvasPattern createPattern(VideoElement image,
 			String repetition) /*-{
 		return this.createPattern(image, repetition);
 	}-*/;
@@ -115,23 +121,34 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
+	public native boolean drawFocusRing(Element element, double x, double y) /*-{
+		return drawFocusRing(element, x, y);
+	}-*/;
+
+	@Override
+	public native boolean drawFocusRing(Element element, double x, double y,
+			boolean canDrawCustom) /*-{
+		return drawFocusRing(element, x, y, canDrawCustom);
+	}-*/;
+
+	@Override
 	public void drawImage(CanvasElement image, double x, double y) {
 		drawImageImpl(image, x, y);
 	}
 
 	@Override
-	public void drawImage(CanvasElement image, double x, double y, 
-			double width, double height) {
+	public void drawImage(CanvasElement image, double x, double y, double width,
+			double height) {
 		drawImageImpl(image, x, y, width, height);
 	}
 
 	@Override
-	public void drawImage(CanvasElement image, 
-			double sx, double sy, double sWidth, double sHeight, 
-			double dx, double dy, double dWidth, double  dHeight) {
+	public void drawImage(CanvasElement image, double sx, double sy,
+			double sWidth, double sHeight, double dx, double dy, double dWidth,
+			double dHeight) {
 		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}
-	
+
 	public void drawImage(ImageElement image, double x, double y) {
 		drawImageImpl(image, x, y);
 	}
@@ -147,7 +164,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 			double dHeight) {
 		drawImageImpl(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
 	}
-	
+
 	public void drawImage(VideoElement image, double x, double y) {
 		drawImageImpl(image, x, y);
 	}
@@ -276,9 +293,8 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	}-*/;
 
 	@Override
-	public native void putImageData(ImageData imageData, double x,
-			double y, double dirtyX, double dirtyY, double dirtyWidth,
-			double dirtyHeight) /*-{
+	public native void putImageData(ImageData imageData, double x, double y,
+			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) /*-{
 		this.putImageData(imageData, x, y);
 		// dirtyX, dirtyY, dirtyWidth, dirtyHeight are not used because no browser
 		// supports them yet.
@@ -318,7 +334,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void setFillStyle(CanvasGradient fillStyle) /*-{
 		this.fillStyle = fillStyle;
 	}-*/;
-	
+
 	@Override
 	public native void setFillStyle(CanvasPattern fillStyle) /*-{
 		this.fillStyle = fillStyle;
@@ -388,7 +404,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void setStrokeStyle(CanvasGradient strokeStyle) /*-{
 		this.strokeStyle = strokeStyle;
 	}-*/;
-	
+
 	@Override
 	public native void setStrokeStyle(CanvasPattern strokeStyle) /*-{
 		this.strokeStyle = strokeStyle;
@@ -430,7 +446,7 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	public native void strokeText(String text, double x, double y) /*-{
 		this.strokeText(text, x, y);
 	}-*/;
-	
+
 	@Override
 	public native void strokeText(String text, double x, double y, double maxWidth) /*-{
 		this.strokeText(text, x, y, maxWidth);
@@ -450,12 +466,12 @@ public final class ContextImpl extends JavaScriptObject implements Context {
 	private native void drawImageImpl(Element image, double dx, double dy) /*-{
 		this.drawImage(image, dx, dy);
 	}-*/;
-	
-	private native void drawImageImpl(Element image, double dx, double dy, 
+
+	private native void drawImageImpl(Element image, double dx, double dy,
 			double dWidth, double dHeight) /*-{
 		this.drawImage(image, dx, dy, dWidth, dHeight);
 	}-*/;
-	
+
 	private native void drawImageImpl(Element image, double sx, double sy,
 			double sWidth, double sHeight, double dx, double dy, double dWidth,
 			double dHeight) /*-{

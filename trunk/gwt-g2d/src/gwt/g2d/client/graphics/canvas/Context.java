@@ -17,6 +17,7 @@ package gwt.g2d.client.graphics.canvas;
 
 import gwt.g2d.client.media.VideoElement;
 
+import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.ImageElement;
 
 /**
@@ -34,6 +35,7 @@ import com.google.gwt.dom.client.ImageElement;
  * @author hao1300@gmail.com
  */
 public interface Context {
+	
 	/**
 	 * Adds points to the subpath such that the arc described by the 
 	 * circumference of the circle described by the arguments, starting at the 
@@ -44,6 +46,32 @@ public interface Context {
 	void arc(double x, double y, double radius, double startAngle, 
 			double endAngle, boolean antiClockwise);
   
+	/**
+	 * Let the point (x0, y0) be the last point in the subpath.
+	 * <p>
+	 * If the point (x0, y0) is equal to the point (x1, y1), or if the point 
+	 * (x1, y1) is equal to the point (x2, y2), or if the radius radius is zero, 
+	 * then the method must add the point (x1, y1) to the subpath, and connect 
+	 * that point to the previous point (x0, y0) by a straight line.
+	 * <p>
+	 * Otherwise, if the points (x0, y0), (x1, y1), and (x2, y2) all lie on a 
+	 * single straight line, then the method must add the point (x1, y1) to the 
+	 * subpath, and connect that point to the previous point (x0, y0) by a 
+	 * straight line.
+	 * <p>
+	 * Otherwise, let The Arc be the shortest arc given by circumference of the 
+	 * circle that has radius radius, and that has one point tangent to the 
+	 * half-infinite line that crosses the point (x0, y0) and ends at the point 
+	 * (x1, y1), and that has a different point tangent to the half-infinite line 
+	 * that ends at the point (x1, y1) and crosses the point (x2, y2). The points 
+	 * at which this circle touches these two lines are called the start and end 
+	 * tangent points respectively. The method must connect the point (x0, y0) to 
+	 * the start tangent point by a straight line, adding the start tangent point 
+	 * to the subpath, and then must connect the start tangent point to the end 
+	 * tangent point by The Arc, adding the end tangent point to the subpath.
+	 */
+	void arcTo(double x1, double y1, double x2, double y2, double radius);
+	
 	/**
 	 * Resets the current path.
 	 */
@@ -138,6 +166,32 @@ public interface Context {
 	 */
 	CanvasGradient createRadialGradient(double x0, double y0, 
 			double radius0, double x1, double y1, double radius1);
+	
+	/**
+	 * This is equivalent to calling drawFocusRing(element, x, y, false).
+	 * @see #drawFocusRing(Element, double, double, boolean)
+	 */
+	boolean drawFocusRing(Element element, double x, double y);
+	
+	/**
+	 * If the given element is focused, draws a focus ring around the current 
+	 * path, following the platform conventions for focus rings. The given 
+	 * coordinate is used if the user's attention needs to be brought to a 
+	 * particular position (e.g. if a magnifier is following the editing caret 
+	 * in a text field).
+	 * <p>
+	 * If the canDrawCustom argument is true, then the focus ring is only drawn 
+	 * if the user has configured his system to draw focus rings in a particular 
+	 * manner. (For example, high contrast focus rings.)
+	 * <p>
+	 * Returns true if the given element is focused, the canDrawCustom argument 
+	 * is true, and the user has not configured his system to draw focus rings 
+	 * in a particular manner. Otherwise, returns false.
+	 * <p>
+	 * When the method returns true, the author is expected to manually draw a 
+	 * focus ring.
+	 */
+	boolean drawFocusRing(Element element, double x, double y, boolean canDrawCustom);
 	
 	/**
 	 * Draws the given image onto the canvas.

@@ -17,6 +17,7 @@ package gwt.g2d.client.graphics.shapes;
 
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.graphics.canvas.Context;
+import gwt.g2d.client.graphics.visitor.ArcToVisitor;
 import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveVisitor;
@@ -124,6 +125,21 @@ public class ShapeBuilder {
 	 */
 	public final ShapeBuilder drawArc(Arc arc) {
 		return append(new ArcVisitor(arc));
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(double, double, double, double, double)
+	 */
+	public final ShapeBuilder drawArcTo(double x1, double y1, double x2, double y2, 
+			double radius) {
+		return append(new ArcToVisitor(x1, y1, x2, y2, radius));
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(Vector2, Vector2, double)
+	 */
+	public final ShapeBuilder drawArcTo(Vector2 point1, Vector2 point2, double radius) {
+		return append(new ArcToVisitor(point1, point2, radius));
 	}
 	
 	/**
