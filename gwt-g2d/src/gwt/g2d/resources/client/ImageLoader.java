@@ -29,25 +29,17 @@ public final class ImageLoader {
 	}
 	
 	/**
-	 * Asynchronously loads an ImageElement.
+	 * Asynchronously loads an {@link ImageElement}.
 	 * 
-	 * @param src
-	 * @param callback
+	 * @param src the src of the image.
+	 * @param imgResource the image resource to be loaded.
+	 * @param callback the callback event when the requested image is loaded.
 	 */
-	public static void getImage(String src, final String resourceFunctionName,
+	public static void loadImageAsync(String src, 
+			AbstractImageElementResource imgResource,
 			ResourceCallback<ImageElementResource> callback) {
 		final ImageElementExt img = Document.get().createImageElement().cast();
-		ImageElementResource imgResource = new ImageElementResource() {
-			@Override
-			public String getName() {
-				return resourceFunctionName;
-			}
-			
-			@Override
-			public ImageElement getImage() {
-				return img;
-			}
-		};
+		imgResource.setImage(img);
 		img.setupLoadListener(imgResource, callback);
 		img.setSrc(src);
 	}
