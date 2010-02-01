@@ -38,7 +38,7 @@ public class MainDemo implements EntryPoint {
 	private final List<AbstractDemo> demos = new ArrayList<AbstractDemo>();
 	private int selectedIndex = 0;
 	
-	public void onModuleLoad() {		
+	public void onModuleLoad() {
 		final Panel demoPanel = new FlowPanel();
 		demos.add(new AnimationDemo("Animation Demo", demoPanel));
 		demos.add(new CanvasOnCanvasDemo("Canvas on Canvas Demo", demoPanel));
@@ -49,9 +49,10 @@ public class MainDemo implements EntryPoint {
 		demos.add(new ParticlesDemo("Particles Demo", demoPanel));
 		demos.add(new PatternDemo("Pattern Demo", demoPanel));
 		demos.add(new PixelManipulatorDemo("Pixel Manipulator Demo", demoPanel));
+		demos.add(new ShadowDemo("Shadow Demo", demoPanel));
+		demos.add(new ShapeDemo("Shape Demo", demoPanel));
 		demos.add(new TetrisDemo("Tetris", demoPanel));
 		demos.add(new TextDemo("Text Demo", demoPanel));
-		demos.add(new ShadowDemo("Shadow Demo", demoPanel));
 		demos.add(new VideoAudioDemo("Video and Audio Demo", demoPanel));
 		demos.add(new VideoCanvasDemo("Video on Canvas Demo", demoPanel));
 		demos.add(new PropertyTest("Property Tests", demoPanel));
