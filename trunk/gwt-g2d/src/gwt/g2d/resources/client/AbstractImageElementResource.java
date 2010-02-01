@@ -16,30 +16,25 @@
 package gwt.g2d.resources.client;
 
 import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.resources.client.ResourcePrototype;
 
 /**
- * Represents a resource that stores an ImageElement.
- * This class should only be used with {@link ExternalImageResource}.
+ * Represents an abstract implementation of {@link ImageElementResource}.
  * 
  * @author hao1300@gmail.com
  */
-public interface ImageElementResource extends ResourcePrototype {
+public abstract class AbstractImageElementResource 
+		implements ImageElementResource {
+	private ImageElement img;
+	
+	@Override
+	public ImageElement getImage() {
+		return img;
+	}
 	
 	/**
-	 * Gets the ImageElement in this resource.
+	 * Sets the {@link ImageElement} in this resource.
 	 */
-	ImageElement getImage();
-	
-	/**
-	 * Gets the original image's base url, that is, the original filename of the 
-	 * image. This not the deployed url, which may vary for each compilation.
-	 */
-	String getBaseUrl();
-	
-	/**
-	 * Gets the zero-based index of this image in the requested image list.
-	 * Note that an image with a smaller index may not necessarily load first. 
-	 */
-	int getIndex();
+	public void setImage(ImageElement img) {
+		this.img = img;
+	}
 }

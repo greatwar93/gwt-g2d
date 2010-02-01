@@ -15,6 +15,7 @@
  */
 package gwt.g2d.resources;
 
+import gwt.g2d.resources.client.AbstractImageElementResource;
 import gwt.g2d.resources.client.ExternalImageResource;
 import gwt.g2d.resources.client.ImageElementResource;
 import gwt.g2d.resources.client.ImageLoader;
@@ -44,31 +45,54 @@ public final class ExternalImageResourceGenerator extends
 			JMethod method) throws UnableToCompleteException {
 		URL[] resources = ResourceGeneratorUtil.findResources(logger, context,
         method);
-
-    if (resources.length != 1) {
-      logger.log(TreeLogger.ERROR, "Exactly one resource must be specified",
-          null);
-      throw new UnableToCompleteException();
-    }
-
-    URL resource = resources[0];
-    String outputUrlExpression = context.deploy(resource, false);
-    
+		
     SourceWriter sw = new StringSourceWriter();
     // Write the expression to create the subtype.
     sw.println("new " + ExternalImageResource.class.getName() + "() {");
     sw.indent();
-
-    // Convenience when examining the generated code.
-    sw.println("// " + resource.toExternalForm());
     
-    sw.println("public void getImage(" 
-    		+ ResourceCallback.class.getName() + "<" 
-    		+ ImageElementResource.class.getName() + "> callback) {");
+    sw.println(String.format("public void getImage(%s<%s> callback) {", 
+    		ResourceCallback.class.getName(),
+    		ImageElementResource.class.getName()));
     sw.indent();
-    sw.println(ImageLoader.class.getName() + ".getImage(" 
-    		+ outputUrlExpression + ", \"" 
-    		+ method.getName() + "\", callback);");
+    
+    int index = 0;
+    String abstractImageElementResourceClassName = 
+    		AbstractImageElementResource.class.getName();
+    for (URL resource : resources) {
+			String outputUrlExpression = context.deploy(resource, false);
+			sw.println("{");
+			sw.println(abstractImageElementResourceClassName + " imgResource = new " 
+					+ abstractImageElementResourceClassName + "() {");
+			
+			sw.indent();
+			
+			sw.println("public String getName() {");
+			sw.indent();
+			sw.println("return \"" + method.getName() + "\";");
+			sw.outdent();
+			sw.println("}");
+			
+			sw.println("public String getBaseUrl() {");
+			sw.indent();
+			sw.println("return \"" + ResourceGeneratorUtil.baseName(resource) + "\";");
+			sw.outdent();
+			sw.println("}");
+			
+			sw.println("public int getIndex() {");
+			sw.indent();
+			sw.println("return " + index + ";");
+			sw.outdent();
+			sw.println("}");
+			
+			sw.outdent();
+			sw.println("};");
+			
+	    sw.println(ImageLoader.class.getName() + ".loadImageAsync("
+	    		+ outputUrlExpression + ", imgResource, callback);");
+	    sw.println("}");
+	    index++;
+    }
     sw.outdent();
     sw.println("}");
     
