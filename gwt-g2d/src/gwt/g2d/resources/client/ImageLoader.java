@@ -66,15 +66,15 @@ public final class ImageLoader {
 			this.onload = function() {   
         callback.@com.google.gwt.resources.client.ResourceCallback::onSuccess(Lcom/google/gwt/resources/client/ResourcePrototype;)(imgResource);
         this.onload = null;
-//        this.onerror = null;
+        this.onerror = null;
 			}
-//			this.onerror = function() {
-//				var errorMsg = 'IMG tag is bad or the image data is corrupted.';
-//				var exception = @com.google.gwt.resources.client.ResourceException::new(Lcom/google/gwt/resources/client/ResourcePrototype;Ljava/lang/String;)(imgResource, errorMsg);
-//        callback.@com.google.gwt.resources.client.ResourceCallback::onError(Lcom/google/gwt/resources/client/ResourceException;)(exception);
-//        this.onload = null;
-//        this.onerror = null;
-//			}
+			this.onerror = function() {
+				var errorMsg = 'IMG tag is bad or the image data is corrupted.';
+				var exception = @com.google.gwt.resources.client.ResourceException::new(Lcom/google/gwt/resources/client/ResourcePrototype;Ljava/lang/String;)(imgResource, errorMsg);
+        callback.@com.google.gwt.resources.client.ResourceCallback::onError(Lcom/google/gwt/resources/client/ResourceException;)(exception);
+        this.onload = null;
+        this.onerror = null;
+			}
 		}-*/;
 	}
 }
