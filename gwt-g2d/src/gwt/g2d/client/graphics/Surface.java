@@ -54,6 +54,13 @@ public class Surface extends FocusWidget {
 	private int width, height;
 	
 	/**
+	 * Initialize a surface with a default size of 100 by 100.
+	 */
+	public Surface() {
+		this(100, 100);
+	}
+	
+	/**
 	 * Initialize a surface of the given size.
 	 * 
 	 * @param width width of the surface.
