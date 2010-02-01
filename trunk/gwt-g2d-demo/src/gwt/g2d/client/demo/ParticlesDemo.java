@@ -16,8 +16,8 @@
 package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.Color;
+import gwt.g2d.client.graphics.DirectShapeRenderer;
 import gwt.g2d.client.graphics.KnownColor;
-import gwt.g2d.client.graphics.shapes.ShapeBuilder;
 import gwt.g2d.client.math.Vector2;
 
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ import com.google.gwt.user.client.ui.Panel;
 public class ParticlesDemo extends AbstractDemo {
 	private static final int NUM_PARTICLES = 100;
 	private final List<Particle> particles = new ArrayList<Particle>(NUM_PARTICLES);
+	private DirectShapeRenderer shapeRenderer;
 	
 	public ParticlesDemo(String demoName, Panel parentContainer) {
 		super(demoName, parentContainer);
@@ -42,6 +43,7 @@ public class ParticlesDemo extends AbstractDemo {
 	@Override
 	public void initialize() {
 		add(getPrimarySurface());
+		shapeRenderer = new DirectShapeRenderer(getPrimarySurface());
 		particles.clear();
     for (int i = 0; i < NUM_PARTICLES; i++) {
     	particles.add(new Particle(
@@ -80,14 +82,14 @@ public class ParticlesDemo extends AbstractDemo {
 	private void draw() {
 		getPrimarySurface().clear().fillBackground(KnownColor.BLACK);
 		for (Particle p : particles) {
-			getPrimarySurface()
-					.save()
-					.setFillStyle(p.getColor())
-					.fillShape(new ShapeBuilder()
+			getPrimarySurface().save()
+					.setFillStyle(p.getColor());
+			shapeRenderer.beginPath()
 							.moveTo(p.getPosition())
 							.drawCircle(p.getPosition(), 2)
-							.build())
-					.restore();
+							.closePath()
+							.fill();							
+			getPrimarySurface().restore();
 		}
 	}
 	

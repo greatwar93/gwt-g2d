@@ -16,8 +16,8 @@
 package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.Color;
+import gwt.g2d.client.graphics.DirectShapeRenderer;
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.shapes.ShapeBuilder;
 import gwt.g2d.client.math.Vector2;
 
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ public class AnimationDemo extends ReferenceDemo {
 	private static final int MAX_SPRITES = 80;
 
 	private final List<Sprite> sprites = new ArrayList<Sprite>();
+	private DirectShapeRenderer shapeRenderer;
 
 	public AnimationDemo(String demoName, Panel parentContainer) {
 		super(demoName, parentContainer,
@@ -48,6 +49,7 @@ public class AnimationDemo extends ReferenceDemo {
 	@Override
 	public void initialize() {
 		super.initialize();
+		shapeRenderer = new DirectShapeRenderer(getPrimarySurface());
 		sprites.clear();
 		sprites.add(new Sprite());
 	}
@@ -57,7 +59,7 @@ public class AnimationDemo extends ReferenceDemo {
 		for (Sprite sprite : sprites) {
 			sprite.changeAppearance();
 			sprite.move();
-			sprite.draw(getPrimarySurface());
+			sprite.draw(getPrimarySurface(), shapeRenderer);
 		}
 		if (sprites.size() <= MAX_SPRITES && Random.nextInt(1000) <= 1) {
 			sprites.add(new Sprite());
@@ -115,19 +117,20 @@ public class AnimationDemo extends ReferenceDemo {
 			}
 		}
 
-		public final void draw(Surface surface) {
+		public final void draw(Surface surface, DirectShapeRenderer shapeRenderer) {
 			int padding = 2;
 			int fluff = 10;
 			int size = 10;
 			surface.setFillStyle(new Color(color[0], color[1], color[2], .5));
 			for (int x = -padding; x <= padding; x++) {
 				for (int y = -padding; y <= padding; y++) {
-					surface.fillShape(new ShapeBuilder()
+					shapeRenderer.beginPath()
 							.drawCircle(pos.add(new Vector2(
 										x * getRandomInt(1, fluff), 
 										y * getRandomInt(1, fluff))), 
 										size)
-							.build());
+							.closePath()
+							.fill();
 				}
 			}
 		}

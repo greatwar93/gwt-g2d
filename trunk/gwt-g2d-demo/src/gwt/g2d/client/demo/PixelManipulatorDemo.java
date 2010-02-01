@@ -16,10 +16,16 @@
 package gwt.g2d.client.demo;
 
 import gwt.g2d.client.graphics.Color;
-import gwt.g2d.client.graphics.ImageLoader;
 import gwt.g2d.client.graphics.canvas.ImageDataAdapter;
+import gwt.g2d.resources.client.ExternalImageResource;
+import gwt.g2d.resources.client.ImageElementResource;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ResourceCallback;
+import com.google.gwt.resources.client.ResourceException;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
@@ -42,10 +48,10 @@ public class PixelManipulatorDemo extends ReferenceDemo {
 	public void initialize() {
 		add(new Label("Pixel manipulation is not available under IE."));
 		super.initialize();
-		ImageLoader.loadImages("images/gwt-logo.png", new ImageLoader.CallBack() {
+		Resources.INSTANCE.gwtLogo().getImage(new ResourceCallback<ImageElementResource>() {
 			@Override
-			public void onImagesLoaded(ImageElement[] imageElements) {
-				ImageElement image = imageElements[0];
+			public void onSuccess(ImageElementResource resource) {
+				ImageElement image = resource.getImage();
 				getPrimarySurface().drawImage(image, 0, 0);
 				
 				ImageDataAdapter imageData = getPrimarySurface()
@@ -61,11 +67,23 @@ public class PixelManipulatorDemo extends ReferenceDemo {
 				}
 				getPrimarySurface().putImageData(imageData, image.getWidth(), 0);
 			}
+			
+			@Override
+			public void onError(ResourceException e) {
+				Window.alert("Error: " + e.getMessage());
+			}
 		});
 	}
 
 	@Override
 	public void update() {
 
+	}
+	
+	interface Resources extends ClientBundle {
+		static final Resources INSTANCE = GWT.create(Resources.class);
+		
+		@Source("images/gwt-logo.png")
+		ExternalImageResource gwtLogo();
 	}
 }

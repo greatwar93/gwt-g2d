@@ -15,15 +15,19 @@
  */
 package gwt.g2d.client.demo;
 
-import gwt.g2d.client.graphics.ImageLoader;
 import gwt.g2d.client.graphics.PatternRepetition;
 import gwt.g2d.client.graphics.TextAlign;
 import gwt.g2d.client.graphics.TextBaseline;
-import gwt.g2d.client.graphics.ImageLoader.CallBack;
 import gwt.g2d.client.graphics.canvas.CanvasPattern;
 import gwt.g2d.client.graphics.shapes.CircleShape;
+import gwt.g2d.resources.client.ExternalImageResource;
+import gwt.g2d.resources.client.ImageElementResource;
 
-import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.resources.client.ClientBundle;
+import com.google.gwt.resources.client.ResourceCallback;
+import com.google.gwt.resources.client.ResourceException;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -43,11 +47,11 @@ public class PatternDemo extends ReferenceDemo {
 	@Override
 	public void initialize() {
 		super.initialize();
-		ImageLoader.loadImages("images/pastel.png", new CallBack() {
+		Resources.INSTANCE.pastel().getImage(new ResourceCallback<ImageElementResource>() {
 			@Override
-			public void onImagesLoaded(ImageElement[] imageElements) {
+			public void onSuccess(ImageElementResource resource) {
 				CanvasPattern pattern = getPrimarySurface().createPattern(
-						imageElements[0], PatternRepetition.REPEAT);
+						resource.getImage(), PatternRepetition.REPEAT);
 				getPrimarySurface().setFillStyle(pattern)
 						.fillRectangle(0, 0, 600, 200)
 						.fillShape(new CircleShape(100, 300, 100))
@@ -56,6 +60,18 @@ public class PatternDemo extends ReferenceDemo {
 						.setTextBaseline(TextBaseline.MIDDLE)
 						.fillText("Hello World", 420, 300);
 			}
+			
+			@Override
+			public void onError(ResourceException e) {
+				Window.alert("Error: " + e.getMessage());
+			}
 		});
+	}
+	
+	interface Resources extends ClientBundle {
+		static final Resources INSTANCE = GWT.create(Resources.class);
+		
+		@Source("images/pastel.png")
+		ExternalImageResource pastel();
 	}
 }
