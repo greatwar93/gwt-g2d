@@ -26,7 +26,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class LineToVisitor implements ShapeVisitor {
-	private double x, y;
+	private final double x, y;
 	
 	/**
 	 * Adds a straight line to the given position.

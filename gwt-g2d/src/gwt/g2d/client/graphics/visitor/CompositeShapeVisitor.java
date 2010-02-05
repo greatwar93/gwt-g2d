@@ -26,7 +26,7 @@ import java.util.List;
  * @author hao1300@gmail.com
  */
 public abstract class CompositeShapeVisitor implements ShapeVisitor {
-	private List<ShapeVisitor> shapes;
+	private final List<ShapeVisitor> shapes;
 	
 	protected CompositeShapeVisitor() {
 		shapes = new ArrayList<ShapeVisitor>();

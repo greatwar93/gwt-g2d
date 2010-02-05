@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+import gwt.g2d.client.graphics.Surface;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Vector2;
 
 /**
@@ -23,7 +25,8 @@ import gwt.g2d.client.math.Vector2;
  * 
  * @author hao1300@gmail.com
  */
-public class LineSegmentVisitor extends CompositeShapeVisitor {
+public class LineSegmentVisitor implements ShapeVisitor {
+	private double fromX, fromY, toX, toY;
 	
 	/**
 	 * Adds a straight line from fromPosition to toPosition.
@@ -36,7 +39,16 @@ public class LineSegmentVisitor extends CompositeShapeVisitor {
 	 * Adds a straight line from (fromX, fromY) to (toX, toY).
 	 */
 	public LineSegmentVisitor(double fromX, double fromY, double toX, double toY) {
-		super(2);
-		addAll(new MoveToVisitor(fromX, fromY), new LineToVisitor(toX, toY));
+		this.fromX = fromX;
+		this.fromY = fromY;
+		this.toX = toX;
+		this.toY = toY;
+	}
+	
+	@Override
+	public void visit(Surface surface) {
+		Context context = surface.getContext();
+		context.moveTo(fromX, fromY);
+		context.lineTo(toX, toY);
 	}
 }

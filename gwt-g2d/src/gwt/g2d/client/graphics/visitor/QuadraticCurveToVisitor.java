@@ -26,7 +26,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class QuadraticCurveToVisitor implements ShapeVisitor {
-	private double controlPointX, controlPointY, endPointX, endPointY;
+	private final double controlPointX, controlPointY, endPointX, endPointY;
 	
 	/**
 	 * Adds a curve that connects the last point in the subpath to the given 

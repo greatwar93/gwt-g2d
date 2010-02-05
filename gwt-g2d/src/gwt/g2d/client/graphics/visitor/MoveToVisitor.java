@@ -25,7 +25,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class MoveToVisitor implements ShapeVisitor {
-	private double x, y;
+	private final double x, y;
 	
 	/**
 	 * Creates a new subpath at the given position.

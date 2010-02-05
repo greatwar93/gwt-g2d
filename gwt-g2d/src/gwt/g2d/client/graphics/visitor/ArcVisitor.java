@@ -29,8 +29,8 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class ArcVisitor implements ShapeVisitor {
-	private double x, y, radius, startAngle, endAngle;
-	private boolean antiClockwise;
+	private final double x, y, radius, startAngle, endAngle;
+	private final boolean antiClockwise;
 	
 	/**
 	 * Adds an arc on a circle has its origin at (x, y) with the given radius.

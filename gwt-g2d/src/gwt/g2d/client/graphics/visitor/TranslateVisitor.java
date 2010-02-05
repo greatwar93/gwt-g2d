@@ -24,7 +24,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class TranslateVisitor implements ShapeVisitor {
-	private double x, y;
+	private final double x, y;
 	
 	/**
 	 * Translates the canvas' origin by (x, y).

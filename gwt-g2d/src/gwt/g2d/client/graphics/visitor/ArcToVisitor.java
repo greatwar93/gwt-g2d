@@ -26,7 +26,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class ArcToVisitor implements ShapeVisitor {
-	private double x1, y1, x2, y2, radius;
+	private final double x1, y1, x2, y2, radius;
 	
 	/**
 	 * Let the point (x0, y0) be the last point in the subpath.

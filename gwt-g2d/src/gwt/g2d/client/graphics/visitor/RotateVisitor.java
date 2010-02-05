@@ -23,7 +23,7 @@ import gwt.g2d.client.graphics.Surface;
  * @author hao1300@gmail.com
  */
 public class RotateVisitor implements ShapeVisitor {
-	private double angle;
+	private final double angle;
 	
 	/**
 	 * Rotates clockwise by the given angle in radian.
