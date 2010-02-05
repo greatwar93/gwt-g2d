@@ -163,6 +163,7 @@ public class DirectShapeRenderer {
 	 */
 	public final DirectShapeRenderer drawArc(double x, double y, double radius, 
 			double startAngle, double endAngle, boolean antiClockwise) {
+		context.moveTo(x, y);
 		context.arc(x, y, radius, startAngle, endAngle, antiClockwise);
 		return this;
 	}
@@ -185,6 +186,39 @@ public class DirectShapeRenderer {
 	}
 	
 	/**
+	 * @see ArcVisitor#ArcVisitor(double, double, double, double, double, 
+	 * boolean, boolean)
+	 */
+	public final DirectShapeRenderer drawArc(double x, double y, double radius, 
+			double startAngle, double endAngle, boolean antiClockwise, 
+			boolean connectFromPrev) {
+		if (!connectFromPrev) {
+			context.moveTo(x, y);
+		}
+		return drawArc(x, y, radius, startAngle, endAngle, antiClockwise);
+	}
+	
+	/**
+	 * @see ArcVisitor#ArcVisitor(Vector2, double, double, double, boolean, 
+	 * boolean)
+	 */
+	public final DirectShapeRenderer drawArc(Vector2 position, double radius, 
+			double startAngle, double endAngle, boolean antiClockwise, 
+			boolean connectFromPrev) {
+		return drawArc(position.getX(), position.getY(), radius, startAngle, endAngle, 
+				antiClockwise, connectFromPrev);
+	}
+	
+	/**
+	 * @see ArcVisitor#ArcVisitor(Arc, boolean)
+	 */
+	public final DirectShapeRenderer drawArc(Arc arc, boolean connectFromPrev) {
+		return drawArc(arc.getCenterX(), arc.getCenterY(), arc.getRadius(), 
+				arc.getStartAngle(), arc.getEndAngle(), arc.isAnticlockwise(), 
+				connectFromPrev);
+	}
+	
+	/**
 	 * @see ArcToVisitor#ArcToVisitor(double, double, double, double, double)
 	 */
 	public final DirectShapeRenderer drawArcTo(double x1, double y1, double x2, 
@@ -194,12 +228,29 @@ public class DirectShapeRenderer {
 	}
 	
 	/**
+	 * @see ArcToVisitor#ArcToVisitor(double, double, double, double, double, 
+	 * double, double)
+	 */
+	public final DirectShapeRenderer drawArcTo(double x0, double y0, 
+			double x1, double y1, double x2, double y2, double radius) {
+		return moveTo(x0, y0).drawArcTo(x1, y1, x2, y2, radius);
+	}
+	
+	/**
 	 * @see ArcToVisitor#ArcToVisitor(Vector2, Vector2, double)
 	 */
 	public final DirectShapeRenderer drawArcTo(Vector2 point1, Vector2 point2, 
 			double radius) {
 		return drawArcTo(point1.getX(), point1.getY(), point2.getX(), point2.getY(), 
 				radius);
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(Vector2, Vector2, Vector2, double)
+	 */
+	public final DirectShapeRenderer drawArcTo(Vector2 point0, Vector2 point1, 
+			Vector2 point2, double radius) {
+		return moveTo(point0).drawArcTo(point1, point2, radius);
 	}
 	
 	/**

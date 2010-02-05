@@ -30,44 +30,91 @@ import gwt.g2d.client.math.Vector2;
  */
 public class ArcVisitor implements ShapeVisitor {
 	private final double x, y, radius, startAngle, endAngle;
-	private final boolean antiClockwise;
+	private final boolean antiClockwise, connectFromPrev;
 	
 	/**
 	 * Adds an arc on a circle has its origin at (x, y) with the given radius.
 	 * The arc starts at startAngle and ends at endAngle along the circle, 
 	 * measured in radians.
+	 * 
+	 * @param connectFromPrev true if one this arc should be connected to the
+	 * 				previous position by a straight line.
 	 */
 	public ArcVisitor(double x, double y, double radius, double startAngle, 
-			double endAngle, boolean antiClockwise) {
+			double endAngle, boolean antiClockwise, boolean connectFromPrev) {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
 		this.startAngle = startAngle;
 		this.endAngle = endAngle;
 		this.antiClockwise = antiClockwise;
+		this.connectFromPrev = connectFromPrev;
+	}
+	
+	/**
+	 * This is equivalent to calling 
+	 * ArcVisitor(x, y, radius, startAngle, endAngle, antiClockwise, false)
+	 * 
+	 * @see #ArcVisitor(double, double, double, double, double, boolean, boolean)
+	 */
+	public ArcVisitor(double x, double y, double radius, double startAngle, 
+			double endAngle, boolean antiClockwise) {
+		this(x, y, radius, startAngle, endAngle, antiClockwise, false);
 	}
 	
 	/**
 	 * Adds an arc on a circle has its origin at the given position with the 
 	 * given radius. The arc starts at startAngle and ends at endAngle along the 
 	 * circle, measured in radians.
+	 * 
+	 * @param connectFromPrev true if one this arc should be connected to the
+	 * 				previous position by a straight line.
+	 */
+	public ArcVisitor(Vector2 position, double radius, double startAngle,
+			double endAngle, boolean antiClockwise, boolean connectFromPrev) {
+		this(position.getX(), position.getY(), radius, startAngle, 
+				endAngle, antiClockwise, connectFromPrev);
+	}
+	
+	/**
+	 * This is equivalent to calling 
+	 * ArcVisitor(position, radius, startAngle, endAngle, antiClockwise, false)
+	 * 
+	 * @see #ArcVisitor(Vector2, double, double, double, boolean, boolean)
 	 */
 	public ArcVisitor(Vector2 position, double radius, double startAngle,
 			double endAngle, boolean antiClockwise) {
-		this(position.getX(), position.getY(), radius, startAngle, 
-				endAngle, antiClockwise);
+		this(position, radius, startAngle, endAngle, antiClockwise, false);
 	}
 	
 	/**
 	 * Adds an arc to the current subpath.
+	 * 
+	 * @param connectFromPrev true if one this arc should be connected to the
+	 * 				previous position by a straight line.
+	 */
+	public ArcVisitor(Arc arc, boolean connectFromPrev) {
+		this(arc.getCenter(), arc.getRadius(), arc.getStartAngle(), 
+				arc.getEndAngle(), arc.isAnticlockwise(), connectFromPrev);
+	}
+	
+	/**
+	 * Adds an arc to the current subpath.
+	 * 
+	 * This is equivalent to calling 
+	 * ArcVisitor(arc, false)
+	 * 
+	 * @see #ArcVisitor(Arc)
 	 */
 	public ArcVisitor(Arc arc) {
-		this(arc.getCenter(), arc.getRadius(), arc.getStartAngle(), 
-				arc.getEndAngle(), arc.isAnticlockwise());
+		this(arc, false);
 	}
 	
 	@Override
 	public void visit(Surface surface) {
+		if (!connectFromPrev) {
+			surface.getContext().moveTo(x, y);
+		}
 		surface.getContext().arc(x, y, radius, startAngle, endAngle, antiClockwise);
 	}
 }

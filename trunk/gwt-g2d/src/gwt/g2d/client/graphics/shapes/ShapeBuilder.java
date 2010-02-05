@@ -130,11 +130,56 @@ public class ShapeBuilder {
 	}
 	
 	/**
+	 * @see ArcVisitor#ArcVisitor(double, double, double, double, double, 
+	 * boolean, boolean)
+	 */
+	public final ShapeBuilder drawArc(double x, double y, double radius, 
+			double startAngle, double endAngle, boolean antiClockwise, 
+			boolean connectFromPrev) {
+		return append(new ArcVisitor(x, y, radius, startAngle, endAngle, 
+				antiClockwise, connectFromPrev));
+	}
+	
+	/**
+	 * @see ArcVisitor#ArcVisitor(Vector2, double, double, double, boolean, 
+	 * boolean)
+	 */
+	public final ShapeBuilder drawArc(Vector2 position, double radius, double startAngle,
+			double endAngle, boolean antiClockwise, boolean connectFromPrev) {
+		return append(new ArcVisitor(position, radius, startAngle, endAngle, 
+				antiClockwise, connectFromPrev));
+	}
+	
+	/**
+	 * @see ArcVisitor#ArcVisitor(Arc, boolean)
+	 */
+	public final ShapeBuilder drawArc(Arc arc, boolean connectFromPrev) {
+		return append(new ArcVisitor(arc, connectFromPrev));
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(double, double, double, double, double, 
+	 * double, double)
+	 */
+	public final ShapeBuilder drawArcTo(double x0, double y0, 
+			double x1, double y1, double x2, double y2, double radius) {
+		return append(new ArcToVisitor(x0, y0, x1, y1, x2, y2, radius));
+	}
+	
+	/**
 	 * @see ArcToVisitor#ArcToVisitor(double, double, double, double, double)
 	 */
 	public final ShapeBuilder drawArcTo(double x1, double y1, double x2, double y2, 
 			double radius) {
 		return append(new ArcToVisitor(x1, y1, x2, y2, radius));
+	}
+	
+	/**
+	 * @see ArcToVisitor#ArcToVisitor(Vector2, Vector2, Vector2, double)
+	 */
+	public final ShapeBuilder drawArcTo(Vector2 point0, Vector2 point1, 
+			Vector2 point2, double radius) {
+		return append(new ArcToVisitor(point0, point1, point2, radius));
 	}
 	
 	/**
