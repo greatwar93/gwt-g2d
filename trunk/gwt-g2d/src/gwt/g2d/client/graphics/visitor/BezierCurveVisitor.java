@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+import gwt.g2d.client.graphics.Surface;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Vector2;
 
 /**
@@ -24,7 +26,9 @@ import gwt.g2d.client.math.Vector2;
  * 
  * @author hao1300@gmail.com
  */
-public class BezierCurveVisitor extends CompositeShapeVisitor {
+public class BezierCurveVisitor implements ShapeVisitor {
+	private final double startPointX, startPointY, controlPoint1X, controlPoint1Y, 
+	 		controlPoint2X, controlPoint2Y, endPointX, endPointY;
 	
 	/**
 	 * Adds a curve that connects the point (startPointX, startPointY) to the
@@ -35,11 +39,14 @@ public class BezierCurveVisitor extends CompositeShapeVisitor {
 			double controlPoint1X, double controlPoint1Y, 
 			double controlPoint2X, double controlPoint2Y, 
 			double endPointX, double endPointY) {
-		super(2);
-		addAll(new MoveToVisitor(startPointX, startPointY),
-				new BezierCurveToVisitor(controlPoint1X, controlPoint1Y, 
-						controlPoint2X, controlPoint2Y, 
-						endPointX, endPointY));
+		this.startPointX = startPointX;
+		this.startPointY = startPointY;
+		this.controlPoint1X = controlPoint1X;
+		this.controlPoint1Y = controlPoint1Y;
+		this.controlPoint2X = controlPoint2X;
+		this.controlPoint2Y = controlPoint2Y; 
+		this.endPointX = endPointX;
+		this.endPointY = endPointY;
 	}
 	
 	/**
@@ -52,5 +59,14 @@ public class BezierCurveVisitor extends CompositeShapeVisitor {
 				controlPoint1.getX(), controlPoint1.getY(), 
 				controlPoint2.getX(), controlPoint2.getY(), 
 				endPoint.getX(), endPoint.getY());
+	}
+	
+	@Override
+	public void visit(Surface surface) {
+		Context context = surface.getContext();
+		context.moveTo(startPointX, startPointY);
+		context.bezierCurveTo(controlPoint1X, controlPoint1Y, 
+				controlPoint2X, controlPoint2Y, 
+				endPointX, endPointY);
 	}
 }

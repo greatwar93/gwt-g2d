@@ -29,7 +29,8 @@ import gwt.g2d.client.math.Vector2;
  */
 @Deprecated
 public class CubicCurveToVisitor implements ShapeVisitor {
-	private double controlPoint1X, controlPoint1Y, controlPoint2X, controlPoint2Y, 
+	private final double controlPoint1X, controlPoint1Y, 
+			controlPoint2X, controlPoint2Y, 
 			endPointX, endPointY;
 	
 	/**

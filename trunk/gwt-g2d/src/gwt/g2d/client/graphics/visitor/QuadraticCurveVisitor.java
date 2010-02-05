@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+import gwt.g2d.client.graphics.Surface;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Vector2;
 
 /**
@@ -24,7 +26,10 @@ import gwt.g2d.client.math.Vector2;
  * 
  * @author hao1300@gmail.com
  */
-public class QuadraticCurveVisitor extends CompositeShapeVisitor {
+public class QuadraticCurveVisitor implements ShapeVisitor {
+	private final double startPointX, startPointY, controlPointX, controlPointY, 
+			endPointX, endPointY;
+	
 	/**
 	 * Adds a curve that connects the start point (startPointX, startPointY) in 
 	 * the subpath to the given point (endPointX, endPointY), using the control 
@@ -33,9 +38,12 @@ public class QuadraticCurveVisitor extends CompositeShapeVisitor {
 	public QuadraticCurveVisitor(double startPointX, double startPointY,
 			double controlPointX, double controlPointY, 
 			double endPointX, double endPointY) {
-		super(2);
-		addAll(new MoveToVisitor(startPointX, startPointY),
-				new QuadraticCurveToVisitor(controlPointX, controlPointY, endPointX, endPointY));
+		this.startPointX = startPointX;
+		this.startPointY = startPointY;
+		this.controlPointX = controlPointX;
+		this.controlPointY = controlPointY; 
+		this.endPointX = endPointX;
+		this.endPointY = endPointY;
 	}
 	
 	/**
@@ -47,5 +55,13 @@ public class QuadraticCurveVisitor extends CompositeShapeVisitor {
 		this(startPoint.getX(), startPoint.getY(), 
 				controlPoint.getX(), controlPoint.getY(), 
 				endPoint.getX(), endPoint.getY());
+	}
+	
+	@Override
+	public void visit(Surface surface) {
+		Context context = surface.getContext();
+		context.moveTo(startPointX, startPointY);
+		context.quadraticCurveTo(controlPointX, controlPointY,
+				endPointX, endPointY);
 	}
 }

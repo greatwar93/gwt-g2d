@@ -16,6 +16,7 @@
 package gwt.g2d.client.graphics.visitor;
 
 import gwt.g2d.client.graphics.Surface;
+import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Vector2;
@@ -45,6 +46,8 @@ public class CircleVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		surface.getContext().arc(x, y, radius, 0, MathHelper.TWO_PI, true);
+		Context context = surface.getContext();
+		context.moveTo(x, y);
+		context.arc(x, y, radius, 0, MathHelper.TWO_PI, true);
 	}
 }

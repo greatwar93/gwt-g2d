@@ -24,7 +24,7 @@ import gwt.g2d.client.math.Matrix;
  * @author hao1300@gmail.com
  */
 public class SetTransformVisitor implements ShapeVisitor {
-	private double m11, m12, m21, m22, dx, dy;
+	private final double m11, m12, m21, m22, dx, dy;
 	
 	/**
 	 * Sets the current transformation to be the given transformation matrix.

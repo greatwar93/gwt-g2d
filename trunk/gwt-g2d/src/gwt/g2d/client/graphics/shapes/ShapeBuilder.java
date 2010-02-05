@@ -27,6 +27,7 @@ import gwt.g2d.client.graphics.visitor.LineToVisitor;
 import gwt.g2d.client.graphics.visitor.MoveToVisitor;
 import gwt.g2d.client.graphics.visitor.QuadraticCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.QuadraticCurveVisitor;
+import gwt.g2d.client.graphics.visitor.RectangleVisitor;
 import gwt.g2d.client.graphics.visitor.RotateVisitor;
 import gwt.g2d.client.graphics.visitor.ScaleVisitor;
 import gwt.g2d.client.graphics.visitor.SetTransformVisitor;
@@ -36,6 +37,7 @@ import gwt.g2d.client.graphics.visitor.TranslateVisitor;
 import gwt.g2d.client.math.Arc;
 import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.Matrix;
+import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
 
 import java.util.ArrayList;
@@ -306,6 +308,27 @@ public class ShapeBuilder {
 	public final ShapeBuilder drawQuadraticCurve(Vector2 startPoint, Vector2 controlPoint, 
 			Vector2 endPoint) {
 		return append(new QuadraticCurveVisitor(startPoint, controlPoint, endPoint));
+	}
+	
+	/**
+	 * @see RectangleVisitor#RectangleVisitor(double, double, double, double)
+	 */
+	public final ShapeBuilder drawRect(double x, double y, double width, double height) {
+		return append(new RectangleVisitor(x, y, width, height));
+	}
+	
+	/**
+	 * @see RectangleVisitor#RectangleVisitor(Vector2, double, double)
+	 */
+	public final ShapeBuilder drawRect(Vector2 position, double width, double height) {
+		return append(new RectangleVisitor(position, width, height));
+	}
+	
+	/**
+	 * @see RectangleVisitor#RectangleVisitor(Rectangle)
+	 */
+	public final ShapeBuilder drawRect(Rectangle rectangle) {
+		return append(new RectangleVisitor(rectangle));
 	}
 	
 	/**

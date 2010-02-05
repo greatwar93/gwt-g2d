@@ -27,6 +27,7 @@ import gwt.g2d.client.graphics.visitor.LineToVisitor;
 import gwt.g2d.client.graphics.visitor.MoveToVisitor;
 import gwt.g2d.client.graphics.visitor.QuadraticCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.QuadraticCurveVisitor;
+import gwt.g2d.client.graphics.visitor.RectangleVisitor;
 import gwt.g2d.client.graphics.visitor.RotateVisitor;
 import gwt.g2d.client.graphics.visitor.ScaleVisitor;
 import gwt.g2d.client.graphics.visitor.SetTransformVisitor;
@@ -36,6 +37,7 @@ import gwt.g2d.client.math.Arc;
 import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Matrix;
+import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
 
 /**
@@ -204,8 +206,7 @@ public class DirectShapeRenderer {
 	 * @see CircleVisitor#CircleVisitor(double, double, double)
 	 */
 	public final DirectShapeRenderer drawCircle(double x, double y, double radius) {
-		context.arc(x, y, radius, 0, MathHelper.TWO_PI, true);
-		return this;
+		return moveTo(x, y).drawArc(x, y, radius, 0, MathHelper.TWO_PI, true);
 	}
 	
 	/**
@@ -310,6 +311,35 @@ public class DirectShapeRenderer {
 		return drawQuadraticCurve(startPoint.getX(), startPoint.getY(), 
 				controlPoint.getX(), controlPoint.getY(), 
 				endPoint.getX(), endPoint.getY());
+	}
+	
+	/**
+	 * @see RectangleVisitor#RectangleVisitor(double, double, double, double)
+	 */
+	public final DirectShapeRenderer drawRect(double x, double y, double width, 
+			double height) {
+		context.moveTo(x, y);
+		context.lineTo(x + width, y);
+		context.lineTo(x + width, y + height);
+		context.lineTo(x, y + height);
+		context.lineTo(x, y);
+		return this;
+	}
+	
+	/**
+	 * @see RectangleVisitor#RectangleVisitor(Vector2, double, double)
+	 */
+	public final DirectShapeRenderer drawRect(Vector2 position, double width, 
+			double height) {
+		return drawRect(position.getX(), position.getY(), width, height);
+	}
+	
+	/**
+	 * @see RectangleVisitor#RectangleVisitor(Rectangle)
+	 */
+	public final DirectShapeRenderer drawRect(Rectangle rectangle) {
+		return drawRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(),
+				rectangle.getHeight());
 	}
 	
 	/**
