@@ -17,11 +17,19 @@ package gwt.g2d.resources.client;
 
 import gwt.g2d.resources.ExternalImageResourceGenerator;
 
+import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.resources.client.ClientBundle;
 import com.google.gwt.resources.client.ResourceCallback;
 import com.google.gwt.resources.client.ResourcePrototype;
 import com.google.gwt.resources.ext.DefaultExtensions;
 import com.google.gwt.resources.ext.ResourceGeneratorType;
 
+/**
+ * A resource in {@link ClientBundle} that helps asynchronously loading an
+ * {@link ImageElement}
+ * 
+ * @author hao1300@gmail.com
+ */
 @DefaultExtensions(value = {".png", ".jpg", ".gif", ".bmp"})
 @ResourceGeneratorType(ExternalImageResourceGenerator.class)
 public interface ExternalImageResource extends ResourcePrototype {
