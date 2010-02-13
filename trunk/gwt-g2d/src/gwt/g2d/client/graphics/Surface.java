@@ -696,6 +696,8 @@ public class Surface extends FocusWidget {
 	 * of the control, or of the editing caret if the control has one, should be 
 	 * given in the x and y arguments.
 	 * 
+	 * WARNING: This method may not be implemented in most browsers yet!
+	 * 
  	 * @param canDrawCustom if true, then the focus ring is only drawn if the 
  	 * 				user has configured his system to draw focus rings in a particular 
 	 * 				manner. (For example, high contrast focus rings.)

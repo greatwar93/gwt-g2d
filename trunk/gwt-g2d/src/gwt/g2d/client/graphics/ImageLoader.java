@@ -21,6 +21,7 @@ import com.google.gwt.resources.client.ClientBundle;
 import gwt.g2d.resources.client.ExternalImageResource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,13 +31,12 @@ import java.util.Set;
  * Provides a mechanism for deferred execution of a callback 
  * method once all specified Images are loaded.
  * <p>
- * This class is deprecated. Considers using {@link ClientBundle} with
- * {@link ExternalImageResource} instead.
+ * This class may be deprecated in future release. Considers using 
+ * {@link ClientBundle} with {@link ExternalImageResource} instead.
  * <p>
  * (This is a slightly modified by hao1300@gmail.com from the GWT-incubator's 
  * ImageLoader to provide a more flexible loading scheme.)
  */
-@Deprecated
 public class ImageLoader {
 
   /**
@@ -64,11 +64,13 @@ public class ImageLoader {
    * @param cb CallBack object
    */
   public static void loadImages(String url, CallBack cb) {
-    ImageLoader il = new ImageLoader();
-    il.addHandle(il.prepareImage(url));
+  	ImageLoader il = new ImageLoader();
     il.finalize(cb);
     ImageLoader.imageLoaders.add(il);
-    il.images.get(0).setSrc(url);
+    il.totalImages = 1;
+  	ImageElement imageElement = il.prepareImage();
+  	il.images.add(imageElement);
+  	imageElement.setSrc(url);
   }
   
   /**
@@ -82,16 +84,7 @@ public class ImageLoader {
    * @param cb CallBack object
    */
   public static void loadImages(String[] urls, CallBack cb) {
-    ImageLoader il = new ImageLoader();
-    for (String url : urls) {
-      il.addHandle(il.prepareImage(url));
-    }
-    il.finalize(cb);
-    ImageLoader.imageLoaders.add(il);
-    // Go ahead and fetch the images now
-    for (int i = 0; i < urls.length; i++) {
-      il.images.get(i).setSrc(urls[i]);
-    }
+    loadImages(Arrays.asList(urls), cb);
   }
   
   /**
@@ -106,14 +99,13 @@ public class ImageLoader {
    */
   public static void loadImages(List<String> urls, CallBack cb) {
     ImageLoader il = new ImageLoader();
-    for (String url : urls) {
-      il.addHandle(il.prepareImage(url));
-    }
     il.finalize(cb);
     ImageLoader.imageLoaders.add(il);
-    // Go ahead and fetch the images now
-    for (int i = 0; i < urls.size(); i++) {
-      il.images.get(i).setSrc(urls.get(i));
+    il.totalImages = urls.size();
+    for (String url : urls) {
+    	ImageElement imageElement = il.prepareImage();
+    	il.images.add(imageElement);
+    	imageElement.setSrc(url);
     }
   }
   
@@ -126,16 +118,6 @@ public class ImageLoader {
   }
   
   /**
-   * Stores the ImageElement reference so that when all the images report
-   * an onload, we can return the array of all the ImageElements.
-   * @param img
-   */
-  private void addHandle(ImageElement img) {
-    this.totalImages++;
-    this.images.add(img);
-  }
-  
-  /**
    * Invokes the onImagesLoaded method in the CallBack if all the
    * images are loaded AND we have a CallBack specified.
    * 
@@ -144,7 +126,7 @@ public class ImageLoader {
   @SuppressWarnings("unused")
   private void dispatchIfComplete() {
     if (callBack != null && isAllLoaded()) {
-      callBack.onImagesLoaded((ImageElement[]) images.toArray(new ImageElement[0]));
+      callBack.onImagesLoaded(images.toArray(new ImageElement[0]));
       // remove the image loader
       ImageLoader.imageLoaders.remove(this);
     }
@@ -173,8 +155,7 @@ public class ImageLoader {
   /**
    * Returns a handle to an img object. Ties back to the ImageLoader instance
    */
-  @SuppressWarnings("deprecation")
-  private native ImageElement prepareImage(String url) /*-{
+  private native ImageElement prepareImage() /*-{
     // if( callback specified )
     // do nothing
      
