@@ -70,7 +70,6 @@ public class Surface extends FocusWidget {
 		canvas = Document.get().createElement("canvas").cast();
 		setElement(Document.get().createDivElement());
 		getElement().appendChild(canvas);
-		setElement(canvas);
 		canvasInitializer.init(canvas, width, height);
 		setStylePrimaryName("g2d-Surface");
 		this.width = width;
