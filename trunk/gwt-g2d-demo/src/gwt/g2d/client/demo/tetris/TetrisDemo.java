@@ -28,8 +28,8 @@ import gwt.g2d.client.demo.AbstractDemo;
 public class TetrisDemo extends AbstractDemo {
 	private Tetris tetris;
 	
-	public TetrisDemo(String demoName, Panel demoPanel) {
-		super(demoName, demoPanel);
+	public TetrisDemo(Panel demoPanel) {
+		super("Tetris", demoPanel);
 	}
 
 	@Override

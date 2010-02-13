@@ -33,8 +33,8 @@ import com.google.gwt.user.client.ui.Panel;
 public class VideoCanvasDemo extends ReferenceDemo {
 	private Video video;
 	
-	public VideoCanvasDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer, 
+	public VideoCanvasDemo(Panel parentContainer) {
+		super("Video Canvas Demo", parentContainer, 
 				"https://developer.mozilla.org/En/Manipulating_video_using_canvas");
 	}
 

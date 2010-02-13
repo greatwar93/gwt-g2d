@@ -39,8 +39,8 @@ import com.google.gwt.user.client.ui.Panel;
  * @author hao1300@gmail.com
  */
 public class PatternDemo extends ReferenceDemo {
-	public PatternDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer,
+	public PatternDemo(Panel parentContainer) {
+		super("Pattern Demo", parentContainer,
 				"http://diveintohtml5.org/canvas.html");
 	}
 

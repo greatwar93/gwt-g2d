@@ -35,8 +35,8 @@ import com.google.gwt.user.client.ui.Panel;
 public class ClippingDemo extends ReferenceDemo {
 	private final Matrix matrix = new Matrix();
 	
-	public ClippingDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer,
+	public ClippingDemo(Panel parentContainer) {
+		super("Clipping Demo", parentContainer,
 				"https://developer.mozilla.org/samples/canvas-tutorial/6_2_canvas_clipping.html");
 	}
 

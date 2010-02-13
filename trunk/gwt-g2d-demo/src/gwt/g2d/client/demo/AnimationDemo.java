@@ -41,8 +41,8 @@ public class AnimationDemo extends ReferenceDemo {
 	private final List<Sprite> sprites = new ArrayList<Sprite>();
 	private DirectShapeRenderer shapeRenderer;
 
-	public AnimationDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer,
+	public AnimationDemo(Panel parentContainer) {
+		super("Animation Demo", parentContainer,
 				"http://blogoscoped.com/files/canvas-test.html");
 	}
 
@@ -139,4 +139,6 @@ public class AnimationDemo extends ReferenceDemo {
 			return getRandomInt(maxSpeed, maxSpeed * 1.5);
 		}
 	}
+	
+	
 }
