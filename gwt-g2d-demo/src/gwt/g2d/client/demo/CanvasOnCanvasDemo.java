@@ -33,8 +33,8 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class CanvasOnCanvasDemo extends AbstractDemo {
 	
-	public CanvasOnCanvasDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+	public CanvasOnCanvasDemo(Panel parentContainer) {
+		super("Canvas on Canvas Demo", parentContainer);
 	}
 
 	@Override

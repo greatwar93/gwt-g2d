@@ -54,8 +54,8 @@ public class PropertyTest extends AbstractDemo {
 	
 	private final FlexTable table = new FlexTable();
 	
-	public PropertyTest(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+	public PropertyTest(Panel parentContainer) {
+		super("Property Test", parentContainer);
 	}
 
 	@Override

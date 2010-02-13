@@ -36,9 +36,9 @@ public class DataUrlDemo extends AbstractDemo {
 	private final Panel horizontalPanel = new HorizontalPanel();
 	private AnimationDemo animationDemo;
 	
-	public DataUrlDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
-		animationDemo = new AnimationDemo("Animation", animationPanel);
+	public DataUrlDemo(Panel parentContainer) {
+		super("Data URL Demo", parentContainer);
+		animationDemo = new AnimationDemo(animationPanel);
 	}
 
 	@Override

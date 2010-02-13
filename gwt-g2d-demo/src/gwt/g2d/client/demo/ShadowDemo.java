@@ -31,8 +31,8 @@ import com.google.gwt.user.client.ui.Panel;
  * @author hao1300@gmail.com
  */
 public class ShadowDemo extends ReferenceDemo {
-	public ShadowDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer,
+	public ShadowDemo(Panel parentContainer) {
+		super("Shadow Demo", parentContainer,
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 

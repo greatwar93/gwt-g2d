@@ -39,8 +39,8 @@ import com.google.gwt.user.client.ui.Panel;
  * @author hao1300@gmail.com
  */
 public class PixelManipulatorDemo extends ReferenceDemo {
-	public PixelManipulatorDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer, 
+	public PixelManipulatorDemo(Panel parentContainer) {
+		super("Pixel Manipulator Demo", parentContainer, 
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 

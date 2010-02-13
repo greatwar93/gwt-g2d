@@ -29,8 +29,8 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class ShapeDemo extends AbstractDemo {
 
-	public ShapeDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+	public ShapeDemo(Panel parentContainer) {
+		super("Shape Demo", parentContainer);
 	}
 
 	@Override
@@ -38,6 +38,7 @@ public class ShapeDemo extends AbstractDemo {
 		add(new Label("The left surface is rendered using DirectShapeRenderer, "
 				+ "the right surface is rendered using ShapeBuilder."));
 		Surface surface = getPrimarySurface();
+		surface.setSize(220, 220);
 		add(surface);
 		drawDirectly(surface);
 				

@@ -27,8 +27,8 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class ColorDemo extends AbstractDemo {
 
-	public ColorDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+	public ColorDemo(Panel parentContainer) {
+		super("Color Demo", parentContainer);
 	}
 
 	@Override

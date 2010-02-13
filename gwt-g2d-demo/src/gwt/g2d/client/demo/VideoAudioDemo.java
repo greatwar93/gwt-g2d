@@ -30,8 +30,8 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class VideoAudioDemo extends AbstractDemo {
 	
-	public VideoAudioDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+	public VideoAudioDemo(Panel parentContainer) {
+		super("Video Audio Demo", parentContainer);
 	}
 
 	@Override
@@ -46,15 +46,12 @@ public class VideoAudioDemo extends AbstractDemo {
 		add(video);
 		
 		add(new HTML("Music obtained from: <a href=\"" 
-				+ "http://www.pacdv.com/sounds/free-music-01.html\">"
-				+ "http://www.pacdv.com/sounds/free-music-01.html</a>"));
+				+ "http://www.vorbis.com/music/Epoq-Lepidoptera.ogg\">"
+				+ "http://www.vorbis.com/music/Epoq-Lepidoptera.ogg</a>"));
 		
 		Audio audio = new Audio();
-		Source source = new Source("media/daydreaming.ogg");
+		Source source = new Source("http://www.vorbis.com/music/Epoq-Lepidoptera.ogg");
 		source.setType("audio/ogg");
-		audio.addSource(source);
-		source = new Source("media/daydreaming.mp3");
-		source.setType("audio/mpeg");
 		audio.addSource(source);
 		audio.setControls(true);
 		audio.setAutobuffer(true);

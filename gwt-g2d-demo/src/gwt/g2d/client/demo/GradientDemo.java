@@ -33,8 +33,8 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class GradientDemo extends ReferenceDemo {
 
-	public GradientDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer,
+	public GradientDemo(Panel parentContainer) {
+		super("Gradient Demo", parentContainer,
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 

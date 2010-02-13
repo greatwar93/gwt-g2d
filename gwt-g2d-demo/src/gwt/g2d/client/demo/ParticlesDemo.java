@@ -36,8 +36,8 @@ public class ParticlesDemo extends AbstractDemo {
 	private final List<Particle> particles = new ArrayList<Particle>(NUM_PARTICLES);
 	private DirectShapeRenderer shapeRenderer;
 	
-	public ParticlesDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer);
+	public ParticlesDemo(Panel parentContainer) {
+		super("Particles Demo", parentContainer);
 	}
 	
 	@Override

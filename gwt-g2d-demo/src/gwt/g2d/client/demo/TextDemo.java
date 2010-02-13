@@ -30,8 +30,8 @@ import com.google.gwt.user.client.ui.Panel;
  * @author hao1300@gmail.com
  */
 public class TextDemo extends ReferenceDemo {
-	public TextDemo(String demoName, Panel parentContainer) {
-		super(demoName, parentContainer,
+	public TextDemo(Panel parentContainer) {
+		super("Text Demo", parentContainer,
 				"http://dev.opera.com/articles/view/html-5-canvas-the-basics");
 	}
 
