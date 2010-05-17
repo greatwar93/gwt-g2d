@@ -167,6 +167,11 @@ public class Rectangle implements Serializable {
 		return Arrays.hashCode(new double[]{getX(), getY(), getWidth(), getHeight()});
 	}
 	
+	@Override
+	public String toString() {
+		return "[" + getX() + ", " + getY() + ", " + getWidth() + ", " + getHeight() + "]";
+	}
+	
 	/**
 	 * An immutable rectangle.
 	 */
