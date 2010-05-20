@@ -192,7 +192,7 @@ public class Matrix {
 	 * @return the new matrix
 	 */
 	public final Matrix rotate(double angle) {
-		return new Matrix(this).rotate(angle);
+		return new Matrix(this).mutableRotate(angle);
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class Matrix {
 	 * @return the new matrix
 	 */
 	public final Matrix rotateCcw(double angle) {
-		return new Matrix(this).rotateCcw(angle);
+		return new Matrix(this).mutableRotateCcw(angle);
 	}
 	
 	/**
