@@ -27,7 +27,7 @@ import com.google.gwt.dom.client.TagName;
 @TagName(CanvasElement.TAG)
 public class CanvasElement extends Element {
 	
-	static final String TAG = "img";
+	static final String TAG = "canvas";
 	
 	 /**
    * Assert that the given {@link Element} is compatible with this class and
