@@ -38,9 +38,9 @@ public class VideoAudioDemo extends AbstractDemo {
 	public void initialize() {
 		add(new Label("This demo will not work at all under IE or Opera."));
 		add(new HTML("Video obtained from: <a href=\"" 
-				+ "http://tinyvid.tv/show/oz8r94tx5iws\">"
-				+ "http://tinyvid.tv/show/oz8r94tx5iws</a>"));
-		Video video = new Video("http://tinyvid.tv/file/oz8r94tx5iws.ogg");
+				+ "http://people.xiph.org/~maikmerten/demos/BigBuckBunny.ogv\">"
+				+ "http://people.xiph.org/~maikmerten/demos/BigBuckBunny.ogv</a>"));
+		Video video = new Video("http://people.xiph.org/~maikmerten/demos/BigBuckBunny.ogv");
 		video.setControls(true);
 		video.setAutobuffer(true);
 		add(video);

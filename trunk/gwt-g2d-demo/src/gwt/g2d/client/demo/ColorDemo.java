@@ -38,7 +38,7 @@ public class ColorDemo extends AbstractDemo {
 		Rectangle rectangle = new Rectangle(0, 0, 50, 50);
 		for (KnownColor c : KnownColor.getKnownColors()) {
 			getPrimarySurface().setFillStyle(c).fillRectangle(rectangle);
-			if (rectangle.getX() < getPrimarySurface().getWidth() - rectangle.getWidth()) {
+			if (rectangle.getX() < WIDTH - rectangle.getWidth()) {
 				rectangle.setX(rectangle.getX() + rectangle.getWidth());
 			} else {
 				rectangle.setX(0);
