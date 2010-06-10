@@ -58,6 +58,7 @@ public class MainDemo implements EntryPoint {
 		demos.add(new ColorDemo(demoPanel));
 		demos.add(new ClippingDemo(demoPanel));
 		demos.add(new DataUrlDemo(demoPanel));
+		demos.add(new DrawingPadDemo(demoPanel));
 		demos.add(new GradientDemo(demoPanel));
 		demos.add(new ParticlesDemo(demoPanel));
 		demos.add(new PatternDemo(demoPanel));
