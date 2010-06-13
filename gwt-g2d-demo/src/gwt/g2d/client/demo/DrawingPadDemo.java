@@ -29,6 +29,7 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 
 /**
@@ -50,6 +51,7 @@ public class DrawingPadDemo extends AbstractDemo implements MouseDownHandler,
 
 	@Override
 	public void initialize() {
+		add(new Label("Use the mouse to draw on the canvas below:"));
 		add(getPrimarySurface());
 	}
 
