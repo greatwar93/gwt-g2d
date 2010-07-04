@@ -88,6 +88,14 @@ public class CanvasElement extends Element {
 	}-*/;
 	
 	/**
+	 * Return a data: URL containing a representation of the image as a the given
+	 * type.
+	 */
+	public native final String toDataURL(String type) /*-{
+		return this.toDataURL(type);
+	}-*/;
+	
+	/**
 	 * Sets the width of the canvas.
 	 */
 	public native final void setWidth(int width) /*-{
