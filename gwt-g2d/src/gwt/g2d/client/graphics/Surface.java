@@ -1370,4 +1370,19 @@ public class Surface extends FocusWidget {
 		context.setShadowColor(shadowColor.getColorCode());
 		return this;
 	}
+	
+	/**
+	 * Return a data: URL containing a representation of the image as a PNG file.
+	 */
+	public String toDataURL() {
+		return canvas.toDataURL();
+	}
+	
+	/**
+	 * Return a data: URL containing a representation of the image as a the given
+	 * type.
+	 */
+	public String toDataURL(String type) {
+		return canvas.toDataURL(type);
+	}
 }
