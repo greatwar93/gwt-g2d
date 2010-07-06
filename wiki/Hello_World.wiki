@@ -30,3 +30,12 @@ Please make sure that you have added gwt-g2d.jar to your build path, and the fol
 {{{
 <inherits name='gwt.g2d.g2d'/>
 }}}
+
+NOTE (Thanks to johan.piquet):
+
+To make this work for IE8, you must declare the doctype as:
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+Note that actually the GWT Eclipse plugin template declare it as is (for v2.01):
+<!doctype html>
+which doesn't work correctly under IE8.
