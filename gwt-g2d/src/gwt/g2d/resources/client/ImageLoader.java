@@ -51,7 +51,6 @@ public final class ImageLoader {
 	 */
 	private static final class ImageElementExt extends ImageElement {
 		
-		@SuppressWarnings("unused")
 		protected ImageElementExt() {
 		}
 		

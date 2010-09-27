@@ -54,8 +54,7 @@ public class DataUrlDemo extends AbstractDemo {
 			@Override
 			public void onClick(ClickEvent event) {
 				imagePanel.clear();
-				imagePanel.add(new Image(animationDemo.getPrimarySurface().getCanvas()
-						.toDataURL()));
+				imagePanel.add(new Image(animationDemo.getPrimarySurface().toDataURL()));
 			}
 		});
 	}
