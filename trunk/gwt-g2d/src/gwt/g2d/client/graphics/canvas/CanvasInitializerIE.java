@@ -19,6 +19,7 @@ import com.google.gwt.dom.client.Style.Unit;
 
 /**
  * Helper class for initializing a canvas element for IE.
+ * In case of IE8 and below, use excanvas wrapper.
  * 
  * @author hao1300@gmail.com
  */
@@ -26,20 +27,39 @@ public class CanvasInitializerIE extends CanvasInitializer {
 	
 	@Override
 	public void init(CanvasElement element, int width, int height) {
-		initExcanvas(element);
+		if (isUsingExcanvas()) {
+			initExcanvas(element);
+		}
 		setWidth(element, width);
 		setHeight(element, height);
 	}
 	
 	@Override
 	public void setWidth(CanvasElement element, int width) {
-		element.getStyle().setWidth(width, Unit.PX);
+		if (isUsingExcanvas()) {
+			element.getStyle().setWidth(width, Unit.PX);
+		} else {
+			super.setWidth(element, width);
+		}
 	}
 	
 	@Override
 	public void setHeight(CanvasElement element, int height) {
-		element.getStyle().setHeight(height, Unit.PX);
+		if (isUsingExcanvas()) {
+			element.getStyle().setHeight(height, Unit.PX);
+		} else {
+			super.setHeight(element, height);
+		}
 	}
+	
+	/**
+	 * Checks whether we should be using excanvas (false for IE9+).
+	 * 
+	 * @return
+	 */
+	private native boolean isUsingExcanvas() /*-{
+		return $wnd.G_vmlCanvasManager !== null;
+	}-*/;
 	
 	/**
 	 * Initializing excanvas support for the canvas element.

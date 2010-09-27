@@ -51,7 +51,7 @@ public class MainDemo implements EntryPoint {
 	private int selectedIndex = 0;
 	private final TextArea sourceTextArea = new TextArea();
 	
-	public void onModuleLoad() {
+	public void onModuleLoad() {		
 		final Panel demoPanel = new FlowPanel();
 		demos.add(new AnimationDemo(demoPanel));
 		demos.add(new CanvasOnCanvasDemo(demoPanel));

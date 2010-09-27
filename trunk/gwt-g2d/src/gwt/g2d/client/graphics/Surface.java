@@ -52,6 +52,10 @@ public class Surface extends FocusWidget {
 	private final CanvasElement canvas;
 	private final Context context;
 	
+	// getOffsetWidth() and getOffsetHeight() are not available until the
+	// Surface is attached, so we need to cache the size instead.
+	private int width, height;
+	
 	/**
 	 * Initialize a surface with a default size of 100 by 100.
 	 */
@@ -71,6 +75,8 @@ public class Surface extends FocusWidget {
 		getElement().appendChild(canvas);
 		canvasInitializer.init(canvas, width, height);
 		setStylePrimaryName("g2d-Surface");
+		this.width = width;		
+		this.height = height;
 		context = canvas.getContext2D();
 	}
 	
@@ -94,14 +100,14 @@ public class Surface extends FocusWidget {
 	 * Gets the width of the surface.
 	 */
 	public int getWidth() {
-		return getOffsetWidth();
+		return width;
 	}
 	
 	/**
 	 * Gets the height of the surface.
 	 */
 	public int getHeight() {
-		return getOffsetHeight();
+		return height;
 	}
 	
 	/**
@@ -125,7 +131,7 @@ public class Surface extends FocusWidget {
 	@Override
 	public void setWidth(String width) {
 		super.setWidth(width);
-		canvasInitializer.setWidth(canvas, this.getWidth());
+		canvasInitializer.setWidth(canvas, getOffsetWidth());
 	}
 	
 	/**
@@ -138,7 +144,7 @@ public class Surface extends FocusWidget {
 	@Override
 	public void setHeight(String height) {
 		super.setHeight(height);
-		canvasInitializer.setHeight(canvas, this.getHeight());
+		canvasInitializer.setHeight(canvas, getOffsetHeight());
 	}
 	
 	/**

@@ -37,6 +37,7 @@ import java.util.Set;
  * (This is a slightly modified by hao1300@gmail.com from the GWT-incubator's 
  * ImageLoader to provide a more flexible loading scheme.)
  */
+@Deprecated
 public class ImageLoader {
 
   /**
@@ -123,7 +124,6 @@ public class ImageLoader {
    * 
    * Called from the JSNI onload event handler.
    */
-  @SuppressWarnings("unused")
   private void dispatchIfComplete() {
     if (callBack != null && isAllLoaded()) {
       callBack.onImagesLoaded(images.toArray(new ImageElement[0]));
@@ -143,7 +143,6 @@ public class ImageLoader {
     this.callBack = cb;
   }
   
-  @SuppressWarnings("unused")
   private void incrementLoadedImages() {
     this.loadedImages++;
   }
