@@ -70,6 +70,10 @@ public class ShapeDemo extends AbstractDemo {
 				.drawArc(50, 50, 15, (float) Math.toRadians(30), (float) Math.toRadians(-30), false)
 				.closePath()
 				.stroke();
+		shapeRenderer.beginPath()
+				.drawEllipse(20, 100, 180, 100)
+				.closePath()
+				.stroke();
 		shapeRenderer.beginPath();
 		for (int i = 0; i < 8; i++) {
 			shapeRenderer.drawCircle(80 + i * 12, 50, 1);
@@ -92,6 +96,9 @@ public class ShapeDemo extends AbstractDemo {
 				.drawQuadraticCurveTo(20, 20, 40, 20)
 				.moveTo(50, 50)
 				.drawArc(50, 50, 15, (float) Math.toRadians(30), (float) Math.toRadians(-30), false)
+				.build());
+		surface.strokeShape(new ShapeBuilder()
+				.drawEllipse(20, 100, 180, 100)
 				.build());
 		ShapeBuilder dotShapeBuilder = new ShapeBuilder();
 		for (int i = 0; i < 8; i++) {
