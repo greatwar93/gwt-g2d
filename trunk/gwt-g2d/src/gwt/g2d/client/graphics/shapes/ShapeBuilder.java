@@ -22,6 +22,7 @@ import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveVisitor;
 import gwt.g2d.client.graphics.visitor.CircleVisitor;
+import gwt.g2d.client.graphics.visitor.EllipseVisitor;
 import gwt.g2d.client.graphics.visitor.LineSegmentVisitor;
 import gwt.g2d.client.graphics.visitor.LineToVisitor;
 import gwt.g2d.client.graphics.visitor.MoveToVisitor;
@@ -36,6 +37,7 @@ import gwt.g2d.client.graphics.visitor.TransformVisitor;
 import gwt.g2d.client.graphics.visitor.TranslateVisitor;
 import gwt.g2d.client.math.Arc;
 import gwt.g2d.client.math.Circle;
+import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.math.Vector2;
@@ -208,6 +210,27 @@ public class ShapeBuilder {
 	 */
 	public final ShapeBuilder drawCircle(Circle circle) {
 		return append(new CircleVisitor(circle));
+	}
+	
+	/**
+	 * @see EllipseVisitor#EllipseVisitor(double, double, double, double)
+	 */
+	public final ShapeBuilder drawEllipse(double x, double y, double width, double height) {
+		return append(new EllipseVisitor(x, y, width, height));
+	}
+	
+	/**
+	 * @see EllipseVisitor#EllipseVisitor(Vector2, double, double)
+	 */
+	public final ShapeBuilder drawEllipse(Vector2 center, double width, double height) {
+		return append(new EllipseVisitor(center, width, height));
+	}
+	
+	/**
+	 * @see EllipseVisitor#EllipseVisitor(Ellipse)
+	 */
+	public final ShapeBuilder drawEllipse(Ellipse ellipse) {
+		return append(new EllipseVisitor(ellipse));
 	}
 	
 	/**

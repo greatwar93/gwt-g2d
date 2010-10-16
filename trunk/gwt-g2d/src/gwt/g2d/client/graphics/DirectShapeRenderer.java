@@ -22,6 +22,7 @@ import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveVisitor;
 import gwt.g2d.client.graphics.visitor.CircleVisitor;
+import gwt.g2d.client.graphics.visitor.EllipseVisitor;
 import gwt.g2d.client.graphics.visitor.LineSegmentVisitor;
 import gwt.g2d.client.graphics.visitor.LineToVisitor;
 import gwt.g2d.client.graphics.visitor.MoveToVisitor;
@@ -35,6 +36,7 @@ import gwt.g2d.client.graphics.visitor.TransformVisitor;
 import gwt.g2d.client.graphics.visitor.TranslateVisitor;
 import gwt.g2d.client.math.Arc;
 import gwt.g2d.client.math.Circle;
+import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
@@ -163,7 +165,6 @@ public class DirectShapeRenderer {
 	 */
 	public final DirectShapeRenderer drawArc(double x, double y, double radius, 
 			double startAngle, double endAngle, boolean antiClockwise) {
-		context.moveTo(x, y);
 		context.arc(x, y, radius, startAngle, endAngle, antiClockwise);
 		return this;
 	}
@@ -254,10 +255,38 @@ public class DirectShapeRenderer {
 	}
 	
 	/**
+	 * @see EllipseVisitor#EllipseVisitor(double, double, double, double)
+	 */
+	public final DirectShapeRenderer drawEllipse(double x, double y, 
+			double width, double height) {
+		return save()
+				.translate(x + width / 2, y + height / 2)
+				.scale(width / 2, height / 2)
+				.drawArc(0, 0, 1, 0, MathHelper.TWO_PI, true)
+				.restore();
+	}
+	
+	/**
+	 * @see EllipseVisitor#EllipseVisitor(Vector2, double, double)
+	 */
+	public final DirectShapeRenderer drawEllipse(Vector2 center, 
+			double width, double height) {
+		return drawEllipse(center.getX(), center.getY(), width, height);
+	}
+	
+	/**
+	 * @see EllipseVisitor#EllipseVisitor(Ellipse)
+	 */
+	public final DirectShapeRenderer drawEllipse(Ellipse ellipse) {
+		return drawEllipse(ellipse.getX(), ellipse.getY(), 
+				ellipse.getWidth(), ellipse.getHeight());
+	}
+	
+	/**
 	 * @see CircleVisitor#CircleVisitor(double, double, double)
 	 */
 	public final DirectShapeRenderer drawCircle(double x, double y, double radius) {
-		return moveTo(x, y).drawArc(x, y, radius, 0, MathHelper.TWO_PI, true);
+		return drawArc(x, y, radius, 0, MathHelper.TWO_PI, true);
 	}
 	
 	/**
@@ -391,6 +420,22 @@ public class DirectShapeRenderer {
 	public final DirectShapeRenderer drawRect(Rectangle rectangle) {
 		return drawRect(rectangle.getX(), rectangle.getY(), rectangle.getWidth(),
 				rectangle.getHeight());
+	}
+	
+	/**
+	 * @see Surface#save()
+	 */
+	public final DirectShapeRenderer save() {
+		context.save();
+		return this;
+	}
+	
+	/**
+	 * @see Surface#restore()
+	 */
+	public final DirectShapeRenderer restore() {
+		context.restore();
+		return this;
 	}
 	
 	/**

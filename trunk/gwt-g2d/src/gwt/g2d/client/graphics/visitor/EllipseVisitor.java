@@ -17,36 +17,45 @@ package gwt.g2d.client.graphics.visitor;
 
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.graphics.canvas.Context;
-import gwt.g2d.client.math.Circle;
+import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Vector2;
 
 /**
- * Draws a circle to the current subpath.
+ * Adds a new ellipse to the subpath.
  * The new position will be set to the location on the arc at 0 degree.
  * 
  * @author hao1300@gmail.com
  */
-public class CircleVisitor implements ShapeVisitor {
-	private double x, y, radius;
+public class EllipseVisitor implements ShapeVisitor {
+	private final double x, y, width, height;
 	
-	public CircleVisitor(double x, double y, double radius) {
+	/**
+	 * Adds an ellipse with its top left at (x, y) and with the given width and 
+	 * height.
+	 */
+	public EllipseVisitor(double x, double y, double width, double height) {
 		this.x = x;
 		this.y = y;
-		this.radius = radius;
+		this.width = width;
+		this.height = height;
 	}
 	
-	public CircleVisitor(Vector2 center, double radius) {
-		this(center.getX(), center.getY(), radius);
+	public EllipseVisitor(Vector2 position, double width, double height) {
+		this(position.getX(), position.getY(), width, height);
 	}
 	
-	public CircleVisitor(Circle circle) {
-		this(circle.getCenterX(), circle.getCenterY(), circle.getRadius());
+	public EllipseVisitor(Ellipse ellipse) {
+		this(ellipse.getX(), ellipse.getY(), ellipse.getWidth(), ellipse.getHeight());
 	}
 	
 	@Override
 	public void visit(Surface surface) {
 		Context context = surface.getContext();
-		context.arc(x, y, radius, 0, MathHelper.TWO_PI, true);
+		context.save();
+		context.translate(x + width / 2, y + height / 2);
+		context.scale(width / 2, height / 2);
+		context.arc(0, 0, 1, 0, MathHelper.TWO_PI, true);
+		context.restore();
 	}
 }

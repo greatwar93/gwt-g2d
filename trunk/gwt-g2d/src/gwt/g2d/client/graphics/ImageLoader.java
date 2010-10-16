@@ -37,7 +37,6 @@ import java.util.Set;
  * (This is a slightly modified by hao1300@gmail.com from the GWT-incubator's 
  * ImageLoader to provide a more flexible loading scheme.)
  */
-@Deprecated
 public class ImageLoader {
 
   /**
