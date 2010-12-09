@@ -4,7 +4,7 @@
   <inherits name='com.google.gwt.core.Core'/>
   <inherits name='com.google.gwt.user.UserAgent'/>
   <inherits name='gwt.g2d.resources.g2d-resources'/>
-<!--
+
   <replace-with class='gwt.g2d.client.graphics.canvas.CanvasInitializerIE'>
   	<when-type-is class='gwt.g2d.client.graphics.canvas.CanvasInitializer'/>
     <any>
@@ -14,6 +14,6 @@
   </replace-with>
 
   <script src='excanvas.js'/>
-  -->
+  
   <source path='client'/>
 </module>
