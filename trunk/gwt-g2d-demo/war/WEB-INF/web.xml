@@ -9,6 +9,10 @@
     <include path="/doc/*" />
   </static-files>
   
+  <static-files>
+    <include path="/ie9/*" />
+  </static-files>
+  
   <resource-files>
     <include path="/media/*" />
   </resource-files>
