@@ -125,26 +125,30 @@ public class Surface extends FocusWidget {
 	 * Sets the width of the surface.
 	 */
 	public void setWidth(int width) {
+		this.width = width;
 		canvasInitializer.setWidth(canvas, width);
 	}
 	
 	@Override
 	public void setWidth(String width) {
 		super.setWidth(width);
-		canvasInitializer.setWidth(canvas, getOffsetWidth());
+		this.width = getOffsetWidth();
+		canvasInitializer.setWidth(canvas, this.width);
 	}
 	
 	/**
 	 * Sets the height of the surface.
 	 */
 	public void setHeight(int height) {
+		this.height = height;
 		canvasInitializer.setHeight(canvas, height);
 	}
 	
 	@Override
 	public void setHeight(String height) {
 		super.setHeight(height);
-		canvasInitializer.setHeight(canvas, getOffsetHeight());
+		this.height = getOffsetHeight();
+		canvasInitializer.setHeight(canvas, this.height);
 	}
 	
 	/**
