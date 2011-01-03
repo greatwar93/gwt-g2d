@@ -34,6 +34,9 @@ import java.util.Set;
  * This class may be deprecated in future release. Considers using 
  * {@link ClientBundle} with {@link ExternalImageResource} instead.
  * <p>
+ * If dynamic image loading is required, please consider using
+ * {@link gwt.g2d.resources.client.ImageLoader} instead of this one.
+ * <p>
  * (This is a slightly modified by hao1300@gmail.com from the GWT-incubator's 
  * ImageLoader to provide a more flexible loading scheme.)
  */

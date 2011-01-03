@@ -45,6 +45,36 @@ public final class ImageLoader {
 	}
 	
 	/**
+	 * Asynchronously loads an {@link ImageElement}.
+	 * 
+	 * @param src the src of the image.
+	 * @param callback the callback event when the requested image is loaded.
+	 */
+	public static void loadImageAsync(final String src,
+			ResourceCallback<ImageElementResource> callback) {
+		final ImageElementExt img = Document.get().createImageElement().cast();
+		AbstractImageElementResource imgResource = new AbstractImageElementResource() {
+			@Override
+			public String getName() {
+				return "";
+			}
+			
+			@Override
+			public int getIndex() {
+				return 0;
+			}
+			
+			@Override
+			public String getBaseUrl() {
+				return src;
+			}
+		};
+		imgResource.setImage(img);
+		img.setupLoadListener(imgResource, callback);
+		img.setSrc(src);
+	}
+	
+	/**
 	 * Helper class that extends the functionality of {@link ImageElement} to
 	 * include image load listener without having to attach the image to the 
 	 * document.
