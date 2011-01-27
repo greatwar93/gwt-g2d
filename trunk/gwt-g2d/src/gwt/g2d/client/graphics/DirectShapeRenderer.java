@@ -145,10 +145,30 @@ public class DirectShapeRenderer {
 	}
 	
 	/**
+	 * @see DashedLineRenderer#drawDashedLine(Context, double, double, double, double, double, double)
+	 */
+	public final DirectShapeRenderer drawDashedLine(double fromX, double fromY, 
+			double toX, double toY, double dashLength, double gapLength) {
+		DashedLineRenderer.drawDashedLine(context, fromX, fromY, toX, toY, 
+				dashLength, gapLength);
+		return this;
+	}
+	
+	/**
+	 * @see DashedLineRenderer#drawDashedLine(Context, double, double, double, double, double, double)
+	 */
+	public final DirectShapeRenderer drawDashedLine(Vector2 fromPos, 
+			Vector2 toPos, double dashLength, double gapLength) {
+		DashedLineRenderer.drawDashedLine(context, fromPos.getX(), fromPos.getY(), 
+				toPos.getX(), toPos.getY(), dashLength, gapLength);
+		return this;
+	}
+	
+	/**
 	 * @see LineSegmentVisitor#LineSegmentVisitor(double, double, double, double)
 	 */
-	public final DirectShapeRenderer drawLineSegment(double fromX, double fromY, double toX, 
-			double toY) {
+	public final DirectShapeRenderer drawLineSegment(double fromX, double fromY, 
+			double toX, double toY) {
 		return moveTo(fromX, fromY).drawLineTo(toX, toY);
 	}
 	

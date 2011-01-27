@@ -26,7 +26,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class LineSegmentVisitor implements ShapeVisitor {
-	private double fromX, fromY, toX, toY;
+	private final double fromX, fromY, toX, toY;
 	
 	/**
 	 * Adds a straight line from fromPosition to toPosition.

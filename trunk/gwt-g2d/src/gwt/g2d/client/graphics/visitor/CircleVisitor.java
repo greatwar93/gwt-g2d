@@ -28,7 +28,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class CircleVisitor implements ShapeVisitor {
-	private double x, y, radius;
+	private final double x, y, radius;
 	
 	public CircleVisitor(double x, double y, double radius) {
 		this.x = x;

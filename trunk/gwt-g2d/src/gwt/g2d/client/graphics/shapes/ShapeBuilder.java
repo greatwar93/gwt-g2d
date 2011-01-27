@@ -22,6 +22,7 @@ import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveVisitor;
 import gwt.g2d.client.graphics.visitor.CircleVisitor;
+import gwt.g2d.client.graphics.visitor.DashedLineVisitor;
 import gwt.g2d.client.graphics.visitor.EllipseVisitor;
 import gwt.g2d.client.graphics.visitor.LineSegmentVisitor;
 import gwt.g2d.client.graphics.visitor.LineToVisitor;
@@ -90,6 +91,24 @@ public class ShapeBuilder {
 	 */
 	public final ShapeBuilder drawLineTo(Vector2 position) {
 		return append(new LineToVisitor(position));
+	}
+
+	/**
+	 * @see DashedLineVisitor#DashedLineVisitor(double, double, double, double, 
+	 * 			double, double)
+	 */
+	public final ShapeBuilder drawDashedLine(double fromX, double fromY,
+			double toX, double toY, double dashLength, double gapLength) {
+		return append(new DashedLineVisitor(fromX, fromY, toX, toY, dashLength, gapLength));
+	}
+	
+	/**
+	 * @see DashedLineVisitor#DashedLineVisitor(double, double, double, double, 
+	 * 			double, double)
+	 */
+	public final ShapeBuilder drawDashedLine(Vector2 fromPos, Vector2 toPos, 
+			double dashLength, double gapLength) {
+		return append(new DashedLineVisitor(fromPos, toPos, dashLength, gapLength));
 	}
 	
 	/**
