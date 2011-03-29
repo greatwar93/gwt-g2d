@@ -41,8 +41,9 @@ public final class ExternalImageResourceGenerator extends
 		AbstractResourceGenerator {
 	
 	@Override
-	public String createAssignment(TreeLogger logger, ResourceContext context,
-			JMethod method) throws UnableToCompleteException {
+  public String createAssignment(TreeLogger logger, ResourceContext context,
+      JMethod method) throws UnableToCompleteException {
+    String name = "ExternalImageResourceGenerator.createAssignment";
 		URL[] resources = ResourceGeneratorUtil.findResources(logger, context,
         method);
 		
@@ -69,7 +70,7 @@ public final class ExternalImageResourceGenerator extends
 			
 			sw.println("public String getName() {");
 			sw.indent();
-			sw.println("return \"" + method.getName() + "\";");
+			sw.println("return \"" + name + "\";");
 			sw.outdent();
 			sw.println("}");
 			
@@ -98,7 +99,7 @@ public final class ExternalImageResourceGenerator extends
     
     sw.println("public String getName() {");
     sw.indent();
-    sw.println("return \"" + method.getName() + "\";");
+    sw.println("return \"" + name + "\";");
     sw.outdent();
     sw.println("}");
 
