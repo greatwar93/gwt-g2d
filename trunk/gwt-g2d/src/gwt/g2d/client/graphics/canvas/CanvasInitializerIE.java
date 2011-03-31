@@ -58,7 +58,7 @@ public class CanvasInitializerIE extends CanvasInitializer {
 	 * @return
 	 */
 	private native boolean isUsingExcanvas() /*-{
-		return $wnd.G_vmlCanvasManager !== null;
+		return $wnd.G_vmlCanvasManager != null;
 	}-*/;
 	
 	/**

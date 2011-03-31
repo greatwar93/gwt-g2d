@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.Style.Float;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,7 +36,7 @@ import com.google.gwt.resources.client.TextResource;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HorizontalSplitPanel;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -89,16 +90,18 @@ public class MainDemo implements EntryPoint {
 			}
 		});
 		
-		HorizontalSplitPanel splitPanel = new HorizontalSplitPanel();
-	  
+		HorizontalPanel splitPanel = new HorizontalPanel();
+		splitPanel.setSize("100%", "100%");
+		
 		Panel panel = new FlowPanel();
 		panel.add(new HTML("This demo is created using " 
 				+ "<a href=\"http://code.google.com/p/gwt-g2d/\">gwt-g2d</a>"
 				+ " inspired by <a href=\"http://code.google.com/p/gwt-canvas/\">gwt-canvas</a>"));
 		panel.add(listBox);
 		
-		sourceTextArea.setSize("100%", "100%");
+		sourceTextArea.setSize("600px", "800px");
 		sourceTextArea.setReadOnly(true);
+		sourceTextArea.getElement().getStyle().setFloat(Float.RIGHT);
 		sourceTextArea.removeStyleName("gwt-TextArea-readonly");
 		Button showSourceBtn = new Button("Source");
 		showSourceBtn.addClickHandler(new ClickHandler() {
@@ -116,8 +119,8 @@ public class MainDemo implements EntryPoint {
 		});
 		panel.add(showSourceBtn);
 	  panel.add(demoPanel);
-	  splitPanel.setLeftWidget(panel);
-	  splitPanel.setRightWidget(sourceTextArea);
+	  splitPanel.add(panel);
+	  splitPanel.add(sourceTextArea);
 	  
 		RootPanel.get().add(splitPanel);
 		
