@@ -38,6 +38,7 @@ public class CanvasInitializerIE extends CanvasInitializer {
 	public void setWidth(CanvasElement element, int width) {
 		if (isUsingExcanvas()) {
 			element.getStyle().setWidth(width, Unit.PX);
+			element.getFirstChildElement().getStyle().setWidth(width, Unit.PX);
 		} else {
 			super.setWidth(element, width);
 		}
@@ -47,6 +48,7 @@ public class CanvasInitializerIE extends CanvasInitializer {
 	public void setHeight(CanvasElement element, int height) {
 		if (isUsingExcanvas()) {
 			element.getStyle().setHeight(height, Unit.PX);
+			element.getFirstChildElement().getStyle().setHeight(height, Unit.PX);
 		} else {
 			super.setHeight(element, height);
 		}
