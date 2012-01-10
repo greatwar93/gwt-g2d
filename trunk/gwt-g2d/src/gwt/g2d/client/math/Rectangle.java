@@ -29,7 +29,7 @@ public class Rectangle implements Serializable {
 	
 	private static final long serialVersionUID = 8819333315393490701L;
 	
-	private double x, y, width, height;
+	public double x, y, width, height;
 	
 	public Rectangle() {
 	}
@@ -130,6 +130,20 @@ public class Rectangle implements Serializable {
 	 */	
 	public void setHeight(double height) {
 		this.height = height;
+	}
+	
+	/**
+	 * Get the location.
+	 */
+	public Vector2 getLoc() {
+		return new Vector2(x,y);
+	}
+	
+	/**
+	 * Get the size.
+	 */
+	public Vector2 getSize() {
+		return new Vector2(width, height);
 	}
 	
 	/**

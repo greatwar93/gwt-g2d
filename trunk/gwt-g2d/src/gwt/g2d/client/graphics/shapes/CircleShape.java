@@ -1,7 +1,8 @@
 package gwt.g2d.client.graphics.shapes;
 
+import com.google.gwt.canvas.dom.client.Context2d;
+
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Vector2;
@@ -30,7 +31,7 @@ public class CircleShape extends Shape {
 
 	@Override
 	public void draw(Surface surface) {
-		Context context = surface.getContext();
+		Context2d context = surface.getContext();
 		context.beginPath();
 		context.arc(centerX, centerY, radius, 0, MathHelper.TWO_PI, true);
 		context.closePath();

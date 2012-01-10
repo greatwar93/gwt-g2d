@@ -15,7 +15,8 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.g2d.client.graphics.canvas.Context;
+import com.google.gwt.canvas.dom.client.Context2d;
+
 import gwt.g2d.client.graphics.shapes.ShapeBuilder;
 import gwt.g2d.client.graphics.visitor.ArcToVisitor;
 import gwt.g2d.client.graphics.visitor.ArcVisitor;
@@ -53,7 +54,7 @@ import gwt.g2d.client.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class DirectShapeRenderer {
-	private final Context context;
+	private final Context2d context;
 	
 	public DirectShapeRenderer(Surface surface) {
 		context = surface.getContext();

@@ -6,15 +6,5 @@
   <inherits name='gwt.g2d.resources.g2d-resources'/>
   <inherits name="com.google.gwt.dom.DOM"/>
   
-  <replace-with class='gwt.g2d.client.graphics.canvas.CanvasInitializerIE'>
-  	<when-type-is class='gwt.g2d.client.graphics.canvas.CanvasInitializer'/>
-    <any>
-    	<when-property-is name='user.agent' value='ie6'/>
-      <when-property-is name='user.agent' value='ie8'/>
-    </any>
-  </replace-with>
-
-  <script src='excanvas.js'/>
-  
   <source path='client'/>
 </module>

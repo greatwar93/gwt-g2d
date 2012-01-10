@@ -15,7 +15,7 @@
  */
 package gwt.g2d.client.graphics;
 
-import gwt.g2d.client.graphics.canvas.Context;
+import com.google.gwt.canvas.dom.client.Context2d;
 
 /**
  * Helper class for drawing dashed line.
@@ -36,7 +36,7 @@ public class DashedLineRenderer {
 	 * @param dashLength length of the dash
 	 * @param gapLength length of the gap in between dashes
 	 */
-	public static void drawDashedLine(Context context, double fromX, double fromY, 
+	public static void drawDashedLine(Context2d context, double fromX, double fromY, 
 			double toX, double toY, double dashLength, double gapLength) {
 	  DashedLineHelper checkX = GreaterThanHelper.instance;
 	  DashedLineHelper checkY = GreaterThanHelper.instance;

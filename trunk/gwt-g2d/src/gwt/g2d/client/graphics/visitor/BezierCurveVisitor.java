@@ -15,8 +15,9 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+import com.google.gwt.canvas.dom.client.Context2d;
+
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Vector2;
 
 /**
@@ -63,7 +64,7 @@ public class BezierCurveVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		Context context = surface.getContext();
+		Context2d context = surface.getContext();
 		context.moveTo(startPointX, startPointY);
 		context.bezierCurveTo(controlPoint1X, controlPoint1Y, 
 				controlPoint2X, controlPoint2Y, 
