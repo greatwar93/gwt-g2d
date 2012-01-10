@@ -30,9 +30,9 @@ public class Color implements Serializable {
 	protected static final double DEFAULT_ALPHA = 1.0;
 	
 	private static final long serialVersionUID = 5370658935618812361L;
-	private String colorCode;
-	private int red, green, blue;
-	private double alpha;
+	private final String colorCode;
+	private final int red, green, blue;
+	private final double alpha;
 	
 	/**
 	 * Constructor.
@@ -49,12 +49,6 @@ public class Color implements Serializable {
 		this.green = green;
 		this.blue = blue;
 		this.alpha = alpha;
-	}
-	
-	/**
-	 * Empty constructor for Serializable. Do not use this!
-	 */
-	public Color() {
 	}
 	
 	/**

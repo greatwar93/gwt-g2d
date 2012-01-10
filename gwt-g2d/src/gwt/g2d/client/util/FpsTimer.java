@@ -100,7 +100,7 @@ public abstract class FpsTimer {
 	/**
 	 * Helper class for checking the FPS.
 	 */
-	private class FpsTimerImpl extends Timer {
+	public class FpsTimerImpl extends Timer {
 		private LinkedList<Float> framerates = new LinkedList<Float>();
     private long renderTime;
     

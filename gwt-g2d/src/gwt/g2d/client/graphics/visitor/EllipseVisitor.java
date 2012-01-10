@@ -15,8 +15,9 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+import com.google.gwt.canvas.dom.client.Context2d;
+
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Vector2;
@@ -51,7 +52,7 @@ public class EllipseVisitor implements ShapeVisitor {
 	
 	@Override
 	public void visit(Surface surface) {
-		Context context = surface.getContext();
+		Context2d context = surface.getContext();
 		context.save();
 		context.translate(x + width / 2, y + height / 2);
 		context.scale(width / 2, height / 2);

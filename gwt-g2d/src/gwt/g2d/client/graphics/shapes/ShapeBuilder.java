@@ -16,7 +16,6 @@
 package gwt.g2d.client.graphics.shapes;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.graphics.canvas.Context;
 import gwt.g2d.client.graphics.visitor.ArcToVisitor;
 import gwt.g2d.client.graphics.visitor.ArcVisitor;
 import gwt.g2d.client.graphics.visitor.BezierCurveToVisitor;
@@ -45,6 +44,8 @@ import gwt.g2d.client.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gwt.canvas.dom.client.Context2d;
 
 /**
  * A builder for drawing custom shapes.
@@ -514,7 +515,7 @@ public class ShapeBuilder {
 	public final class CustomShape extends Shape {
 		@Override
 		public final void draw(Surface surface) {
-			Context context = surface.getContext();
+			Context2d context = surface.getContext();
 			context.beginPath();
 			for (ShapeVisitor shape : shapes) {
 				shape.visit(surface);

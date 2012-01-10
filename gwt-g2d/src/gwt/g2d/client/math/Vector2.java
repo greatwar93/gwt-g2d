@@ -34,10 +34,12 @@ public class Vector2 implements Serializable {
 	public static final Vector2 UNIT_X = new ImmutableVector2(1.0, 0.0);
 	/** A vector at (0, 1). */
 	public static final Vector2 UNIT_Y = new ImmutableVector2(0.0, 1.0);
+	/** Any value below this is considered zero. */
+	public static final double EPS = 0.0000001;
 	
 	private static final long serialVersionUID = 5543191998324226983L;
 	
-	private double x, y;
+	public double x, y;
 	
 	/**
 	 * Creates a default vector2 at (0, 0).
@@ -235,8 +237,17 @@ public class Vector2 implements Serializable {
 	 * @param y
 	 */
 	public final void set(double x, double y) {
-		setX(x);
-		setY(y);
+		this.x = x;
+		this.y = y;
+	}
+	
+	/**
+	 * Calculates whether this vector is zero (using machine epsilon so that very small vectors are also counted as zero.
+	 * 
+	 * @return whether this vector is zero. 
+	 */
+	public final boolean isZero() {
+		return this.lengthSquared() < EPS*EPS;
 	}
 	
 	/**
@@ -258,8 +269,22 @@ public class Vector2 implements Serializable {
 	 * @return self to support chaining.
 	 */
 	public final Vector2 mutableAdd(Vector2 rhs) {
-		setX(getX() + rhs.getX());
-		setY(getY() + rhs.getY());
+		this.x += rhs.x;
+		this.y += rhs.y;
+		return this;
+	}
+	
+	/**
+	 * Adds rhs to this.
+	 * Unlike {@link #add(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
+	 *  
+	 * @param rhs the vector to add.
+	 * @return self to support chaining.
+	 */
+	public final Vector2 mutableAdd(double x, double y) {
+		this.x += x;
+		this.y += y;
 		return this;
 	}
 	
@@ -270,7 +295,17 @@ public class Vector2 implements Serializable {
 	 * @return a new vector that is this - rhs. 
 	 */
 	public final Vector2 subtract(Vector2 rhs) {
-		return new Vector2(getX() - rhs.getX(), getY() - rhs.getY());
+		return new Vector2(this.x - rhs.x, this.y - rhs.y);
+	}
+	
+	/**
+	 * Gets (this.x - rhs.x, this.y - rhs.y).
+	 * 
+	 * @param rhs the vector to subtract from this.
+	 * @return a new vector that is this - rhs. 
+	 */
+	public final Vector2 subtract(double x, double y) {
+		return new Vector2(this.x - x, this.y - y);
 	}
 	
 	/**
@@ -282,8 +317,22 @@ public class Vector2 implements Serializable {
 	 * @return self to support chaining.
 	 */
 	public final Vector2 mutableSubtract(Vector2 rhs) {
-		setX(getX() - rhs.getX());
-		setY(getY() - rhs.getY());
+		this.x -= rhs.x;
+		this.y -= rhs.y;
+		return this;
+	}
+	
+	/**
+	 * Subtract rhs from this.
+	 * Unlike {@link #subtract(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
+	 * 
+	 * @param rhs the vector to subtract from this.
+	 * @return self to support chaining.
+	 */
+	public final Vector2 mutableSubtract(double x, double y) {
+		this.x -= x;
+		this.y -= y;
 		return this;
 	}
 	
@@ -294,7 +343,7 @@ public class Vector2 implements Serializable {
 	 * @return a new vector that is this * rhs. 
 	 */
 	public final Vector2 multiply(Vector2 rhs) {
-		return new Vector2(getX() * rhs.getX(), getY() * rhs.getY());
+		return new Vector2(this.x * rhs.x, this.y * rhs.y);
 	}
 	
 	/**
@@ -306,8 +355,32 @@ public class Vector2 implements Serializable {
 	 * @return self to support chaining.
 	 */
 	public final Vector2 mutableMultiply(Vector2 rhs) {
-		setX(getX() * rhs.getX());
-		setY(getY() * rhs.getY());
+		this.x *= rhs.x;
+		this.y *= rhs.y;
+		return this;
+	}
+	
+	/**
+	 * Gets (this.x * rhs.x, this.y * rhs.y).
+	 * 
+	 * @param rhs the vector to multiply.
+	 * @return a new vector that is this * rhs. 
+	 */
+	public final Vector2 multiply(double x, double y) {
+		return new Vector2(this.x * x, this.y * y);
+	}
+	
+	/**
+	 * Multiply this by rhs.
+	 * Unlike {@link #multiply(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
+	 * 
+	 * @param rhs the vector to multiply.
+	 * @return self to support chaining.
+	 */
+	public final Vector2 mutableMultiply(double x, double y) {
+		this.x *= x;
+		this.y *= y;
 		return this;
 	}
 	
@@ -318,7 +391,7 @@ public class Vector2 implements Serializable {
 	 * @return a new vector that is this / rhs. 
 	 */
 	public final Vector2 divide(Vector2 rhs) {
-		return new Vector2(getX() / rhs.getX(), getY() / rhs.getY());
+		return new Vector2(this.x / rhs.x, this.y / rhs.y);
 	}
 	
 	/**
@@ -330,8 +403,32 @@ public class Vector2 implements Serializable {
 	 * @return self to support chaining.
 	 */
 	public final Vector2 mutableDivide(Vector2 rhs) {
-		setX(getX() / rhs.getX());
-		setY(getY() / rhs.getY());
+		this.x /= rhs.x;
+		this.y /= rhs.y;
+		return this;
+	}
+	
+	/**
+	 * Gets (this.x / rhs.x, this.y / rhs.y).
+	 * 
+	 * @param rhs the vector by which this is to be divided.
+	 * @return a new vector that is this / rhs. 
+	 */
+	public final Vector2 divide(double x, double y) {
+		return new Vector2(this.x / x, this.y / y);
+	}
+	
+	/**
+	 * Divide this by rhs.
+	 * Unlike {@link #divide(Vector2)}, the returned vector is this, so no new 
+	 * vector is allocated.
+	 * 
+	 * @param rhs the vector by which this is to be divided.
+	 * @return self to support chaining.
+	 */
+	public final Vector2 mutableDivide(double x, double y) {
+		this.x /= x;
+		this.y /= y;
 		return this;
 	}
 	
@@ -604,12 +701,17 @@ public class Vector2 implements Serializable {
 	}
 	
 	public final boolean equals(Vector2 rhs) {
-		return getX() == rhs.getX() && getY() == rhs.getY();
+		return (this.x - rhs.x) < EPS && (this.y - rhs.y) < EPS;
 	}
 	
 	@Override
 	public final int hashCode() {
 		return Arrays.hashCode(new double[]{getX(), getY()});
+	}
+	
+	@Override
+	public final String toString() {
+		return "[" + this.x + ", " + this.y + "]";
 	}
 	
 	/**
