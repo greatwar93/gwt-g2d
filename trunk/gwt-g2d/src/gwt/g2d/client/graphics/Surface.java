@@ -18,8 +18,7 @@ package gwt.g2d.client.graphics;
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
-import gwt.g2d.client.math.Vector2;
-import gwt.g2d.client.media.VideoElement;
+import gwt.g2d.shared.math.Vector2;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.CanvasGradient;
@@ -421,6 +420,28 @@ public class Surface extends Composite {
 	public Surface setStrokeStyle(CanvasPattern pattern) {
 		context.setStrokeStyle(pattern);
 		return this;
+	}
+	
+	/**
+	 * Create a linear gradient.
+	 */
+	public CanvasGradient createLinearGradient(Vector2 start, Vector2 stop) {
+		return context.createLinearGradient(start.x, start.y, stop.x, stop.y);
+	}
+	
+	/**
+	 * Create a radial gradient.
+	 */
+	public CanvasGradient createRadialGradient(Vector2 start, double startRadius, Vector2 stop, double stopRadius) {
+		return context.createRadialGradient(start.x, start.y, startRadius, stop.x, stop.y, stopRadius);
+	}
+	
+	/**
+	 * Add a color stop to a gradient - convenient helper function so Color can be used.
+	 */
+	public static CanvasGradient addColorStop(CanvasGradient gradient, double offset, Color color) {
+		gradient.addColorStop(offset, "rgba(" + color.red + "," + color.green + "," + color.blue + "," + color.alpha + ")");
+		return gradient;
 	}
 	
 	/**

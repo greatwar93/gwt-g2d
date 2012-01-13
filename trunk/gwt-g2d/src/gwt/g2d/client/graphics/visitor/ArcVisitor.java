@@ -17,7 +17,7 @@ package gwt.g2d.client.graphics.visitor;
 
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.math.Arc;
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 /**
  * Adds points to the subpath such that the arc described by the circumference 
@@ -110,7 +110,6 @@ public class ArcVisitor implements ShapeVisitor {
 		this(arc, false);
 	}
 	
-	@Override
 	public void visit(Surface surface) {
 		if (!connectFromPrev) {
 			surface.getContext().moveTo(x, y);

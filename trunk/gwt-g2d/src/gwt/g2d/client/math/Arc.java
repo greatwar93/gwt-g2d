@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.math;
 
+import gwt.g2d.shared.math.Vector2;
+
 /**
  * Represents a 2D arc.
  * 

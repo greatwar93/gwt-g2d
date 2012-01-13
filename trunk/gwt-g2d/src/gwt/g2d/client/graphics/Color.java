@@ -31,8 +31,8 @@ public class Color implements Serializable {
 	
 	private static final long serialVersionUID = 5370658935618812361L;
 	private final String colorCode;
-	private final int red, green, blue;
-	private final double alpha;
+	public final int red, green, blue;
+	public final double alpha;
 	
 	/**
 	 * Constructor.

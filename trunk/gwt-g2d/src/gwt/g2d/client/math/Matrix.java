@@ -15,7 +15,10 @@
  */
 package gwt.g2d.client.math;
 
+import gwt.g2d.shared.math.Vector2;
+
 import java.util.Arrays;
+
 
 /**
  * Represents a 3x3 matrix for 2D transformation.

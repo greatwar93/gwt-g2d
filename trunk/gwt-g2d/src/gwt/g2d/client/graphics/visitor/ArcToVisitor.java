@@ -16,7 +16,7 @@
 package gwt.g2d.client.graphics.visitor;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 /**
  * Adds a point to the current path, connected to the previous one by a 
@@ -115,7 +115,6 @@ public class ArcToVisitor implements ShapeVisitor {
 		this(point1.getX(), point1.getY(), point2.getX(), point2.getY(), radius);
 	}
 	
-	@Override
 	public void visit(Surface surface) {
 		if (!connectFromPrev) {
 			surface.getContext().moveTo(x0, y0);

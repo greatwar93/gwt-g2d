@@ -100,12 +100,10 @@ public class DashedLineRenderer {
 	private static class LessThanHelper implements DashedLineHelper {
 		private static DashedLineHelper instance = new LessThanHelper();
 		
-		@Override
 		public double getCap(double v1, double v2) {
 			return Math.max(v1, v2);
 		}
 
-		@Override
 		public boolean isThereYet(double from, double to) {
 			return from <= to;
 		}		
@@ -117,12 +115,10 @@ public class DashedLineRenderer {
 	private static class GreaterThanHelper implements DashedLineHelper {
 		private static DashedLineHelper instance = new GreaterThanHelper();
 		
-		@Override
 		public double getCap(double v1, double v2) {
 			return Math.min(v1, v2);
 		}
 
-		@Override
 		public boolean isThereYet(double from, double to) {
 			return from >= to;
 		}		

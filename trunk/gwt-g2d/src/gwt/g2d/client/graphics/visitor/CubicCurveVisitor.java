@@ -15,7 +15,7 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 /**
  * Adds the end point to the current path, connected to the starting point by a

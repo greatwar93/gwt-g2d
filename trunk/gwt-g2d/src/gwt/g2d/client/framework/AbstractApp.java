@@ -16,8 +16,8 @@
 package gwt.g2d.client.framework;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.math.Vector2;
 import gwt.g2d.client.util.FpsTimer;
+import gwt.g2d.shared.math.Vector2;
 
 import com.google.gwt.user.client.Timer;
 
