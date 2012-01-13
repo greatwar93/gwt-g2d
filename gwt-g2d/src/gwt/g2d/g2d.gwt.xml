@@ -7,4 +7,6 @@
   <inherits name="com.google.gwt.dom.DOM"/>
   
   <source path='client'/>
+  <source path='shared'/>
+  
 </module>
