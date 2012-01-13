@@ -15,7 +15,10 @@
  */
 package gwt.g2d.client.math;
 
+import gwt.g2d.shared.math.Vector2;
+
 import java.io.Serializable;
+
 
 /**
  * Represents a 2D arc.

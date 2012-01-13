@@ -15,10 +15,11 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+
 import com.google.gwt.canvas.dom.client.Context2d;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 /**
  * Adds the end point to the current path, connected to the starting point by a
@@ -62,7 +63,6 @@ public class BezierCurveVisitor implements ShapeVisitor {
 				endPoint.getX(), endPoint.getY());
 	}
 	
-	@Override
 	public void visit(Surface surface) {
 		Context2d context = surface.getContext();
 		context.moveTo(startPointX, startPointY);

@@ -16,6 +16,7 @@
 package gwt.g2d.client.input;
 
 import com.google.gwt.event.dom.client.DomEvent;
+import com.google.gwt.event.dom.client.KeyDownEvent;
 import com.google.gwt.event.shared.EventHandler;
 import com.google.gwt.event.shared.HasHandlers;
 

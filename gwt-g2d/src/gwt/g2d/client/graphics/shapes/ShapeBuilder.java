@@ -40,10 +40,11 @@ import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import com.google.gwt.canvas.dom.client.Context2d;
 

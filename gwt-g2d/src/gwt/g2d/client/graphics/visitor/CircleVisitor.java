@@ -15,12 +15,13 @@
  */
 package gwt.g2d.client.graphics.visitor;
 
+
 import com.google.gwt.canvas.dom.client.Context2d;
 
 import gwt.g2d.client.graphics.Surface;
 import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.MathHelper;
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 /**
  * Draws a circle to the current subpath.

@@ -15,6 +15,7 @@
  */
 package gwt.g2d.client.graphics;
 
+
 import com.google.gwt.canvas.dom.client.Context2d;
 
 import gwt.g2d.client.graphics.shapes.ShapeBuilder;
@@ -41,7 +42,7 @@ import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
-import gwt.g2d.client.math.Vector2;
+import gwt.g2d.shared.math.Vector2;
 
 /**
  * Interface for manipulating the Surface's path drawing directly. 

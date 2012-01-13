@@ -15,8 +15,11 @@
  */
 package gwt.g2d.client.math;
 
+import gwt.g2d.shared.math.Vector2;
+
 import java.io.Serializable;
 import java.util.Arrays;
+
 
 /**
  * Represents a rectangle.
