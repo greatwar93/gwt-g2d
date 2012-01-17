@@ -20,6 +20,8 @@ import gwt.g2d.client.math.MathHelper;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import com.google.gwt.canvas.dom.client.ImageData;
+
 
 /**
  * Stores a color. Color is immutable.
@@ -91,6 +93,7 @@ public class Color implements Serializable {
 		this.blue = blue;
 		this.alpha = DEFAULT_ALPHA;
 	}
+	
 	
 	/**
 	 * Linear interpolation between two colors.

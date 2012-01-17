@@ -28,12 +28,74 @@ import com.google.gwt.canvas.dom.client.Context2d.LineCap;
 import com.google.gwt.canvas.dom.client.Context2d.LineJoin;
 import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.Context2d.TextBaseline;
-import com.google.gwt.canvas.dom.client.ImageData;
 import com.google.gwt.canvas.dom.client.TextMetrics;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.CanvasElement;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.DoubleClickHandler;
+import com.google.gwt.event.dom.client.DragEndHandler;
+import com.google.gwt.event.dom.client.DragEnterHandler;
+import com.google.gwt.event.dom.client.DragHandler;
+import com.google.gwt.event.dom.client.DragLeaveHandler;
+import com.google.gwt.event.dom.client.DragOverHandler;
+import com.google.gwt.event.dom.client.DragStartHandler;
+import com.google.gwt.event.dom.client.DropHandler;
+import com.google.gwt.event.dom.client.FocusHandler;
+import com.google.gwt.event.dom.client.GestureChangeHandler;
+import com.google.gwt.event.dom.client.GestureEndHandler;
+import com.google.gwt.event.dom.client.GestureStartHandler;
+import com.google.gwt.event.dom.client.HasAllDragAndDropHandlers;
+import com.google.gwt.event.dom.client.HasAllFocusHandlers;
+import com.google.gwt.event.dom.client.HasAllGestureHandlers;
+import com.google.gwt.event.dom.client.HasAllKeyHandlers;
+import com.google.gwt.event.dom.client.HasAllMouseHandlers;
+import com.google.gwt.event.dom.client.HasAllTouchHandlers;
+import com.google.gwt.event.dom.client.HasBlurHandlers;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasDoubleClickHandlers;
+import com.google.gwt.event.dom.client.HasDragEndHandlers;
+import com.google.gwt.event.dom.client.HasDragEnterHandlers;
+import com.google.gwt.event.dom.client.HasDragHandlers;
+import com.google.gwt.event.dom.client.HasDragLeaveHandlers;
+import com.google.gwt.event.dom.client.HasDragOverHandlers;
+import com.google.gwt.event.dom.client.HasDragStartHandlers;
+import com.google.gwt.event.dom.client.HasDropHandlers;
+import com.google.gwt.event.dom.client.HasFocusHandlers;
+import com.google.gwt.event.dom.client.HasGestureChangeHandlers;
+import com.google.gwt.event.dom.client.HasGestureEndHandlers;
+import com.google.gwt.event.dom.client.HasGestureStartHandlers;
+import com.google.gwt.event.dom.client.HasKeyDownHandlers;
+import com.google.gwt.event.dom.client.HasKeyPressHandlers;
+import com.google.gwt.event.dom.client.HasKeyUpHandlers;
+import com.google.gwt.event.dom.client.HasMouseDownHandlers;
+import com.google.gwt.event.dom.client.HasMouseMoveHandlers;
+import com.google.gwt.event.dom.client.HasMouseOutHandlers;
+import com.google.gwt.event.dom.client.HasMouseOverHandlers;
+import com.google.gwt.event.dom.client.HasMouseUpHandlers;
+import com.google.gwt.event.dom.client.HasMouseWheelHandlers;
+import com.google.gwt.event.dom.client.HasTouchCancelHandlers;
+import com.google.gwt.event.dom.client.HasTouchEndHandlers;
+import com.google.gwt.event.dom.client.HasTouchMoveHandlers;
+import com.google.gwt.event.dom.client.HasTouchStartHandlers;
+import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.KeyPressHandler;
+import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.dom.client.MouseWheelHandler;
+import com.google.gwt.event.dom.client.TouchCancelHandler;
+import com.google.gwt.event.dom.client.TouchEndHandler;
+import com.google.gwt.event.dom.client.TouchMoveHandler;
+import com.google.gwt.event.dom.client.TouchStartHandler;
+import com.google.gwt.event.logical.shared.HasAttachHandlers;
+import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusWidget;
 import com.google.gwt.user.client.ui.Widget;
@@ -51,10 +113,13 @@ import com.google.gwt.user.client.ui.Widget;
  * 
  * @author hao1300@gmail.com
  */
-public class Surface extends Composite {
+public class Surface extends Composite implements HasAllDragAndDropHandlers, HasAllFocusHandlers, HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasBlurHandlers, HasClickHandlers, HasDoubleClickHandlers, HasDragEndHandlers, HasDragEnterHandlers, HasDragHandlers, HasDragLeaveHandlers, HasDragOverHandlers, HasDragStartHandlers, HasDropHandlers, HasFocusHandlers, HasGestureChangeHandlers, HasGestureEndHandlers, HasGestureStartHandlers, HasKeyDownHandlers, HasKeyPressHandlers, HasKeyUpHandlers, HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseOutHandlers, HasMouseOverHandlers, HasMouseUpHandlers, HasMouseWheelHandlers, HasTouchCancelHandlers, HasTouchEndHandlers, HasTouchMoveHandlers, HasTouchStartHandlers, HasAttachHandlers, HasHandlers {
 	
 	private final Canvas canvas;
 	private final Context2d context;
+	
+	// image data - only loaded if requested
+	private ImageData imageData;
 	
 	/**
 	 * Initialize a surface with a default size of 100 by 100.
@@ -94,6 +159,18 @@ public class Surface extends Composite {
 	public Vector2 getSize() {
 		return new Vector2(canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
 	}
+	
+	/**
+	 * Change the size of the surface.
+	 * @param width
+	 * @param height
+	 */
+	public void setSize(int width, int height) {
+		canvas.setWidth(width + "px");
+		canvas.setHeight(height + "px");
+		canvas.setCoordinateSpaceWidth(width);
+		canvas.setCoordinateSpaceHeight(height);
+	}
 
 	/**
 	 * Gets the width of the surface.
@@ -132,12 +209,21 @@ public class Surface extends Composite {
 	}
 
 	/**
+	 * Gets the canvas.
+	 * 
+	 * @return the underlying canvas.
+	 */
+	public Canvas getCanvas() {
+		return canvas;
+	}
+	
+	/**
 	 * Gets the canvas element.
 	 * 
 	 * @return the underlying canvas element.
 	 */
-	public Canvas getCanvas() {
-		return canvas;
+	public CanvasElement getCanvasElement() {
+		return canvas.getCanvasElement();
 	}
 	
 	/**
@@ -429,6 +515,15 @@ public class Surface extends Composite {
 		return context.createLinearGradient(start.x, start.y, stop.x, stop.y);
 	}
 	
+	
+	/**
+	 * Create a linear gradient.
+	 */
+	public CanvasGradient createLinearGradient(double x1, double y1, double x2, double y2) {
+		return context.createLinearGradient(x1, y1, x2, y2);
+	}
+	
+	
 	/**
 	 * Create a radial gradient.
 	 */
@@ -436,12 +531,20 @@ public class Surface extends Composite {
 		return context.createRadialGradient(start.x, start.y, startRadius, stop.x, stop.y, stopRadius);
 	}
 	
+	
+	/**
+	 * Create a radial gradient.
+	 */
+	public CanvasGradient createRadialGradient(double x1, double y1, double r1, double x2, double y2, double r2) {
+		return context.createRadialGradient(x1, y1, r1, x2, y2, r2);
+	}
+	
+	
 	/**
 	 * Add a color stop to a gradient - convenient helper function so Color can be used.
 	 */
-	public static CanvasGradient addColorStop(CanvasGradient gradient, double offset, Color color) {
+	public static void addColorStop(CanvasGradient gradient, double offset, Color color) {
 		gradient.addColorStop(offset, "rgba(" + color.red + "," + color.green + "," + color.blue + "," + color.alpha + ")");
-		return gradient;
 	}
 	
 	/**
@@ -954,7 +1057,7 @@ public class Surface extends Composite {
 	 * @return a new ImageData object.
 	 */
 	public ImageData createImageData(int width, int height) {
-		return context.createImageData(width, height);
+		return new ImageData(context.createImageData(width, height));
 	}
 	
 	/**
@@ -1002,26 +1105,25 @@ public class Surface extends Composite {
 	 * @return a new ImageData object.
 	 */
 	public ImageData createImageData(ImageData imageData) {
-		return context.createImageData(imageData);
+		return new ImageData(context.createImageData(imageData.getGWTImageData()));
 	}
-
+	
+	
 	/**
 	 * Returns an ImageData object representing the underlying pixel data for the 
-	 * area of the context denoted by the rectangle whose corners are the four 
-	 * points (x, y), (x + width, y), (x + width, y + height), (x, y + height), 
-	 * in context coordinate space units. Pixels outside the context must be 
-	 * returned as transparent black. Pixels must be returned as 
-	 * non-premultiplied alpha values.
+	 * area of the context denoted by the given rectangle, in context coordinate 
+	 * space units. Pixels outside the context must be returned as transparent 
+	 * black. Pixels must be returned as non-premultiplied alpha values.
 	 * 
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
+	 * @param sx the x coordinate of the upper-left corner of the desired area
+	 * @param sy the y coordinate of the upper-left corner of the desired area
+	 * @param sw the width of the desired area
+	 * @param sh the height of the desired area
 	 */
-	public ImageData getImageData(double x, double y, double width, 
-			double height) {
-		return context.getImageData(x, y, width, height);
+	public ImageData getImageData(double sx, double sy, double sw, double sh) {
+		return new ImageData(context.getImageData(sx, sy, sw, sh));
 	}
+	
 	
 	/**
 	 * Returns an ImageData object representing the underlying pixel data for the 
@@ -1035,46 +1137,6 @@ public class Surface extends Composite {
 		return getImageData(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 	}
 	
-	/**
-	 * <p>Paints the data from the given ImageData object onto the context. Only 
-	 * the pixels from the dirty rectangle are painted.</p>
-	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
-	 * shadow attributes, are ignored for the purposes of this method call; 
-	 * pixels in the context are replaced wholesale, with no composition, alpha 
-	 * blending, no shadows, etc.</p>
-	 * 
-	 * @param imageData
-	 * @param x
-	 * @param y
-	 * @param dirtyX
-	 * @param dirtyY
-	 * @param dirtyWidth
-	 * @param dirtyHeight
-	 */
-	/*public void putImageData(ImageData imageData, double x, double y, 
-			double dirtyX, double dirtyY, double dirtyWidth, double dirtyHeight) {
-		context.putImageData(imageData, x, y, dirtyX, dirtyY, 
-				dirtyWidth, dirtyHeight);
-	}*/
-	
-	/**
-	 * <p>Paints the data from the given ImageData object onto the context. Only 
-	 * the pixels from the dirty rectangle are painted.</p>
-	 * <p>The globalAlpha and globalCompositeOperation attributes, as well as the 
-	 * shadow attributes, are ignored for the purposes of this method call; 
-	 * pixels in the context are replaced wholesale, with no composition, alpha 
-	 * blending, no shadows, etc.</p>
-	 * 
-	 * @param imageData
-	 * @param position
-	 * @param dirtyRect
-	 */
-	/*public void putImageData(ImageData imageData, Vector2 position, 
-			Rectangle dirtyRect) {
-		context.putImageData(imageData, position.getX(), 
-				position.getY(), dirtyRect.getX(), dirtyRect.getY(), 
-				dirtyRect.getWidth(), dirtyRect.getHeight());
-	}*/
 	
 	/**
 	 * <p>Paints the data from the given ImageData object onto the context.</p>
@@ -1088,7 +1150,7 @@ public class Surface extends Composite {
 	 * @param y
 	 */
 	public void putImageData(ImageData imageData, double x, double y) {
-		context.putImageData(imageData, x, y);
+		context.putImageData(imageData.getGWTImageData(), x, y);
 	}
 	
 	/**
@@ -1323,5 +1385,140 @@ public class Surface extends Composite {
 	 */
 	public String toDataURL(String type) {
 		return canvas.toDataUrl(type);
+	}
+
+	@Override
+	public HandlerRegistration addTouchStartHandler(TouchStartHandler handler) {
+		return canvas.addTouchStartHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchMoveHandler(TouchMoveHandler handler) {
+		return canvas.addTouchMoveHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchEndHandler(TouchEndHandler handler) {
+		return canvas.addTouchEndHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addTouchCancelHandler(TouchCancelHandler handler) {
+		return canvas.addTouchCancelHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseWheelHandler(MouseWheelHandler handler) {
+		return canvas.addMouseWheelHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseUpHandler(MouseUpHandler handler) {
+		return canvas.addMouseUpHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseOverHandler(MouseOverHandler handler) {
+		return canvas.addMouseOverHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseOutHandler(MouseOutHandler handler) {
+		return canvas.addMouseOutHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseMoveHandler(MouseMoveHandler handler) {
+		return canvas.addMouseMoveHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addMouseDownHandler(MouseDownHandler handler) {
+		return canvas.addMouseDownHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addKeyUpHandler(KeyUpHandler handler) {
+		return canvas.addKeyUpHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
+		return canvas.addKeyPressHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addKeyDownHandler(KeyDownHandler handler) {
+		return canvas.addKeyDownHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addGestureStartHandler(GestureStartHandler handler) {
+		return canvas.addGestureStartHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addGestureEndHandler(GestureEndHandler handler) {
+		return canvas.addGestureEndHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addGestureChangeHandler(	GestureChangeHandler handler) {
+		return canvas.addGestureChangeHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addFocusHandler(FocusHandler handler) {
+		return canvas.addFocusHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDropHandler(DropHandler handler) {
+		return canvas.addDropHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragStartHandler(DragStartHandler handler) {
+		return canvas.addDragStartHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragOverHandler(DragOverHandler handler) {
+		return canvas.addDragOverHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragLeaveHandler(DragLeaveHandler handler) {
+		return canvas.addDragLeaveHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragHandler(DragHandler handler) {
+		return canvas.addDragHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragEnterHandler(DragEnterHandler handler) {
+		return canvas.addDragEnterHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDragEndHandler(DragEndHandler handler) {
+		return canvas.addDragEndHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addDoubleClickHandler(DoubleClickHandler handler) {
+		return canvas.addDoubleClickHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		return canvas.addClickHandler(handler);
+	}
+
+	@Override
+	public HandlerRegistration addBlurHandler(BlurHandler handler) {
+		return canvas.addBlurHandler(handler);
 	}
 }
