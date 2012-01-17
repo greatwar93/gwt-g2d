@@ -15,7 +15,12 @@
  */
 package gwt.g2d.client.graphics;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
+
 import gwt.g2d.client.graphics.shapes.Shape;
+import gwt.g2d.client.graphics.shapes.ShapeRegistration;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.shared.math.Vector2;
@@ -29,11 +34,10 @@ import com.google.gwt.canvas.dom.client.Context2d.LineJoin;
 import com.google.gwt.canvas.dom.client.Context2d.TextAlign;
 import com.google.gwt.canvas.dom.client.Context2d.TextBaseline;
 import com.google.gwt.canvas.dom.client.TextMetrics;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.CanvasElement;
-import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.BlurHandler;
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.DoubleClickHandler;
 import com.google.gwt.event.dom.client.DragEndHandler;
@@ -97,8 +101,6 @@ import com.google.gwt.event.logical.shared.HasAttachHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.event.shared.HasHandlers;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FocusWidget;
-import com.google.gwt.user.client.ui.Widget;
 
 /**
  * The surface that an application uses to render to the screen.
@@ -115,11 +117,16 @@ import com.google.gwt.user.client.ui.Widget;
  */
 public class Surface extends Composite implements HasAllDragAndDropHandlers, HasAllFocusHandlers, HasAllGestureHandlers, HasAllKeyHandlers, HasAllMouseHandlers, HasAllTouchHandlers, HasBlurHandlers, HasClickHandlers, HasDoubleClickHandlers, HasDragEndHandlers, HasDragEnterHandlers, HasDragHandlers, HasDragLeaveHandlers, HasDragOverHandlers, HasDragStartHandlers, HasDropHandlers, HasFocusHandlers, HasGestureChangeHandlers, HasGestureEndHandlers, HasGestureStartHandlers, HasKeyDownHandlers, HasKeyPressHandlers, HasKeyUpHandlers, HasMouseDownHandlers, HasMouseMoveHandlers, HasMouseOutHandlers, HasMouseOverHandlers, HasMouseUpHandlers, HasMouseWheelHandlers, HasTouchCancelHandlers, HasTouchEndHandlers, HasTouchMoveHandlers, HasTouchStartHandlers, HasAttachHandlers, HasHandlers {
 	
-	private final Canvas canvas;
-	private final Context2d context;
+	// canvas information
+	private Canvas canvas;
+	private Context2d context;
 	
-	// image data - only loaded if requested
-	private ImageData imageData;
+	// registered shapes for the previous draw 
+	Vector<Shape> fRegisteredShapes = new Vector<Shape>();
+	
+	// free shape indices
+	LinkedList<Integer> fAvailableShapeIndices = new LinkedList<Integer>();
+	
 	
 	/**
 	 * Initialize a surface with a default size of 100 by 100.
@@ -135,6 +142,8 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param height height of the surface.
 	 */
 	public Surface(int width, int height) {
+		
+		// create the canvas
 		canvas = Canvas.createIfSupported();
 		canvas.setWidth(width + "px");
 		canvas.setHeight(height + "px");
@@ -142,6 +151,16 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 		canvas.setCoordinateSpaceHeight(height);
 		context = canvas.getContext2d();
 		initWidget(canvas);
+		
+		// register an onClick event that is forwarded to registered shapes
+		addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				processClick(event.getX(), event.getY());
+			}
+			
+		});
 	}
 	
 	/**
@@ -810,6 +829,56 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 		return this;
 	}
 	
+	
+	/**
+	 * Register a shape for event handling.
+	 */
+	public ShapeRegistration registerShape(Shape shape) {
+		
+		// index of the shape - for O(1) removal later
+		final int idx;
+		
+		// are there available indices?
+		if (fAvailableShapeIndices.size() > 0) {
+			idx = fAvailableShapeIndices.get(0);
+			fAvailableShapeIndices.removeFirst();
+			fRegisteredShapes.set(idx,  shape);
+		}
+		else {
+			fRegisteredShapes.add(shape);
+			idx = fRegisteredShapes.size()-1;
+		}
+		
+		// return the shape registration
+		return new ShapeRegistration() {
+
+			@Override
+			public void removeShape() {
+				fRegisteredShapes.set(idx,  null);
+				fAvailableShapeIndices.add(idx);
+			}
+		};
+	}
+	
+	
+	/**
+	 * Process a click event, and forward it to all shapes that are hit.
+	 */
+	private void processClick(double x, double y) {
+		for (Shape shape : fRegisteredShapes) {
+			if (shape != null) shape.checkHit(this,  x, y);
+		}
+	}
+	
+	
+	
+	/**
+	 * Is this point in the path that was just drawn?
+	 */
+	public boolean isPointInPath(double x, double y) {
+		return context.isPointInPath(x,  y);
+	}
+	
 	/**
 	 * Fills the background with the given color.
 	 */
@@ -1056,9 +1125,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param height
 	 * @return a new ImageData object.
 	 */
-	public ImageData createImageData(int width, int height) {
+	/*public ImageData createImageData(int width, int height) {
 		return new ImageData(context.createImageData(width, height));
-	}
+	}*/
 	
 	/**
 	 * Creates a CanvasPattern object that uses the given image and repeats in 
@@ -1093,9 +1162,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param dimension
 	 * @return a new ImageData object.
 	 */
-	public ImageData createImageData(Vector2 dimension) {
+	/*public ImageData createImageData(Vector2 dimension) {
 		return createImageData(dimension.getIntX(), dimension.getIntY());
-	}
+	}*/
 	
 	/**
 	 * Instantiate new blank ImageData objects whose dimension is equal to
@@ -1104,9 +1173,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param imageData
 	 * @return a new ImageData object.
 	 */
-	public ImageData createImageData(ImageData imageData) {
+	/*public ImageData createImageData(ImageData imageData) {
 		return new ImageData(context.createImageData(imageData.getGWTImageData()));
-	}
+	}*/
 	
 	
 	/**
@@ -1120,9 +1189,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param sw the width of the desired area
 	 * @param sh the height of the desired area
 	 */
-	public ImageData getImageData(double sx, double sy, double sw, double sh) {
+	/*public ImageData getImageData(double sx, double sy, double sw, double sh) {
 		return new ImageData(context.getImageData(sx, sy, sw, sh));
-	}
+	}*/
 	
 	
 	/**
@@ -1133,9 +1202,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * 
 	 * @param rect
 	 */
-	public ImageData getImageData(Rectangle rect) {
+	/*public ImageData getImageData(Rectangle rect) {
 		return getImageData(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-	}
+	}*/
 	
 	
 	/**
@@ -1149,9 +1218,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param x
 	 * @param y
 	 */
-	public void putImageData(ImageData imageData, double x, double y) {
+	/*public void putImageData(ImageData imageData, double x, double y) {
 		context.putImageData(imageData.getGWTImageData(), x, y);
-	}
+	}*/
 	
 	/**
 	 * <p>Paints the data from the given ImageData object onto the context.</p>
@@ -1163,9 +1232,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param imageData
 	 * @param position
 	 */
-	public void putImageData(ImageData imageData, Vector2 position) {
+	/*public void putImageData(ImageData imageData, Vector2 position) {
 		putImageData(imageData, position.getX(), position.getY());
-	}
+	}*/
 	
 	/**
 	 * Sets the font settings. The syntax is the same as for the CSS 'font' 

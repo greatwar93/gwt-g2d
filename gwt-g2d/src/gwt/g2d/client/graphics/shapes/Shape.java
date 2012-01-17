@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics.shapes;
 
+import com.google.gwt.event.shared.HandlerRegistration;
+
 import gwt.g2d.client.graphics.Surface;
 
 /**
@@ -24,6 +26,16 @@ import gwt.g2d.client.graphics.Surface;
  * @author hao1300@gmail.com
  */
 public abstract class Shape {
+	
+	/**
+	 * Click handler for the Shape class.
+	 * @author Karel
+	 *
+	 */
+	public interface ClickHandler {
+		public void onClick(double x, double y);
+	}
+	
 
 	/**
 	 * Draws the shape onto the given surface.
@@ -31,4 +43,42 @@ public abstract class Shape {
 	 * @param surface the surface to draw the shape to.
 	 */
 	public abstract void draw(Surface surface);
+	
+	
+	/**
+	 * Does this shape's path contain the following point?
+	 */
+	public void checkHit(Surface surface, double x, double y) {
+		
+		// draw the shape invisibly, to check for a hit on the path
+		double gAlpha = surface.getGlobalAlpha();
+		surface.setGlobalAlpha(0.0);
+		draw(surface);
+		surface.setGlobalAlpha(gAlpha);
+		
+		// we got a hit!
+		if (surface.isPointInPath(x, y)) {
+			fClickHandler.onClick(x,  y);
+		}
+	}
+	
+	
+	/**
+	 * Click handler
+	 */
+	ClickHandler fClickHandler = null;
+	
+	
+	/**
+	 * Register a click handler.
+	 */
+	public HandlerRegistration addClickHandler(ClickHandler handler) {
+		fClickHandler = handler;
+		return new HandlerRegistration() {
+			@Override
+			public void removeHandler() {
+				fClickHandler = null;
+			}
+		};
+	}
 }

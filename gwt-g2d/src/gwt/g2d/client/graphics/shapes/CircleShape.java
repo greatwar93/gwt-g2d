@@ -14,27 +14,39 @@ import gwt.g2d.shared.math.Vector2;
  * @author hao1300@gmail.com
  */
 public class CircleShape extends Shape {
-	private double centerX, centerY, radius;
+	
+	// center
+	private Vector2 fCenter;
+	
+	// radius
+	private double fRadius;
 	
 	public CircleShape(double centerX, double centerY, double radius) {
-		this.centerX = centerX;
-		this.centerY = centerY;
-		this.radius = radius;
+		this(new Vector2(centerX, centerY), radius);
 	}
 	
 	public CircleShape(Vector2 center, double radius) {
-		this(center.getX(), center.getY(), radius);
+		fCenter = center;
+		fRadius = radius;
 	}
 	
 	public CircleShape(Circle circle) {
 		this(circle.getCenter(), circle.getRadius());
+	}
+	
+	public Vector2 getCenter() {
+		return fCenter;
+	}
+	
+	public void setCenter(Vector2 center) {
+		fCenter = center;
 	}
 
 	@Override
 	public void draw(Surface surface) {
 		Context2d context = surface.getContext();
 		context.beginPath();
-		context.arc(centerX, centerY, radius, 0, MathHelper.TWO_PI, true);
+		context.arc(fCenter.x, fCenter.y, fRadius, 0, MathHelper.TWO_PI, true);
 		context.closePath();
 	}
 }
