@@ -108,6 +108,26 @@ public class Color implements Serializable {
 				MathHelper.lerp(value1.getAlpha(), value2.getAlpha(), amount));
 	}
 	
+	
+	/**
+	 * Linear interpolation between two colors with alpha premultiplication for better
+	 * graphical effects.
+	 * 
+	 * @param value1
+	 * @param value2
+	 * @param amount the amount to interpolate [0.0, 1.0].
+	 * @return a new interpolated color.
+	 */
+	public static final Color lerpPremultiplied(Color c1, Color c2, double amount) {
+		double alpha = MathHelper.lerp(c1.getAlpha(), c2.getAlpha(), amount);
+		return new Color(
+				(int) (MathHelper.lerp(c1.red * c1.alpha, c2.red * c2.alpha, amount)/alpha),
+				(int) (MathHelper.lerp(c1.green * c1.alpha, c2.green * c2.alpha, amount)/alpha),
+				(int) (MathHelper.lerp(c1.blue * c1.alpha, c2.blue * c2.alpha, amount)/alpha),
+				alpha);
+	}
+	
+	
 	/**
 	 * Smooth interpolation between two colors.
 	 * 
