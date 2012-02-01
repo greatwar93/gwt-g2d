@@ -23,6 +23,11 @@ import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.graphics.shapes.ShapeRegistration;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
+import gwt.g2d.client.mouse.MouseSurface;
+import gwt.g2d.client.mouse.SurfaceClickHandler;
+import gwt.g2d.client.mouse.SurfaceMouseMoveHandler;
+import gwt.g2d.client.mouse.SurfaceMouseOutHandler;
+import gwt.g2d.client.mouse.SurfaceMouseOverHandler;
 import gwt.g2d.shared.math.Vector2;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -88,8 +93,11 @@ import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
+import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
@@ -122,10 +130,13 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	private Context2d context;
 	
 	// registered shapes for the previous draw 
-	Vector<Shape> fRegisteredShapes = new Vector<Shape>();
+	/*Vector<Shape> fRegisteredShapes = new Vector<Shape>();
 	
 	// free shape indices
 	LinkedList<Integer> fAvailableShapeIndices = new LinkedList<Integer>();
+	*/
+	// mouse surface
+	public MouseSurface fMouseSurface = null;
 	
 	
 	/**
@@ -153,14 +164,14 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 		initWidget(canvas);
 		
 		// register an onClick event that is forwarded to registered shapes
-		addClickHandler(new ClickHandler() {
+		/*addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
 				processClick(event.getX(), event.getY());
 			}
 			
-		});
+		});*/
 	}
 	
 	/**
@@ -459,7 +470,7 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @return self to support chaining.
 	 */
 	public Surface setGlobalCompositeOperation(Context2d.Composite compositeOperation) {
-		context.setGlobalCompositeOperation(compositeOperation.toString());
+		context.setGlobalCompositeOperation(compositeOperation);
 		return this;
 	}
 	
@@ -831,9 +842,123 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	
 	
 	/**
+	 * Enable click registering on arbitrary shapes.
+	 */
+	public void enableMouseRegistration() {
+		
+		// create the mouse surface
+		fMouseSurface = new MouseSurface(this);
+		
+		// register click & mouse handlers
+		addClickHandler(new ClickHandler() {
+
+			@Override
+			public void onClick(ClickEvent event) {
+				fMouseSurface.onClick(event.getX(), event.getY());
+			}
+		});
+		addMouseOverHandler(new MouseOverHandler() {
+
+			@Override
+			public void onMouseOver(MouseOverEvent event) {
+				fMouseSurface.onMouseOver(event.getX(), event.getY());
+			}
+		});
+		addMouseOutHandler(new MouseOutHandler() {
+
+			@Override
+			public void onMouseOut(MouseOutEvent event) {
+				fMouseSurface.onMouseOut(event.getX(), event.getY());
+			}
+		});
+		addMouseMoveHandler(new MouseMoveHandler() {
+
+			@Override
+			public void onMouseMove(MouseMoveEvent event) {
+				fMouseSurface.onMouseMove(event.getX(), event.getY());
+			}
+		});
+	}
+	
+	
+	/**
+	 * When this function is called, all subsequent draws (rectangles, shapes, images, ...) will
+	 * be registered to the same object, until stopMouseRegistration is called. Any handlers added
+	 * between startMouseRegistration and stopMouseRegistration will be associated with these draws.
+	 */
+	public void startMouseRegistration(Long id) {
+		fMouseSurface.startRegister(id);
+	}
+	
+	
+	/**
+	 * Stop registering draws for mouse detection. Subsequent calls to draws will have no further effect.
+	 * @param draw Copy all drawn data to the surface or don't copy it.
+	 */
+	public void stopMouseRegistration(boolean draw) {
+		if (fMouseSurface == null) return;
+		fMouseSurface.stopRegister(draw);
+	}
+	
+	
+	/**
+	 * Stop registering draws for mouse detection. Subsequent calls to draws will have no further effect.
+	 * Copies everything that was drawn between start and stop to the surface.
+	 */
+	public void stopMouseRegistration() {
+		stopMouseRegistration(true);
+	}
+	
+	
+	/**
+	 * Add click handler to the currently open mouse registration.
+	 */
+	public void addMouseClickHandler(SurfaceClickHandler handler) {
+		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		fMouseSurface.addClickHandler(handler);
+	}
+	
+	
+	/**
+	 * Add click handler to the currently open mouse registration.
+	 */
+	public void addMouseOverHandler(SurfaceMouseOverHandler handler) {
+		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		fMouseSurface.addMouseOverHandler(handler);
+	}
+	
+	
+	/**
+	 * Add click handler to the currently open mouse registration.
+	 */
+	public void addMouseOutHandler(SurfaceMouseOutHandler handler) {
+		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		fMouseSurface.addMouseOutHandler(handler);
+	}
+	
+	
+	/**
+	 * Add click handler to the currently open mouse registration.
+	 */
+	public void addMouseMoveHandler(SurfaceMouseMoveHandler handler) {
+		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		fMouseSurface.addMouseMoveHandler(handler);
+	}
+	
+	
+	/**
+	 * Switch the context temporarily with a different one, so that this context can
+	 * be used to capture draws for mouse registration.
+	 */
+	public void replaceContext(Context2d ctx) {
+		this.context = ctx;
+	}
+	
+	
+	/**
 	 * Register a shape for event handling.
 	 */
-	public ShapeRegistration registerShape(Shape shape) {
+	/*public ShapeRegistration registerShape(Shape shape) {
 		
 		// index of the shape - for O(1) removal later
 		final int idx;
@@ -858,17 +983,17 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 				fAvailableShapeIndices.add(idx);
 			}
 		};
-	}
+	}*/
 	
 	
 	/**
 	 * Process a click event, and forward it to all shapes that are hit.
 	 */
-	private void processClick(double x, double y) {
+	/*private void processClick(double x, double y) {
 		for (Shape shape : fRegisteredShapes) {
 			if (shape != null) shape.checkHit(this,  x, y);
 		}
-	}
+	}*/
 	
 	
 	
@@ -1125,9 +1250,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param height
 	 * @return a new ImageData object.
 	 */
-	/*public ImageData createImageData(int width, int height) {
+	public ImageData createImageData(int width, int height) {
 		return new ImageData(context.createImageData(width, height));
-	}*/
+	}
 	
 	/**
 	 * Creates a CanvasPattern object that uses the given image and repeats in 
@@ -1162,9 +1287,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param dimension
 	 * @return a new ImageData object.
 	 */
-	/*public ImageData createImageData(Vector2 dimension) {
+	public ImageData createImageData(Vector2 dimension) {
 		return createImageData(dimension.getIntX(), dimension.getIntY());
-	}*/
+	}
 	
 	/**
 	 * Instantiate new blank ImageData objects whose dimension is equal to
@@ -1173,9 +1298,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param imageData
 	 * @return a new ImageData object.
 	 */
-	/*public ImageData createImageData(ImageData imageData) {
+	public ImageData createImageData(ImageData imageData) {
 		return new ImageData(context.createImageData(imageData.getGWTImageData()));
-	}*/
+	}
 	
 	
 	/**
@@ -1189,9 +1314,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * @param sw the width of the desired area
 	 * @param sh the height of the desired area
 	 */
-	/*public ImageData getImageData(double sx, double sy, double sw, double sh) {
+	public ImageData getImageData(double sx, double sy, double sw, double sh) {
 		return new ImageData(context.getImageData(sx, sy, sw, sh));
-	}*/
+	}
 	
 	
 	/**
@@ -1202,9 +1327,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * 
 	 * @param rect
 	 */
-	/*public ImageData getImageData(Rectangle rect) {
+	public ImageData getImageData(Rectangle rect) {
 		return getImageData(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-	}*/
+	}
 	
 	
 	/**

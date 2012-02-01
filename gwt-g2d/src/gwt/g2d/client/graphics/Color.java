@@ -207,7 +207,7 @@ public class Color implements Serializable {
 	
 	@Override
 	public final int hashCode() {
-		return Arrays.hashCode(new double[]{getHexValue(getR(), getG(), getB()), getAlpha()});
+		return Arrays.hashCode(new double[]{getHexValue(red, green, blue), alpha});
 	}
 	
 	/**
