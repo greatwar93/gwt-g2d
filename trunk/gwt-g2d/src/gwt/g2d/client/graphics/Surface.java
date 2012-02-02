@@ -15,12 +15,7 @@
  */
 package gwt.g2d.client.graphics;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Vector;
-
 import gwt.g2d.client.graphics.shapes.Shape;
-import gwt.g2d.client.graphics.shapes.ShapeRegistration;
 import gwt.g2d.client.math.Matrix;
 import gwt.g2d.client.math.Rectangle;
 import gwt.g2d.client.mouse.MouseSurface;
