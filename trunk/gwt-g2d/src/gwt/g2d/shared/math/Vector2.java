@@ -23,6 +23,9 @@ import gwt.g2d.client.math.Rectangle;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
+
 /**
  * Represents a 2D point or vector.
  * 
@@ -716,6 +719,19 @@ public class Vector2 implements Serializable {
 	public final String toString() {
 		return "[" + this.x + ", " + this.y + "]";
 	}
+	
+	
+	// regular expression for parsing a vector
+	private static RegExp Pattern = RegExp.compile("\\[\\s*([0-9]*[\\.]?[0-9]+)\\s*,\\s*([0-9]*[\\.]?[0-9]+)\\s*\\]");
+	
+	
+	// parse from String
+	public static Vector2 parseVector2(String s) {
+		MatchResult res = Pattern.exec(s);
+		if (res == null) return null;
+		return new Vector2(Double.parseDouble(res.getGroup(1)), Double.parseDouble(res.getGroup(2)));
+	}
+	
 	
 	
 	// clone a vector
