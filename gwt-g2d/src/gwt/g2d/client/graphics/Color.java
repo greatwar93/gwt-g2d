@@ -16,11 +16,14 @@
 package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.math.MathHelper;
+import gwt.g2d.shared.math.Vector2;
 
 import java.io.Serializable;
 import java.util.Arrays;
 
 import com.google.gwt.canvas.dom.client.ImageData;
+import com.google.gwt.regexp.shared.MatchResult;
+import com.google.gwt.regexp.shared.RegExp;
 
 
 /**
@@ -190,9 +193,41 @@ public class Color implements Serializable {
 		return alpha;
 	}
 	
+	/**
+	 * Return the color code (identical to getColorCode).
+	 */
 	@Override
 	public final String toString() {
 		return getColorCode();
+	}
+	
+	
+	// regular expressions for parsing a color
+	private static RegExp PatternRGBA = RegExp.compile("rgba\\(\\s*([0-9]+)\\s*,\\s*([0-9]+)\\s*,\\s*([0-9]+)\\s*,\\s*([0-9]*\\.?[0-9]+)\\s*\\)"); // rgba
+	private static RegExp PatternRGB = RegExp.compile("rgb\\(\\s*([0-9]+)\\s*,\\s*([0-9]+)\\s*,\\s*([0-9]+)\\s*\\)"); // rgb
+	private static RegExp PatternHex = RegExp.compile("\\#([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])([0-9a-fA-F][0-9a-fA-F])"); // html color code #XXXXXX	
+	
+	
+	
+	/**
+	 * Parse a color from a color code.
+	 */
+	public static final Color parseColor(String s) {
+		
+		// rgba pattern
+		MatchResult res = PatternRGBA.exec(s);
+		if (res != null && res.getGroupCount() == 5) return new Color(Integer.parseInt(res.getGroup(1)), Integer.parseInt(res.getGroup(2)), Integer.parseInt(res.getGroup(3)), Double.parseDouble(res.getGroup(4)));
+		
+		// rgb pattern
+		res = PatternRGB.exec(s);
+		if (res != null && res.getGroupCount() == 4) return new Color(Integer.parseInt(res.getGroup(1)), Integer.parseInt(res.getGroup(2)), Integer.parseInt(res.getGroup(3)));
+		
+		// hex pattern
+		res = PatternHex.exec(s);
+		if (res != null && res.getGroupCount() == 4) return new Color(Integer.parseInt(res.getGroup(1), 16), Integer.parseInt(res.getGroup(2), 16), Integer.parseInt(res.getGroup(3), 16));
+		
+		// no match
+		return null;
 	}
 	
 	@Override

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package gwt.g2d.client.math;
+package gwt.g2d.shared.math;
 
 import gwt.g2d.shared.math.Vector2;
 
@@ -186,7 +186,7 @@ public class Rectangle implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "[" + getX() + ", " + getY() + ", " + getWidth() + ", " + getHeight() + "]";
+		return "[[" + getX() + ", " + getY() + "], [" + getWidth() + ", " + getHeight() + "]]";
 	}
 	
 	/**

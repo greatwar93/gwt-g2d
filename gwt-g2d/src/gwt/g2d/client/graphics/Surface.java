@@ -17,7 +17,7 @@ package gwt.g2d.client.graphics;
 
 import gwt.g2d.client.graphics.shapes.Shape;
 import gwt.g2d.client.math.Matrix;
-import gwt.g2d.client.math.Rectangle;
+import gwt.g2d.shared.math.Rectangle;
 import gwt.g2d.client.mouse.MouseSurface;
 import gwt.g2d.client.mouse.SurfaceClickHandler;
 import gwt.g2d.client.mouse.SurfaceMouseMoveHandler;

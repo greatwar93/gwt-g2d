@@ -19,7 +19,7 @@ package gwt.g2d.client.graphics.visitor;
 import com.google.gwt.canvas.dom.client.Context2d;
 
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.math.Rectangle;
+import gwt.g2d.shared.math.Rectangle;
 import gwt.g2d.shared.math.Vector2;
 
 /**
