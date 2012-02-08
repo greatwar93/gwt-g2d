@@ -41,7 +41,7 @@ import gwt.g2d.client.math.Circle;
 import gwt.g2d.client.math.Ellipse;
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.client.math.Matrix;
-import gwt.g2d.client.math.Rectangle;
+import gwt.g2d.shared.math.Rectangle;
 import gwt.g2d.shared.math.Vector2;
 
 /**

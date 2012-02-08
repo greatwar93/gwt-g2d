@@ -18,7 +18,6 @@ package gwt.g2d.shared.math;
 import static gwt.g2d.client.math.MathHelper.square;
 
 import gwt.g2d.client.math.MathHelper;
-import gwt.g2d.client.math.Rectangle;
 
 import java.io.Serializable;
 import java.util.Arrays;

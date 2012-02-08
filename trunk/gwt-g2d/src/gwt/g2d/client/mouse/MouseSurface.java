@@ -11,7 +11,7 @@ import com.google.gwt.canvas.dom.client.Context2d.Composite;
 import gwt.g2d.client.graphics.Color;
 import gwt.g2d.client.graphics.ImageData;
 import gwt.g2d.client.graphics.Surface;
-import gwt.g2d.client.math.Rectangle;
+import gwt.g2d.shared.math.Rectangle;
 import gwt.g2d.shared.math.Vector2;
 
 /**
