@@ -24,7 +24,6 @@ import gwt.g2d.client.mouse.SurfaceMouseDragHandler;
 import gwt.g2d.client.mouse.SurfaceMouseMoveHandler;
 import gwt.g2d.client.mouse.SurfaceMouseOutHandler;
 import gwt.g2d.client.mouse.SurfaceMouseOverHandler;
-import gwt.g2d.client.mouse.SurfaceMouseUpHandler;
 import gwt.g2d.shared.math.Vector2;
 
 import com.google.gwt.canvas.client.Canvas;

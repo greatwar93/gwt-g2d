@@ -207,7 +207,7 @@ public class MouseSurface {
 	public void onClick(int x, int y) {
 		
 		// get all different canvases and check for a collision
-		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		ListIterator<Long> it = fIds.listIterator(fIds.size());
 		while (it.hasPrevious()) {
 			Long id = it.previous();
 			Surface surface = fIdToSurface.get(id);
@@ -218,7 +218,7 @@ public class MouseSurface {
 			
 			// hit is not transparent - we got a hit!
 			if (col.alpha > Double.MIN_VALUE) {
-			System.out.println("YEEEEES");
+				
 				// look up color
 				Handlers handlers = fIdToHandlers.get(id);
 				if (handlers != null && handlers.clickHandler != null) handlers.clickHandler.onClick(new Vector2(x, y), id);
@@ -256,7 +256,7 @@ public class MouseSurface {
 		if (!fHasMoveHandlers) return;
 		
 		// get all different canvases and check for a collision
-		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		ListIterator<Long> it = fIds.listIterator(fIds.size());
 		while (it.hasPrevious()) {
 			Long id = it.previous();
 			Surface surface = fIdToSurface.get(id);
@@ -299,7 +299,7 @@ public class MouseSurface {
 		if (!fHasMoveHandlers) return;
 		
 		// get all different canvases and check for a collision
-		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		ListIterator<Long> it = fIds.listIterator(fIds.size());
 		while (it.hasPrevious()) {
 			Long id = it.previous();
 			Surface surface = fIdToSurface.get(id);
