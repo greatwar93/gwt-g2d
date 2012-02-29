@@ -181,7 +181,7 @@ public class MouseSurface {
 			
 				// look up color
 				Handlers handlers = fIdToHandlers.get(entry.getKey());
-				if (handlers != null && handlers.clickHandler != null) handlers.clickHandler.onClick(new Vector2(x, y));
+				if (handlers != null && handlers.clickHandler != null) handlers.clickHandler.onClick(new Vector2(x, y), entry.getKey());
 			}
 		}
 	}
@@ -205,7 +205,7 @@ public class MouseSurface {
 				
 				// we entered on an object, signal it
 				Handlers handlers = fIdToHandlers.get(id);
-				if (handlers != null && handlers.mouseOverHandler != null) handlers.mouseOverHandler.onMouseOver(new Vector2(x, y));
+				if (handlers != null && handlers.mouseOverHandler != null) handlers.mouseOverHandler.onMouseOver(new Vector2(x, y), entry.getKey());
 				fLastId = id;
 				return;
 			}
@@ -253,13 +253,13 @@ public class MouseSurface {
 				if (fLastId == null) {
 					fLastId = id;
 					Handlers handlers = fIdToHandlers.get(fLastId);
-					if (handlers != null && handlers.mouseOverHandler != null) handlers.mouseOverHandler.onMouseOver(new Vector2(x, y));
+					if (handlers != null && handlers.mouseOverHandler != null) handlers.mouseOverHandler.onMouseOver(new Vector2(x, y), fLastId);
 				}
 				
 				// we were already on this object, but we moved the mouse
 				else {
 					Handlers handlers = fIdToHandlers.get(fLastId);
-					if (handlers != null && handlers.mouseMoveHandler != null) handlers.mouseMoveHandler.onMouseMove(new Vector2(x, y));
+					if (handlers != null && handlers.mouseMoveHandler != null) handlers.mouseMoveHandler.onMouseMove(new Vector2(x, y), fLastId);
 				}
 				
 				// only process one hit
