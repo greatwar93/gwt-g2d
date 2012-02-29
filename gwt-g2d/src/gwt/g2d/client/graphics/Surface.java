@@ -20,7 +20,7 @@ import gwt.g2d.client.math.Matrix;
 import gwt.g2d.shared.math.Rectangle;
 import gwt.g2d.client.mouse.MouseSurface;
 import gwt.g2d.client.mouse.SurfaceClickHandler;
-import gwt.g2d.client.mouse.SurfaceMouseDownHandler;
+import gwt.g2d.client.mouse.SurfaceMouseDragHandler;
 import gwt.g2d.client.mouse.SurfaceMouseMoveHandler;
 import gwt.g2d.client.mouse.SurfaceMouseOutHandler;
 import gwt.g2d.client.mouse.SurfaceMouseOverHandler;
@@ -845,6 +845,9 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 */
 	public void enableMouseRegistration() {
 		
+		// already done - only do it once
+		if (fMouseSurface != null) return;
+		
 		// create the mouse surface
 		fMouseSurface = new MouseSurface(this);
 		
@@ -935,20 +938,12 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	
 	
 	/**
-	 * Add mouse up handler to the currently open mouse registration.
+	 * Add mouse drag handler to the surface. Applies to every mouse registration, as it allows
+	 * dragging from and to different registrations.
 	 */
-	public void addMouseUpHandler(SurfaceMouseUpHandler handler) {
+	public void addMouseDragHandler(SurfaceMouseDragHandler handler) {
 		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
-		fMouseSurface.addMouseUpHandler(handler);
-	}
-	
-	
-	/**
-	 * Add mouse down handler to the currently open mouse registration.
-	 */
-	public void addMouseDownHandler(SurfaceMouseDownHandler handler) {
-		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
-		fMouseSurface.addMouseDownHandler(handler);
+		fMouseSurface.addMouseDragHandler(handler);
 	}
 	
 	
