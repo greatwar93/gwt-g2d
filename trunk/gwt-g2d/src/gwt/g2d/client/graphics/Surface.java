@@ -20,9 +20,11 @@ import gwt.g2d.client.math.Matrix;
 import gwt.g2d.shared.math.Rectangle;
 import gwt.g2d.client.mouse.MouseSurface;
 import gwt.g2d.client.mouse.SurfaceClickHandler;
+import gwt.g2d.client.mouse.SurfaceMouseDownHandler;
 import gwt.g2d.client.mouse.SurfaceMouseMoveHandler;
 import gwt.g2d.client.mouse.SurfaceMouseOutHandler;
 import gwt.g2d.client.mouse.SurfaceMouseOverHandler;
+import gwt.g2d.client.mouse.SurfaceMouseUpHandler;
 import gwt.g2d.shared.math.Vector2;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -87,6 +89,7 @@ import com.google.gwt.event.dom.client.HasTouchStartHandlers;
 import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.dom.client.KeyPressHandler;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
 import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
@@ -94,6 +97,7 @@ import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
 import com.google.gwt.event.dom.client.MouseOverHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.event.dom.client.MouseWheelHandler;
 import com.google.gwt.event.dom.client.TouchCancelHandler;
@@ -852,6 +856,22 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 				fMouseSurface.onClick(event.getX(), event.getY());
 			}
 		});
+		addMouseDownHandler(new MouseDownHandler() {
+
+			@Override
+			public void onMouseDown(MouseDownEvent event) {
+				fMouseSurface.onMouseDown(event.getX(), event.getY());
+			}
+			
+		});
+		addMouseUpHandler(new MouseUpHandler() {
+
+			@Override
+			public void onMouseUp(MouseUpEvent event) {
+				fMouseSurface.onMouseUp(event.getX(), event.getY());
+			}
+			
+		});
 		addMouseOverHandler(new MouseOverHandler() {
 
 			@Override
@@ -911,6 +931,24 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	public void addMouseClickHandler(SurfaceClickHandler handler) {
 		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
 		fMouseSurface.addClickHandler(handler);
+	}
+	
+	
+	/**
+	 * Add mouse up handler to the currently open mouse registration.
+	 */
+	public void addMouseUpHandler(SurfaceMouseUpHandler handler) {
+		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		fMouseSurface.addMouseUpHandler(handler);
+	}
+	
+	
+	/**
+	 * Add mouse down handler to the currently open mouse registration.
+	 */
+	public void addMouseDownHandler(SurfaceMouseDownHandler handler) {
+		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		fMouseSurface.addMouseDownHandler(handler);
 	}
 	
 	
