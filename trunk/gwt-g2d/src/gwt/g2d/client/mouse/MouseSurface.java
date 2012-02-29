@@ -1,6 +1,9 @@
 package gwt.g2d.client.mouse;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -29,6 +32,8 @@ public class MouseSurface {
 		public SurfaceMouseOutHandler mouseOutHandler;
 		public SurfaceMouseOverHandler mouseOverHandler;
 		public SurfaceMouseMoveHandler mouseMoveHandler;
+		public SurfaceMouseDownHandler mouseDownHandler;
+		public SurfaceMouseUpHandler mouseUpHandler;
 	};
 	
 	// the surface we are tied to
@@ -49,11 +54,17 @@ public class MouseSurface {
 	// map of id to surface (used for checking against this specific collision)
 	Map<Long, Surface> fIdToSurface = new HashMap<Long, Surface>();
 	
+	// list of id's in the order in which they were drawn - used to make sure that only the topmost object is actually triggered
+	List<Long> fIds = new LinkedList<Long>();
+	
 	// last color
 	Color fCurrentColor = new Color(200, 200, 0);
 	
 	// last id that was hovered by the mouse
 	Long fLastId = null;
+	
+	// does this surface has move handlers - otherwise, don't perform the calculations
+	boolean fHasMoveHandlers = false;
 	
 	
 	// create a new mouse surface
@@ -77,12 +88,19 @@ public class MouseSurface {
 			surface = new Surface(fOriginalSurface.getCoordinateSpaceWidth(), fOriginalSurface.getCoordinateSpaceHeight());
 			fIdToSurface.put(id,  surface);
 			fIdToHandlers.put(id, new Handlers());
+			fIds.add(id);
 		}
 		
 		// exist - get the existing canvas
 		else {
+			
+			// get the surface
 			surface = fIdToSurface.get(id);
 			surface.clear();
+			
+			// find the position of this id, and put it at the end of our draw list
+			fIds.remove(id);
+			fIds.add(id);
 		}
 		
 		// start drawing on the temp surface now
@@ -139,12 +157,31 @@ public class MouseSurface {
 	}
 	
 	
+	// add mouse down handler
+	public void addMouseDownHandler(SurfaceMouseDownHandler handler) {
+		if (fCurrentId == null) return;
+		Handlers handlers = fIdToHandlers.get(fCurrentId);
+		if (handlers == null) return;
+		handlers.mouseDownHandler = handler;
+	}
+	
+	
+	// add mouse up handler
+	public void addMouseUpHandler(SurfaceMouseUpHandler handler) {
+		if (fCurrentId == null) return;
+		Handlers handlers = fIdToHandlers.get(fCurrentId);
+		if (handlers == null) return;
+		handlers.mouseUpHandler = handler;
+	}
+	
+	
 	// add mouse over handler
 	public void addMouseOverHandler(SurfaceMouseOverHandler handler) {
 		if (fCurrentId == null) return;
 		Handlers handlers = fIdToHandlers.get(fCurrentId);
 		if (handlers == null) return;
 		handlers.mouseOverHandler = handler;
+		fHasMoveHandlers = true;
 	}
 	
 	
@@ -154,6 +191,7 @@ public class MouseSurface {
 		Handlers handlers = fIdToHandlers.get(fCurrentId);
 		if (handlers == null) return;
 		handlers.mouseOutHandler = handler;
+		fHasMoveHandlers = true;
 	}
 	
 	
@@ -163,25 +201,87 @@ public class MouseSurface {
 		Handlers handlers = fIdToHandlers.get(fCurrentId);
 		if (handlers == null) return;
 		handlers.mouseMoveHandler = handler;
+		fHasMoveHandlers = true;
 	}
 	
 	
-	// process events
+	/**
+	 * We clicked on the canvas - check where we clicked exactly.
+	 */
 	public void onClick(int x, int y) {
 		
 		// get all different canvases and check for a collision
-		for (Entry<Long, Surface> entry : fIdToSurface.entrySet()) {
+		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		while (it.hasPrevious()) {
+			Long id = it.previous();
+			Surface surface = fIdToSurface.get(id);
 			
 			// get the color at the given location
-			ImageData data = entry.getValue().getImageData(x, y, x+1, y+1);
-			Color col = data.getColor(x,  y);
+			ImageData data = surface.getImageData(x, y, 1, 1);
+			Color col = data.getColor(0, 0);
+			
+			// hit is not transparent - we got a hit!
+			if (col.alpha > Double.MIN_VALUE) {
+			System.out.println("YEEEEES");
+				// look up color
+				Handlers handlers = fIdToHandlers.get(id);
+				if (handlers != null && handlers.clickHandler != null) handlers.clickHandler.onClick(new Vector2(x, y), id);
+				return;
+
+			}
+		}
+	}
+	
+	
+	/**
+	 * We lifted up our mouse on the canvas - check where we clicked exactly.
+	 */
+	public void onMouseUp(int x, int y) {
+		
+		// get all different canvases and check for a collision
+		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		while (it.hasPrevious()) {
+			Long id = it.previous();
+			Surface surface = fIdToSurface.get(id);
+			
+			// get the color at the given location
+			ImageData data = surface.getImageData(x, y, 1, 1);
+			Color col = data.getColor(0, 0);
 			
 			// hit is not transparent - we got a hit!
 			if (col.alpha > Double.MIN_VALUE) {
 			
 				// look up color
-				Handlers handlers = fIdToHandlers.get(entry.getKey());
-				if (handlers != null && handlers.clickHandler != null) handlers.clickHandler.onClick(new Vector2(x, y), entry.getKey());
+				Handlers handlers = fIdToHandlers.get(id);
+				if (handlers != null && handlers.clickHandler != null) handlers.mouseUpHandler.onMouseUp(new Vector2(x, y), id);
+				return;
+			}
+		}
+	}
+	
+	
+	/**
+	 * We put our mouse down on the canvas - check where we clicked exactly.
+	 */
+	public void onMouseDown(int x, int y) {
+		
+		// get all different canvases and check for a collision
+		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		while (it.hasPrevious()) {
+			Long id = it.previous();
+			Surface surface = fIdToSurface.get(id);
+			
+			// get the color at the given location
+			ImageData data = surface.getImageData(x, y, 1, 1);
+			Color col = data.getColor(0, 0);
+			
+			// hit is not transparent - we got a hit!
+			if (col.alpha > Double.MIN_VALUE) {
+			
+				// look up color
+				Handlers handlers = fIdToHandlers.get(id);
+				if (handlers != null && handlers.clickHandler != null) handlers.mouseDownHandler.onMouseDown(new Vector2(x, y), id);
+				return;
 			}
 		}
 	}
@@ -191,21 +291,24 @@ public class MouseSurface {
 	 * We're entering the canvas - check if we entered immediately on an object.
 	 */
 	public void onMouseOver(int x, int y) {
+		if (!fHasMoveHandlers) return;
 		
 		// get all different canvases and check for a collision
-		for (Entry<Long, Surface> entry : fIdToSurface.entrySet()) {
+		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		while (it.hasPrevious()) {
+			Long id = it.previous();
+			Surface surface = fIdToSurface.get(id);
 			
 			// get the color at the given location
-			ImageData data = entry.getValue().getImageData(x, y, 1, 1);
+			ImageData data = surface.getImageData(x, y, 1, 1);
 			Color col = data.getColor(0, 0);
 			
 			// hit is not transparent - we got a hit!
 			if (col.alpha > Double.MIN_VALUE) {
-				Long id = entry.getKey();
 				
 				// we entered on an object, signal it
 				Handlers handlers = fIdToHandlers.get(id);
-				if (handlers != null && handlers.mouseOverHandler != null) handlers.mouseOverHandler.onMouseOver(new Vector2(x, y), entry.getKey());
+				if (handlers != null && handlers.mouseOverHandler != null) handlers.mouseOverHandler.onMouseOver(new Vector2(x, y), id);
 				fLastId = id;
 				return;
 			}
@@ -216,6 +319,7 @@ public class MouseSurface {
 	 * We left the surface - make sure we send the last selected object a message.
 	 */
 	public void onMouseOut(int x, int y) {
+		if (!fHasMoveHandlers) return;
 		
 		// no entity selected when we left the surface - don't do anything
 		if (fLastId == null) return;
@@ -230,17 +334,20 @@ public class MouseSurface {
 	 * We moved the mouse over the canvas - check for collision with a registered object.
 	 */
 	public void onMouseMove(int x, int y) {
+		if (!fHasMoveHandlers) return;
 		
 		// get all different canvases and check for a collision
-		for (Entry<Long, Surface> entry : fIdToSurface.entrySet()) {
+		ListIterator<Long> it = fIds.listIterator(fIds.size()-1);
+		while (it.hasPrevious()) {
+			Long id = it.previous();
+			Surface surface = fIdToSurface.get(id);
 			
 			// get the color at the given location
-			ImageData data = entry.getValue().getImageData(x, y, 1, 1);
+			ImageData data = surface.getImageData(x, y, 1, 1);
 			Color col = data.getColor(0, 0);
 			
 			// hit is not transparent - we got a hit!
 			if (col.alpha > Double.MIN_VALUE) {
-				Long id = entry.getKey();
 				
 				// we were hovering over another id and now we're hovering over nothing or a new id - send a mouse out event
 				if (fLastId != null && fLastId != id) {
