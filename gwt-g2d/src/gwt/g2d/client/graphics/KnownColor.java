@@ -15,6 +15,8 @@
  */
 package gwt.g2d.client.graphics;
 
+import gwt.g2d.shared.Color;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

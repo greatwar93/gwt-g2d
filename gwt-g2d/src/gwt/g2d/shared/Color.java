@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package gwt.g2d.client.graphics;
+package gwt.g2d.shared;
 
 import gwt.g2d.client.math.MathHelper;
 import gwt.g2d.shared.math.Vector2;

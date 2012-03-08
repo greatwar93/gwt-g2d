@@ -1,5 +1,7 @@
 package gwt.g2d.client.graphics;
 
+import gwt.g2d.shared.Color;
+
 import com.google.gwt.canvas.dom.client.CanvasPixelArray;
 
 /**
