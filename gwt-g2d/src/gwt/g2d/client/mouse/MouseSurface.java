@@ -57,10 +57,10 @@ public class MouseSurface {
 	Vector<SurfaceMouseDragHandler> fDragHandlers = new Vector<SurfaceMouseDragHandler>();
 	
 	// the id where the drag begin
-	Long fStartDragId;
+	Long fStartDragId = null;
 	
 	// the position where the drag began
-	Vector2 fStartDragLoc;
+	Vector2 fStartDragLoc = null;
 	
 	// list of id's in the order in which they were drawn - used to make sure that only the topmost object is actually triggered
 	List<Long> fIds = new LinkedList<Long>();
@@ -168,7 +168,6 @@ public class MouseSurface {
 	// add mouse down handler
 	public void addMouseDragHandler(SurfaceMouseDragHandler handler) {
 		fDragHandlers.add(handler);
-		fHasMoveHandlers = true;
 	}
 	
 	// add mouse over handler
@@ -214,10 +213,10 @@ public class MouseSurface {
 			
 			// get the color at the given location
 			ImageData data = surface.getImageData(x, y, 1, 1);
-			Color col = data.getColor(0, 0);
+			double alpha = data.getAlpha(0, 0);
 			
 			// hit is not transparent - we got a hit!
-			if (col.alpha > Double.MIN_VALUE) {
+			if (alpha > Double.MIN_VALUE) {
 				
 				// look up color
 				Handlers handlers = fIdToHandlers.get(id);
@@ -233,8 +232,18 @@ public class MouseSurface {
 	 * We put our mouse down on the canvas - check where we clicked exactly.
 	 */
 	public void onMouseDown(int x, int y) {
-		fStartDragId = fLastId;
+		
+		// perform one single onMouseMove call to detect where we are
 		fStartDragLoc = new Vector2(x, y);
+		onMouseMove(x, y);
+		
+		// set the id matched by onMouseMove
+		fStartDragId = fLastId;
+		
+		// let all handlers know
+		for (SurfaceMouseDragHandler handler : fDragHandlers) {
+			handler.onDragStart(fStartDragLoc, fStartDragId);
+		}
 	}
 	
 	
@@ -242,10 +251,15 @@ public class MouseSurface {
 	 * We lifted up our mouse on the canvas - check where we clicked exactly.
 	 */
 	public void onMouseUp(int x, int y) {
+		
+		// let all handlers know
 		for (SurfaceMouseDragHandler handler : fDragHandlers) {
-			handler.onMouseDrag(fStartDragLoc, new Vector2(x, y), fStartDragId, fLastId); 
+			handler.onDragStop(fStartDragLoc, new Vector2(x, y), fStartDragId, fLastId); 
 		}
+		
+		// disable the onMouseMove calls again by setting fStartDragLoc to null
 		fStartDragId = null;
+		fStartDragLoc = null;
 	}
 	
 	
@@ -263,10 +277,10 @@ public class MouseSurface {
 			
 			// get the color at the given location
 			ImageData data = surface.getImageData(x, y, 1, 1);
-			Color col = data.getColor(0, 0);
+			double alpha = data.getAlpha(0, 0);
 			
 			// hit is not transparent - we got a hit!
-			if (col.alpha > Double.MIN_VALUE) {
+			if (alpha > Double.MIN_VALUE) {
 				
 				// we entered on an object, signal it
 				Handlers handlers = fIdToHandlers.get(id);
@@ -296,9 +310,10 @@ public class MouseSurface {
 	 * We moved the mouse over the canvas - check for collision with a registered object.
 	 */
 	public void onMouseMove(int x, int y) {
-		if (!fHasMoveHandlers) return;
+		if (!fHasMoveHandlers && fStartDragLoc == null) return;
 		
 		// get all different canvases and check for a collision
+		boolean hit = false;
 		ListIterator<Long> it = fIds.listIterator(fIds.size());
 		while (it.hasPrevious()) {
 			Long id = it.previous();
@@ -306,16 +321,18 @@ public class MouseSurface {
 			
 			// get the color at the given location
 			ImageData data = surface.getImageData(x, y, 1, 1);
-			Color col = data.getColor(0, 0);
+			double alpha = data.getAlpha(0, 0);
 			
 			// hit is not transparent - we got a hit!
-			if (col.alpha > Double.MIN_VALUE) {
+			if (alpha > Double.MIN_VALUE) {
+				hit = true;
 				
 				// we were hovering over another id and now we're hovering over nothing or a new id - send a mouse out event
 				if (fLastId != null && fLastId != id) {
 					Handlers handlers = fIdToHandlers.get(fLastId);
 					if (handlers != null && handlers.mouseOutHandler != null) handlers.mouseOutHandler.onMouseOut(new Vector2(x, y));
 					fLastId = null;
+					
 				}
 				
 				// we enter a new object
@@ -332,13 +349,20 @@ public class MouseSurface {
 				}
 				
 				// only process one hit
-				return;
+				break;
+			}
+		}
+		
+		// update drag
+		if (fStartDragLoc != null) {
+			for (SurfaceMouseDragHandler handler : fDragHandlers) {
+				handler.onDragChange(fStartDragLoc, new Vector2(x, y), fStartDragId, fLastId); 
 			}
 		}
 		
 		// we got here - this means there was no hit
 		// if we were above an object in the previous cycle, let it know we left
-		if (fLastId != null) {
+		if (!hit) {
 			Handlers handlers = fIdToHandlers.get(fLastId);
 			if (handlers != null && handlers.mouseOutHandler != null) handlers.mouseOutHandler.onMouseOut(new Vector2(x, y));
 			fLastId = null;

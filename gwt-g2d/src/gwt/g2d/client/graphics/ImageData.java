@@ -50,6 +50,14 @@ public class ImageData {
 	
 	
 	/**
+	 * Get the alpha at a given location.
+	 */
+	public double getAlpha(int x, int y) {
+		return (double)imageData.getAlphaAt(x,  y) / 255.0;
+	}
+	
+	
+	/**
 	 * Return the raw pixel array.
 	 */
 	public CanvasPixelArray getData() {

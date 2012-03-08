@@ -904,6 +904,7 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * between startMouseRegistration and stopMouseRegistration will be associated with these draws.
 	 */
 	public void startMouseRegistration(Long id) {
+		if (fMouseSurface == null) return;
 		fMouseSurface.startRegister(id);
 	}
 	
@@ -941,7 +942,7 @@ public class Surface extends Composite implements HasAllDragAndDropHandlers, Has
 	 * dragging from and to different registrations.
 	 */
 	public void addMouseDragHandler(SurfaceMouseDragHandler handler) {
-		if (fMouseSurface == null || !fMouseSurface.isActive()) return;
+		if (fMouseSurface == null) return;
 		fMouseSurface.addMouseDragHandler(handler);
 	}
 	
