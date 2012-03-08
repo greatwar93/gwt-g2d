@@ -266,6 +266,17 @@ public class Vector2 implements Serializable {
 	}
 	
 	/**
+	 * Gets (this.x + x, this.y + y).
+	 * 
+	 * @param x the x coordinate
+	 * @param y the y coordinate
+	 * @return a new vector that is this + rhs. 
+	 */
+	public final Vector2 add(double x, double y) {
+		return new Vector2(getX() + x, getY() + y);
+	}
+	
+	/**
 	 * Adds rhs to this.
 	 * Unlike {@link #add(Vector2)}, the returned vector is this, so no new 
 	 * vector is allocated.
