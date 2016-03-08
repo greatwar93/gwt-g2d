@@ -1,0 +1,3 @@
+Initially, gwt-g2d was planning on using either gwt-canvas or gwt-incubator as the underlying canvas implementation. However, neither library has been active lately, and their features in canvas are quite lacking.
+
+Starting from version 0.04, gwt-g2d will be using its own implementation of canvas 2D context. This allows for less indirection, easier to add new features, as well as easier to maintain. However, this also introduce some breaking changes, namely those in the gwt.g2d.client.graphics.canvas packages. If you have been using the Surface class exclusively, this should not affect you at all. If you have been using some of the gwt-canvas class or some of the lower level class, it may require some minor changes. Sorry for any inconvenience.
